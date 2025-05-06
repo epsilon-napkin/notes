@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>数据库原理及应用 Lesson 3</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-database-lesson-3"><header><h1><span class="taxon"></span>数据库原理及应用 Lesson 3 <a class="slug" href="/course-notes/database/lesson-3">[lesson-3]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/database/lesson-3.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><h3>一、SQL 概述</h3>
+<ul>
+<li><strong>定义</strong>：结构化查询语言（Structured Query Language）, 关系数据库的标准语言.</li>
+<li><strong>特点</strong>：<ul>
+<li>综合统一：集 DDL、DML、DCL 于一体.</li>
+<li>高度非过程化：只需指定 “做什么”, 无需关心 “如何做”.</li>
+<li>面向集合操作：操作对象和结果可以是元组的集合.</li>
+<li>多种使用方式：独立语言或嵌入式语言.</li>
+<li>简洁易用：核心功能仅需 9 个动词（SELECT、CREATE、DROP、ALTER、INSERT、UPDATE、DELETE、GRANT、REVOKE）.</li>
+</ul>
+</li>
+</ul>
+<h3>二、数据定义（DDL）</h3>
+<h4>1. 模式定义</h4>
+<ul>
+<li><strong>创建模式</strong>：<pre><code class="language-sql">CREATE SCHEMA &lt;模式名&gt; AUTHORIZATION &lt;用户名&gt; [表/视图/授权定义];
+</code></pre>
+</li>
+<li><strong>删除模式</strong>：<pre><code class="language-sql">DROP SCHEMA &lt;模式名&gt; [CASCADE|RESTRICT];
+</code></pre>
+</li>
+</ul>
+<h3>2. 表定义</h3>
+<ul>
+<li><strong>创建表</strong>：<pre><code class="language-sql">CREATE TABLE &lt;表名&gt; (
+    &lt;列名&gt; &lt;数据类型&gt; [约束],
+    [PRIMARY KEY (列名), FOREIGN KEY (列名) REFERENCES 表名(列名)]
+);
+</code></pre>
+</li>
+<li><strong>修改表</strong>：<pre><code class="language-sql">ALTER TABLE &lt;表名&gt; ADD/DROP/ALTER COLUMN ...;
+</code></pre>
+</li>
+<li><strong>删除表</strong>：<pre><code class="language-sql">DROP TABLE &lt;表名&gt; [CASCADE|RESTRICT];
+</code></pre>
+</li>
+</ul>
+<h3>3. 索引定义</h3>
+<ul>
+<li><strong>创建索引</strong>：<pre><code class="language-sql">CREATE [UNIQUE] [CLUSTER] INDEX &lt;索引名&gt; ON &lt;表名&gt;(列名 [次序]);
+</code></pre>
+</li>
+<li><strong>删除索引</strong>：<pre><code class="language-sql">DROP INDEX &lt;索引名&gt;;
+</code></pre>
+</li>
+</ul>
+<h3>三、数据查询（DQL）</h3>
+<h4>1. 单表查询</h4>
+<ul>
+<li><strong>基本语法</strong>：<pre><code class="language-sql">SELECT [DISTINCT] &lt;目标列&gt; FROM &lt;表名&gt; 
+[WHERE &lt;条件&gt;] 
+[GROUP BY &lt;列名&gt; HAVING &lt;条件&gt;] 
+[ORDER BY &lt;列名&gt; [ASC|DESC]];
+</code></pre>
+</li>
+<li><strong>常用操作</strong>：<ul>
+<li>选择列：<code>SELECT Sname, Sage FROM Student;</code></li>
+<li>条件过滤：<code>WHERE Sage &lt; 20 AND Sdept='CS';</code></li>
+<li>分组统计：<code>GROUP BY Sdept HAVING AVG(Grade) &gt; 80;</code></li>
+<li>排序：<code>ORDER BY Grade DESC;</code></li>
+</ul>
+</li>
+</ul>
+<h4>2. 连接查询</h4>
+<ul>
+<li><strong>等值连接</strong>：<pre><code class="language-sql">SELECT Student.Sno, Sname FROM Student, SC 
+WHERE Student.Sno = SC.Sno;
+</code></pre>
+</li>
+<li><strong>外连接</strong>：<pre><code class="language-sql">SELECT Student.Sno, Sname FROM Student LEFT JOIN SC ON Student.Sno = SC.Sno;
+</code></pre>
+</li>
+</ul>
+<h4>3. 嵌套查询</h4>
+<ul>
+<li><strong>IN 谓词</strong>：<pre><code class="language-sql">SELECT Sname FROM Student 
+WHERE Sno IN (SELECT Sno FROM SC WHERE Cno='1');
+</code></pre>
+</li>
+<li><strong>EXISTS 谓词</strong>：<pre><code class="language-sql">SELECT Sname FROM Student 
+WHERE EXISTS (SELECT * FROM SC WHERE Sno=Student.Sno AND Cno='1');
+</code></pre>
+</li>
+</ul>
+<h4>4. 集合查询</h4>
+<ul>
+<li><strong>并集</strong>：<code>UNION</code></li>
+<li><strong>交集</strong>：<code>INTERSECT</code></li>
+<li><strong>差集</strong>：<code>EXCEPT</code></li>
+</ul>
+<h3>四、数据更新（DML）</h3>
+<h4>1. 插入数据</h4>
+<pre><code class="language-sql">INSERT INTO &lt;表名&gt; [(列名)] VALUES (值);
+</code></pre>
+<h4>2. 修改数据</h4>
+<pre><code class="language-sql">UPDATE &lt;表名&gt; SET 列名=值 [WHERE 条件];
+</code></pre>
+<h4>3. 删除数据</h4>
+<pre><code class="language-sql">DELETE FROM &lt;表名&gt; [WHERE 条件];
+</code></pre>
+<h3>五、空值处理</h3>
+<ul>
+<li><strong>判断空值</strong>：<code>IS NULL</code> 或 <code>IS NOT NULL</code></li>
+<li><strong>注意事项</strong>：空值的运算结果仍为空值.</li>
+</ul>
+<h3>六、视图</h3>
+<ul>
+<li><strong>创建视图</strong>：<pre><code class="language-sql">CREATE VIEW &lt;视图名&gt; AS SELECT 查询;
+</code></pre>
+</li>
+<li><strong>删除视图</strong>：<pre><code class="language-sql">DROP VIEW &lt;视图名&gt;;
+</code></pre>
+</li>
+</ul>
+</details></section><footer></footer></article>
+
+</div></body></html>

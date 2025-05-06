@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>Wallis 积分公式</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon="Formula"><details open><summary id="math-wallis-integrals"><header><h1><span class="taxon">Formula. </span>Wallis 积分公式 <a class="slug" href="/math/wallis-integrals">[wallis-integrals]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/wallis-integrals.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index" title="Indexes of math [math/index]">Indexes of math</a></span></li><li class="meta-item"><span class="link external"><a href="https://en.wikipedia.org/wiki/Wallis%27_integrals" title="Wikipedia [https://en.wikipedia.org/wiki/Wallis%27_integrals]">Wikipedia</a></span></li></ul></div></header></summary><p>$\gdef\d{\operatorname{d}}$
+$\gdef\spaces#1{~ #1 ~}$</p>
+<p>记 Wallis 序列为
+$$
+W_n 
+\spaces= \int_0^{\frac\pi2} \sin^n x \d x 
+\spaces= \int_0^{\frac\pi2} \cos^n x \d x
+$$</p>
+<p>则由分部积分可以得到 Wallis 积分公式</p>
+<p>$$
+W_n \spaces= \frac{(2n-1)!!}{n!!} \cdot W_{n \operatorname{mod} 2}
+$$</p>
+<p>这里 $W_{n \operatorname{mod} 2}$ 的值只有 $W_0 = \frac\pi2$ 和 $W_1 = 1$. 可以验证 $W_n$ 递减, 且满足 $W_n = \frac{n-1}n W_{n-2}$.</p>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" style="margin-bottom: 0.4em;"><header><h1><span class="taxon">Problem. </span>心形线面积 <a class="slug" href="/math/problem-0001">[problem-0001]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/problem-0001.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></section></details></section></footer></article>
+
+</div></body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>计算机网络 Lesson 4</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-lesson-4"><header><h1><span class="taxon"></span>计算机网络 Lesson 4 <a class="slug" href="/course-notes/network/lesson-4">[lesson-4]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-4.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+</style>
+<p>$\gdef\len{\operatorname{length}}$</p>
+<p>数据链路层属于计算机网络的低层. 数据链路层使用的信道主要有以下两种类型:</p>
+<ol>
+<li><p>点对点信道. <br />
+这种信道使用一对一的点对点通信方式.</p>
+</li>
+<li><p>广播信道. <br />
+这种信道使用一对多的广播通信方式, 因此过程比较复杂. 广播信道上连接的主机很多, 因此必须使用专用的共享信道协议来协调这些主机的数据发送.</p>
+</li>
+</ol>
+<p>$\textbf{Remark.}$ <em>帧</em> 是点对点信道的数据链路层的协议数据单元.</p>
+<p>数据链路层把网络层交下来的数据构成帧发送到链路上, 以及把接收到的帧中的数据取出并上交给网络层. 在互联网中, 网络层协议数据单元就是 IP 数据报 (或简称为数据报、分组或包).</p>
+<p>数据链路层协议有许多种, 但有三个基本问题则是共同的. 这三个基本问题是:</p>
+<ol>
+<li><p>封装成帧. <br />
+就是在一段数据的前后分别添加首部 <em>帧头</em> 和尾部 <em>帧尾</em>, 这样就构成了一个帧.</p>
+</li>
+<li><p>透明传输. <br />
+插入转义字符 <code>ESC</code> (escape). 这种方法称为 <em>字节填充</em> (byte stuffing) 或 <em>字符填充</em> (character stuffing).</p>
+</li>
+<li><p>差错检测. <br />
+循环冗余检验 CRC. 给定序列 $M$, CRC 生成多项式或除数 $P$, 记 $n = \len(P) - 1$, 通过带余除法 $2^nM/P \to 2^nM = PQ+R$ 可算出 $Q, R$, 发送数据 $2^nM+R$, 长度 $\len(M)+n$ 位.</p>
+</li>
+</ol>
+<p>$\textbf{Remark.}$ 在数据链路层若 <em>仅仅</em> 使用循环冗余检验 CRC 差错检测技术, 则只能做到对帧的 <em>无差错接受</em>, 即: “凡是接收端数据链路层接受的帧, 我们都能以非常接近于 1 的概率认为这些帧在传输过程中没有产生差错”. 接收端丢弃的帧虽然曾收到了, 但最终还是因为有差错被丢弃, 即没有被接受. 以上所述的可以 <em>近似地</em> 表述为 (通常都是这样认): <em>“凡是接收端数据链路层接受的帧均无差错”</em>.</p>
+</details></section><footer></footer></article>
+
+</div></body></html>

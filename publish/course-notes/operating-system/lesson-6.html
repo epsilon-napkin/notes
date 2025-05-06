@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>操作系统 Lesson 6</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-operating-system-lesson-6"><header><h1><span class="taxon"></span>操作系统 Lesson 6 <a class="slug" href="/course-notes/operating-system/lesson-6">[lesson-6]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/operating-system/lesson-6.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<h3>生产者消费者问题</h3>
+<p>系统中有一组生产者进程和一组消费者进程, 生产者进程每次生产一个产品放入缓冲区, 消费者进程每次从缓冲区中取出一个产品并使用.</p>
+<p>生产者、消费者共享一个初始为空、大小为 $n$ 的缓冲区.</p>
+<ul>
+<li>只有缓冲区没满时, 生产者才能把产品放入缓冲区, 否则必须等待. (同步关系, <code>empty = N</code>)</li>
+<li>只有缓冲区不空时, 消费者才能从中取出产品, 否则必须等待. (同步关系, <code>full = 0</code>)</li>
+<li>缓冲区是临界资源, 各进程必须互斥地访问. (互斥, <code>mutex</code>)</li>
+</ul>
+<pre><code class="language-c">semaphore mutex = 1;    // 缓冲区互斥信号量
+semaphore empty = n;    // 缓冲区空闲数量
+semaphore full = 0;     // 缓冲区物品数量
+
+int in = 0, out = 0;
+
+Process producer() {
+    while (1) {
+        produce an item nextp;
+        P(empty);    // 请求缓冲区一个空位
+        P(mutex);
+        buffer[in] = nextp;
+        in = (in + 1) % n;
+        V(mutex);
+        V(full);    // 缓冲区物品数量加一
+    }
+}
+
+Process consumer() {
+    while (1) {
+        P(full);    // 请求缓冲区一个物品
+        P(mutex);
+        nextc = buffer[out];
+        out = (out + 1) % n;
+        V(mutex);
+        V(empty);    // 缓冲区空位数量加一
+        consume the item in nextc;
+    }
+}
+
+void main() {
+    cobegin    // 并发执行
+        producer();
+        consumer();
+    coend
+}
+</code></pre>
+<h3>哲学家进餐问题</h3>
+<ul>
+<li>系统中有 5 个哲学家进程, 5 位哲学家与左右邻居对其中间筷子的访问是互斥关系.</li>
+</ul>
+<pre><code class="language-c">
+semaphore chopstick[5] = {1, 1, 1, 1, 1};    // mutex 
+
+while (1) {
+    P(chopstick[i]);
+    P(chopstick[(i + 1) % 5]);
+    ...
+    eat;
+    ...
+    V(chopstick[i]);
+    V(chopstick[(i + 1) % 5]);
+    ...
+    think;
+    ...
+}
+
+</code></pre>
+<p>$\textbf{Remark.}$ 假如五位哲学家同时饥饿而各自拿起左边的筷子时，就会使五个信号量  chopstick 均为 <code>0</code>, 引起死锁.</p>
+<p>解决方法:</p>
+<ol>
+<li><p>至多只允许有四位哲学家同时去拿左边的筷子, 最终能保证至少有一位哲学家能够进餐, 并在用毕时能释放出他用过的两只筷子, 从而使更多的哲学家能够进餐.</p>
+</li>
+<li><p><em>仅当哲学家的左、右两只筷子均可用时, 才允许他拿起筷子进餐</em>.</p>
+</li>
+<li><p>规定奇数号哲学家先拿他左边的筷子, 然后再去拿右边的筷子; 而偶数号哲学家则相反. 最后总会有一位哲学家能获得两只筷子而进餐.</p>
+</li>
+</ol>
+<h4>利用AND信号量机制解决哲学家进餐问题 (解决方法 2)</h4>
+<pre><code class="language-c">
+semaphore chopstick[5] = {1, 1, 1, 1, 1};
+
+void P(int i) {
+    while (1) {
+        Swait(chopstick[i], chopstick[(i + 1) % 5])
+        ...
+        eat;
+        ...
+        Ssignal(chopstick[i], chopstick[(i + 1) % 5]);
+        ...
+        think;
+        ...              
+    }
+}
+
+void main() {
+    cobegin
+        for (int i = 0; i &lt; 5; i++) P(i);
+    coend
+}
+</code></pre>
+<h3>读者–写者问题</h3>
+<ul>
+<li>允许多个读者可以同时对文件执行读操作</li>
+<li>只允许一个写者往文件中写信息</li>
+<li>任一写者在完成写操作之前不允许其他读者或写者工作</li>
+<li>写者执行写操作前，应让已有的读者和写者全部退出</li>
+</ul>
+<p>即, 若干读者和一个写者互斥. 两类进程: 写进程、读进程.</p>
+<pre><code class="language-c">semaphore wmutex = 1;    // 是否有写者
+semaphore rmutex = 1;    // 是否在读
+int readercount = 0;
+
+void reader() {
+    while (1) {
+        P(rmutex);
+        readercount ++;
+        if (readercount == 1) 
+            P(wmutex);
+        V(rmutex);
+        read;
+        P(rmutex);
+        readercount --;
+        if (readercount == 0) 
+            V(wmutex);
+        V(rmutex);
+    }
+}
+
+void writer() {
+    while (1) {
+        P(wmutex);
+        write;
+        V(wmutex);
+    }
+}
+
+void main() {
+    cobegin
+        reader(); writer();
+    coend
+}
+</code></pre>
+<h4>总结</h4>
+<ul>
+<li>分析问题, 弄清楚进程间的同步和互斥关系</li>
+<li>设置信号量, 说明各信号量的含义和初值</li>
+<li>写出包含P、V操作的程序描述</li>
+</ul>
+<!--
+https://zhuanlan.zhihu.com/p/593795480
+https://zhuanlan.zhihu.com/p/594093957
+-->
+</details></section><footer></footer></article>
+
+</div></body></html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>计算机网络 Lesson 7</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-lesson-7"><header><h1><span class="taxon"></span>计算机网络 Lesson 7 <a class="slug" href="/course-notes/network/lesson-7">[lesson-7]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-7.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+</style>
+<h3>数据报与虚电路</h3>
+<p>分组交换进一步分为面向连接的 <em>虚电路</em> 和无连接的 <em>数据报</em>.</p>
+<h4>数据报</h4>
+<ul>
+<li><p>步骤:</p>
+<ol>
+<li>把报文拆成若干带有序号的数据单元, 在网络层加上地址等控制信息后形成数据报分组 (网络层的 PDU).</li>
+<li>中间结点存储分组, 找到最佳的路由后, 尽快转发每个分组. 不同的分组可以走不同的路径, 按不同的顺序到达目的结点.</li>
+</ol>
+</li>
+<li><p>特点:</p>
+<ol>
+<li>发送分组前不需要建立连接. 发送方可随时发送分组, 结点可随时接收分组.</li>
+<li>网络尽最大努力交付, 传输不保证可靠性, 可能丢失; 每个分组独立选择路由, 转发路径可能不同, 分组不一定按序到达目的结点.</li>
+<li>发送的分组中要包括发送端和接收端的完整地址, 独立传输.</li>
+<li>分组在交换结点存储转发时, 需要排队等候处理. 通过交换结点的通信较大或网络发生拥塞时, 时延增加, 交换结点可根据情况丢弃部分分组.</li>
+<li>网络具有冗余路径, 当某个交换结点或一条链路出现故障时, 可相应地更新转发表, 寻找另一条路径转发分组, 对故障适应能力强.</li>
+<li>存储转发延时一般较小, 提高网络吞吐量.</li>
+<li>收发双方不独占某条链路, 资源利用率较高</li>
+</ol>
+</li>
+</ul>
+<h4>虚电路</h4>
+<ul>
+<li><p>步骤:</p>
+<ol>
+<li>在源主机和目的主机之间建立一条虚连接, 用户发送的数据 (以分组为单位) 将通过该路径按顺序传送到达目的主机. 当通信完成之后用户发出释放虚电路主机请求, 由网络清除该虚连接.</li>
+<li>选择未用过的虚电路号分配给虚电路, 区别于其他虚电路, 虚电路网络中的每个结点上都维持一张虚电路表, 包括在接收链路和发送链路上的虚电路号、前一结点和下一结点的标识. 数据的传输是双向进行的.</li>
+</ol>
+</li>
+<li><p>建立步骤:</p>
+<ol>
+<li>虚电路建立. 主机 A 发出一个特殊的 “呼叫请求” 分组, 该分组通过中间结点送往主机B, 若主机 B 同意连接, 则发送“呼叫应答“分组予以确认.</li>
+<li>数据传输. 电路建立后, 主机 A 就可向主机 B 发送数据分组. 主机 B 也可在该虚电路上向主机 A 发送数据.</li>
+<li>虚电路释放. 传送结束后主机 A 通过发送“释放请求“分组来拆除虚电路, 逐段断开整个连接.</li>
+</ol>
+</li>
+<li><p>特点:</p>
+<ol>
+<li>虚电路通信链路的建立和拆除需要时间开销, 但对长时间、频繁的数据交换效率较高.</li>
+<li>虚电路的路由选择体现在连接建立阶段, 连接建立确定传输路径.</li>
+<li>虚电路提供可靠通信功能, 能保证每个分组正确且有序到达. 对两个数据端点流量控制, 当接收方来不及接收数据时, 可以通知发送方暂缓发送.</li>
+<li>虚电路有网络中的某个结点或某条链路出现故障而彻底失效时, 所有经过该结点或该链路的虚电路将遭到破坏.</li>
+<li>分组首部不包含目的地址, 包含虚电路标识符. 虚电路电路不是专用的,每个结点到其他结点之间的链路可能同时有若干虚电路通过, 也可能同时与多个结点之间建立虚电路.</li>
+</ol>
+</li>
+</ul>
+<p>IP 地址用点分十进制表示.</p>
+<ul>
+<li><code>10000001</code> = $2^7 + 1 = 129$</li>
+<li><code>11111111</code> = $2^8 - 1 = 255$</li>
+</ul>
+<table><thead><tr><th>网络类别</th><th>IP 范围</th></tr></thead><tbody>
+<tr><th>A</th><th><code>1</code> ~ <code>126</code></th></tr>
+<tr><th>B</th><th><code>128.1</code> ~ <code>191.255</code></th></tr>
+<tr><th>C</th><th><code>192.0.1</code> ~ <code>223.255.255</code></th></tr>
+</tbody></table>
+<p>$\textbf{Remark.}$ IP 地址放在网络层的首部, 而硬件地址则放数据链路层的首部. <br />
+$\textbf{Remark.}$ IP 地址 (32bit) 确定唯一的主机, MAC 地址 (48bit) 找到唯一的接口.</p>
+<h3>地址解析协议 ARP</h3>
+<ul>
+<li>用途: 解决同一个局域网内 IP 地址和 MAC 地址的映射.</li>
+</ul>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>计算机网络 Lesson 8 <a class="slug" href="/course-notes/network/lesson-8">[lesson-8]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-8.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></section></details></section></footer></article>
+
+</div></body></html>

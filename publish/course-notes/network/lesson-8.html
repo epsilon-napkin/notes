@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>计算机网络 Lesson 8</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-lesson-8"><header><h1><span class="taxon"></span>计算机网络 Lesson 8 <a class="slug" href="/course-notes/network/lesson-8">[lesson-8]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-8.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+</style>
+<p>一个 IP 数据报由首部和数据两部分组成:</p>
+<ul>
+<li>首部的前一部分是固定长度, 共 20 字节, 是所有 IP 数据报必须具有的.</li>
+<li>在首部的固定部分的后面是一些可选字段, 其长度是可变的.</li>
+</ul>
+<p style="text-align: center;"><img src="./ipv4-header.png" style="border-radius: 0.2em; width: 500px;"></p>
+<ul>
+<li>总长度. 占 16bit. 指首部和数据之和的长度, 单位为字节, 因此数据报的最大长度为 $2^{16}-1$ 65535 字节 (B).总长度必须不超过最大传送单元 MTU.</li>
+<li>片偏移. 占 13bit. 指出较长的分组在分片后, 某片在原分组中的相对位置. 片偏移以 8 个字节 (8B) 为偏移单位.</li>
+<li>标识. 占 16bit. 计数器, 每产生一个数据报就加 1, 当一个数据报的长度超过网络的 MTU 时, 必须分片, 每个数据报片都复制一次标识号, 以便重装成原来数据报. 属于同一个数据报各分片有相同的标识.</li>
+<li>区分服务, 占 8bit. 用来获得更好的服务.在旧标准中叫做服务类型, 但实际上一直未被使用过.1998 年这个字段改名为区分服务. 只有在使用区分服务 [DiffServ] 时, 这个字段才起作用. 在一般的情况下都不使用这个字段.</li>
+<li>标志. 占 3bit. 标志字段的最低位为 <code>MF</code> [More Fragment], <code>MF=1</code> 表示后面还有分片, <code>MF=0</code> 表示最后一个分片. 标志字段中间一位是 DF [Don’t Fragment], 只有当 <code>DF=0</code> 时才允许分片.</li>
+<li>生存时间 TTL. 占 8bit. 路由器在转发分组前, 先把 TTL 减 1. <em>若 TTL 被减为 0, 则该分组必须丢弃</em>.</li>
+<li>首部校验和. 占 16bit. 只校验分组的首部, 而不校验数据部分. 每经过一个路由器, 都重新计算.</li>
+</ul>
+<p>$\textbf{Example.}$ 一个数据报长度为 4000 字节, <em>固定首部长度 20</em>. 现在经过一个网络传送, 但 <em>此网络能够传送的最大数据长度为 1500 字节</em>. 试问应当划分为几个短些的数据报片? 各数据报片的数据字段长度、片偏移字段和 MF 标志应为何数值?</p>
+<table><thead><tr><th></th><th>总长度</th><th>MF</th><th>DF</th><th>片偏移</th></tr></thead><tbody>
+<tr><th>原始</th><th>4000</th><th>0</th><th>0</th><th>0</th></tr>
+<tr><th>数据报片 1</th><th>1500</th><th>1</th><th>0</th><th>0</th></tr>
+<tr><th>数据报片 2</th><th>1500</th><th>1</th><th>0</th><th>185</th></tr>
+<tr><th>数据报片 3</th><th>1040</th><th>0</th><th>0</th><th>370</th></tr>
+</tbody></table>
+<p>$4000 - 20 = 3980$, $3980 - 2 \times 1480 = 1020$.</p>
+<p>$\textbf{Remark.}$ $185 = \frac{1500-20}{8} = 185$.</p>
+<p>$\textbf{Example.}$ 数据报长度为 4800 字节. 网络能够传送的最大数据长度为 1420 字节.</p>
+<table><thead><tr><th></th><th>总长度</th><th>MF</th><th>DF</th><th>片偏移</th></tr></thead><tbody>
+<tr><th>原始</th><th>4800</th><th>0</th><th>0</th><th>0</th></tr>
+<tr><th>数据报片 1</th><th>1420</th><th>1</th><th>0</th><th>0</th></tr>
+<tr><th>数据报片 2</th><th>1420</th><th>1</th><th>0</th><th>175</th></tr>
+<tr><th>数据报片 3</th><th>1420</th><th>1</th><th>0</th><th>350</th></tr>
+<tr><th>数据报片 4</th><th>600</th><th>0</th><th>0</th><th>525</th></tr>
+</tbody></table>
+<p>$4800-20 = 4780$, $4780 - 3 \times 1400 = 580$.</p>
+<p>$\textbf{Remark.}$ IP 组转发分组流程.</p>
+<ol>
+<li>从数据报的首部提取目的主机的 IP 地址 D, 得出目的网络地址 N.</li>
+<li>若网络 N 与此路由器直接相连, 则把数据报直接交付给目的主机 D; 否则是间接交付, 执行步骤 3.</li>
+<li>若路由表中有目的地址为 D 的特定主机路由, 则把数据报传送给路由表中所指明的下一跳路由器; 否则, 执行步骤 4.</li>
+<li>若路由表中有到达网络 N 的路由, 则把数据报传送给路由表指明的下一跳路由器; 否则, 执行步骤 5.</li>
+<li>若路由表中有一个默认路由, 则把数据报传送给路由表中所指明的默认路由器; 否则, 执行步骤 6.</li>
+<li>报告转发分组出错 (ICMP).</li>
+</ol>
+<p>$\textbf{Remark.}$ IP 转换 MAC.</p>
+<ol>
+<li>得到下一跳路由器的 IP 地址后并不是直接将该地址填入待发送的数据报, <em>而是将该 IP 地址转换成 MAC 地址 (通过 ARP)</em>, 将其放到 MAC 帧首部中, 然后根据这个 MAC 地址找到下一跳路由器.</li>
+<li>在不同网络中传送时, MAC 帧中的源地址和目的地址要发生变化, 但是网桥转发帧时, 不改变帧的源地址.</li>
+<li><em>路由表并没有给分组指明到某个网络的完整路径</em>. 路由表指出, 到某个网络应当先到某个路由器 (下一跳), 在到达以后, 继续查找路由表, 知道再下一步到哪个路由器.</li>
+</ol>
+<h3>子网掩码</h3>
+<ul>
+<li>目的: 使路由器知道 IP 地址是否使用了子网划分并且能快速知道子网号.</li>
+<li>优点: 只要把子网掩码和 IP 地址逐位进行与运算, 可以得出网络地址. 主机号变了全 0.</li>
+</ul>
+<p><code>网络地址 = IP &amp; 子网掩码</code></p>
+<p>$\textbf{Example.}$ IP 地址为 <code>89.189.72.35</code>, 子网掩码为 <code>255.255.0.0</code>, 则该 IP 地址中, 网络地址占前几位?</p>
+<p>$\textbf{Remark.}$ $192 = 128 + 64$, $224 = 128 + 64 + 32$, <code>255.255.255.192</code> $\to 8 \times 3 + 2 = 26$.</p>
+<p>见 <span class="link local"><a href="/course-notes/network/lesson-7" title="计算机网络 Lesson 7 [course-notes/network/lesson-7]">网络类别 & IP 范围</a></span>.</p>
+<p>$\textbf{Example.}$ 可用地址总数</p>
+<p>$$
+(2^n-2)(2^{N-n}-2)
+$$</p>
+<ul>
+<li>$202.78.135.192 \to C \to N = 32 - 24 = 8$.</li>
+<li>$255.255.255.192 \to n = 2$.</li>
+</ul>
+</details></section><footer></footer></article>
+
+</div></body></html>

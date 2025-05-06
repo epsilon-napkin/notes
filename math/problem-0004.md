@@ -1,0 +1,47 @@
+
+---
+title: 极限求法总结
+tag: [](/math/index.md)
+---
+
+$\gdef\hint#1{\color{gray}{#1}}$
+$\gdef\spaces#1{~ #1 ~}$
+
+#### Bernoulli 不等式
+
+$\lim\limits_{x \to 0} ~ (1+x)^n \sim 1+nx$, 这个代换极其常用且实用, 因为其允许将任意的指数处理为系数, 本质上这来自于其中隐藏的对数. 
+
+- $\cos x = (1-\sin^2x)^{\frac12} \sim 1-\frac12\sin^2x \sim 1-\frac{x^2}2$ 借此轻松得到 $\cos x$ 的二阶展开. 
+
+#### 高阶三角函数
+
+$\lim\limits_{x \to 0}\sin x \sim x+o(x^2)$, 如何不求导直接确定这里的系数? 注意 $e^{ix} = \cos x + i\sin x$, 我们知道左侧 $= 1 + ix + \frac{(ix)^2}{2!} + \frac{(ix)^3}{3!} + \cdots$, 且 $i^2=-1$. 所以 $\sin x = \Im e^{ix} = x - \frac{x^3}{6} + \cdots$. 类似的 $\cos x = \Re e^{ix} = 1 - \frac{x^2}2 + \cdots$. 再比如 $e^{ix} \ni \frac{(ix)^4}{4!}$, $i^4=1$, 立刻得到 $\frac{x^4}{24} \in \cos x$. 
+
+#### 反函数
+
+$\arcsin x = x + \frac{x^3}6 + \cdots$, 
+$\arccos x = 1 + \frac{x^2}2 + \cdots$, 
+
+#### 根式
+
+假定 $a_i > 0$, 记 $a := \max_{1 \le i \le m}(a_i)$, 由于
+
+$$
+\begin{aligned}
+\sqrt[n]{a_1^n+a_2^n+\cdots+a_m^n}
+&\spaces=
+a \cdot \sqrt[n]{1+(\tfrac{a_1}a)^n+\cdots+(\tfrac{a_m}a)^n} \\
+&\spaces=
+a \cdot (1+\square)^{\frac1n} \\
+&\spaces\le
+a \cdot (1+\tfrac{\square}n) \qquad \hint{\square \le n} \\
+&\spaces= a \qquad \hint{n \to \infty}
+\end{aligned}
+$$
+
+另一方面, $\sqrt[n]{a_1^n+a_2^n+\cdots+a_m^n} \ge a$, 立得 
+
+$$
+\lim\limits_{n \to \infty}\sqrt[n]{a_1^n+a_2^n+\cdots+a_m^n} 
+\spaces= \max_{1 \le i \le m}(a_i)
+$$

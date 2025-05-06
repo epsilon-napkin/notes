@@ -1,0 +1,185 @@
+
+---
+title: 操作系统 Lesson 6
+tag: [](/index.md)
+---
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+
+<style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+
+### 生产者消费者问题
+
+系统中有一组生产者进程和一组消费者进程, 生产者进程每次生产一个产品放入缓冲区, 消费者进程每次从缓冲区中取出一个产品并使用.
+
+生产者、消费者共享一个初始为空、大小为 $n$ 的缓冲区. 
+
+- 只有缓冲区没满时, 生产者才能把产品放入缓冲区, 否则必须等待. (同步关系, `empty = N`)
+- 只有缓冲区不空时, 消费者才能从中取出产品, 否则必须等待. (同步关系, `full = 0`)
+- 缓冲区是临界资源, 各进程必须互斥地访问. (互斥, `mutex`)
+
+```c
+semaphore mutex = 1;    // 缓冲区互斥信号量
+semaphore empty = n;    // 缓冲区空闲数量
+semaphore full = 0;     // 缓冲区物品数量
+
+int in = 0, out = 0;
+
+Process producer() {
+    while (1) {
+        produce an item nextp;
+        P(empty);    // 请求缓冲区一个空位
+        P(mutex);
+        buffer[in] = nextp;
+        in = (in + 1) % n;
+        V(mutex);
+        V(full);    // 缓冲区物品数量加一
+    }
+}
+
+Process consumer() {
+    while (1) {
+        P(full);    // 请求缓冲区一个物品
+        P(mutex);
+        nextc = buffer[out];
+        out = (out + 1) % n;
+        V(mutex);
+        V(empty);    // 缓冲区空位数量加一
+        consume the item in nextc;
+    }
+}
+
+void main() {
+    cobegin    // 并发执行
+        producer();
+        consumer();
+    coend
+}
+```
+
+### 哲学家进餐问题
+
+- 系统中有 5 个哲学家进程, 5 位哲学家与左右邻居对其中间筷子的访问是互斥关系. 
+
+```c
+
+semaphore chopstick[5] = {1, 1, 1, 1, 1};    // mutex 
+
+while (1) {
+    P(chopstick[i]);
+    P(chopstick[(i + 1) % 5]);
+    ...
+    eat;
+    ...
+    V(chopstick[i]);
+    V(chopstick[(i + 1) % 5]);
+    ...
+    think;
+    ...
+}
+
+```
+
+$\textbf{Remark.}$ 假如五位哲学家同时饥饿而各自拿起左边的筷子时，就会使五个信号量  chopstick 均为 `0`, 引起死锁. 
+
+解决方法:
+
+1. 至多只允许有四位哲学家同时去拿左边的筷子, 最终能保证至少有一位哲学家能够进餐, 并在用毕时能释放出他用过的两只筷子, 从而使更多的哲学家能够进餐. 
+
+1. *仅当哲学家的左、右两只筷子均可用时, 才允许他拿起筷子进餐*. 
+
+1. 规定奇数号哲学家先拿他左边的筷子, 然后再去拿右边的筷子; 而偶数号哲学家则相反. 最后总会有一位哲学家能获得两只筷子而进餐. 
+
+#### 利用AND信号量机制解决哲学家进餐问题 (解决方法 2)
+
+```c
+
+semaphore chopstick[5] = {1, 1, 1, 1, 1};
+
+void P(int i) {
+    while (1) {
+        Swait(chopstick[i], chopstick[(i + 1) % 5])
+        ...
+        eat;
+        ...
+        Ssignal(chopstick[i], chopstick[(i + 1) % 5]);
+        ...
+        think;
+        ...              
+    }
+}
+
+void main() {
+    cobegin
+        for (int i = 0; i < 5; i++) P(i);
+    coend
+}
+```
+
+### 读者--写者问题
+
+- 允许多个读者可以同时对文件执行读操作
+- 只允许一个写者往文件中写信息
+- 任一写者在完成写操作之前不允许其他读者或写者工作
+- 写者执行写操作前，应让已有的读者和写者全部退出
+
+即, 若干读者和一个写者互斥. 两类进程: 写进程、读进程. 
+
+```c
+semaphore wmutex = 1;    // 是否有写者
+semaphore rmutex = 1;    // 是否在读
+int readercount = 0;
+
+void reader() {
+    while (1) {
+        P(rmutex);
+        readercount ++;
+        if (readercount == 1) 
+            P(wmutex);
+        V(rmutex);
+        read;
+        P(rmutex);
+        readercount --;
+        if (readercount == 0) 
+            V(wmutex);
+        V(rmutex);
+    }
+}
+
+void writer() {
+    while (1) {
+        P(wmutex);
+        write;
+        V(wmutex);
+    }
+}
+
+void main() {
+    cobegin
+        reader(); writer();
+    coend
+}
+```
+
+#### 总结
+
+- 分析问题, 弄清楚进程间的同步和互斥关系
+- 设置信号量, 说明各信号量的含义和初值
+- 写出包含P、V操作的程序描述
+
+<!--
+https://zhuanlan.zhihu.com/p/593795480
+https://zhuanlan.zhihu.com/p/594093957
+-->

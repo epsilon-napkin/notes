@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>操作系统 Lesson 5</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-operating-system-lesson-5"><header><h1><span class="taxon"></span>操作系统 Lesson 5 <a class="slug" href="/course-notes/operating-system/lesson-5">[lesson-5]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/operating-system/lesson-5.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<!-- https://www.cnblogs.com/Ligo-Z/p/14139991.html -->
+<h3>信号量机制 [Semaphore]</h3>
+<p>是一个特殊变量, 一般使用 $S$ 表示. 最初信号量 $S$ 是表示可用资源数目的整型变量. 除初始化外, 只能对 $S$ 做两个原子操作</p>
+<ul>
+<li>$P(S)$ 操作 — $P(S)$ [<code>wait</code>].</li>
+<li>$V(S)$ 操作 — $V(S)$ [<code>signal</code>].</li>
+</ul>
+<p>$\textbf{Remark.}$ $P,V$ 操作是操作系统内核的一部分, 是原语.</p>
+<pre><code class="language-cpp">...
+wait(S);    // 进入区, 申请打印机
+访问共享资源; // 临界区, 访问打印机
+signal (S); // 退出区, 释放打印机
+...
+</code></pre>
+<p>整型信号量:</p>
+<ul>
+<li>$S>0$ 表示有 $S$ 个资源可用. $S=0$ 表示无资源可用.</li>
+<li>违反 <em>让权等待</em>, 会发生忙等.</li>
+</ul>
+<pre><code class="language-c">// 整型信号量, 表示可用资源数
+int S = 1;
+// wait 原语, 相当于进入区
+void wait(int S) {
+    // 资源不够, 循环等待
+    while (S &lt;= 0);
+    S = S - 1;
+}
+
+// signal 原语, 相当于退出区
+void signal(int S) {
+    S = S + 1;
+}
+</code></pre>
+<p>记录型信号量: 进程进入阻塞状态, 不会忙等.</p>
+<pre><code class="language-c">// 记录型信号量定义
+typedef struct {
+    int value; // 剩余资源数量
+    struct process *L; // PCB List, 进程等待队列
+} semaphore;
+
+void wait(semaphore S) {
+    // 申请资源
+    S.value--;
+    if (S.value &lt; 0) {
+        // bLock 原语阻塞进程 
+        block(S.L);
+    }
+}
+
+void signal(semaphore S) {
+    // 释放资源
+    S.value++;
+    if (S.value &lt;= 0) {
+        // wakeup 原语喚醒进程
+        wakeup(S.L);
+    }
+}
+</code></pre>
+<!-- 
+```cpp
+P1() { S1; V(a); V(b); V(c); }
+P1() { P(a); S2; V(d); }
+...
+void main () {
+    semaphore a, b, c, d, e, f, g, h;
+    a.value = b.value = c.value = d.value = e.value = f.value = g.value = h.value;
+    cobegin
+        P1(); P2(); P3(); P4(); P5(); ... 
+    coend
+}
+```
+-->
+<p>$\textbf{Remark.}$ 一般情况下, 互斥信号量的初值为 1</p>
+<p>$\textbf{Remark.}$ 互斥信号量的取值范围 <code>(-1, 0, 1)</code>.</p>
+<ul>
+<li><code>1</code>: 两个进程都没有进入临界区.</li>
+<li><code>0</code>: 一个进程进入临界区运行.</li>
+<li><code>-1</code>: 一个进程正在临界区运行, 另一个因等待而阻塞在等待队列中.</li>
+</ul>
+<h3>进程互斥</h3>
+<p>$\textbf{Remark.}$ 互斥信号量 <code>mutex</code>, 初值为 <code>1</code>.</p>
+<h3>进程同步</h3>
+<p>$\textbf{Remark.}$ 同步信号量 <code>S</code>, 初始为 <code>0</code>.</p>
+<p>总结:</p>
+<ul>
+<li>同步信号量出现在不同的同步进程中.</li>
+<li>信号量的 $P$、$V$ 操作必须 <em>成对出现</em>.</li>
+</ul>
+<h3>前驱关系</h3>
+<p>$\textbf{Example.}$</p>
+<p><figure><img src = "/course-notes/operating-system/lesson-5-000A.svg" /></figure></p>
+<pre><code class="language-cpp">p1() { s1; V(a); V(b); }
+p2() { p(a); s2; V(c); V(d); }
+p3() { p(b); s3; V(e); }
+p4() { p(c); s4; V(f); }
+p5() { p(d); s5; V(g); }
+p6() { p(e); p(f); p(g); s6; }
+
+void main() {
+    semaphore a, b, c, d, e, f, g;
+    a.value = b.value = c.value = d.value = e.value = f.value = g.value = 0;
+    cobegin 
+        p1(); p2(); p3(); p4(); p5(); p6(); 
+    coend
+}
+</code></pre>
+<p>$\textbf{Example.}$ 公共汽车上有 1 名司机和 1 名售票员, 司机和售票员活动如下, 车辆运行规则是只有到站停车后售票员才能开门, 只有关门后司机才能启动车辆.初始状态是车辆停在起始站. 使用 P、V 原语描述车辆运行过程.</p>
+<pre><code class="language-c">semaphore S1 = 1; // 车已停
+semaphore S2 = 0; // 门已关
+
+driver() {
+    while (1) {
+        P(S2);
+        启动车辆;
+        正常行驶;
+        到站停车;
+        V(S1);
+    }
+}
+
+seller() {
+    while (1) {
+        售票;
+        P(S1);
+        开车门;
+        关车门;
+        V(S2);
+    }
+}
+</code></pre>
+<!-- 
+```c
+// (1) 互斥: 爸爸和妈妈. 同步: 爸爸和女儿, 妈妈和儿子.
+
+semaphore mutex S = 1; // 盘子可用. 
+semaphore apple = 0, banana = 0; // 苹果, 香蕉可用. 
+
+father() {
+    while (1) {
+        P(S);
+        放苹果;
+        V(apple);
+    }
+}
+
+daughter() {
+    while (1) {
+        P(apple);
+        吃苹果;
+        V(S);
+    }
+}
+
+son() {
+    while (1) {
+        P(banana);
+        吃香蕉;
+        V(S);
+    }
+}
+
+mother() {
+    while (1) {
+        P(S);
+        放香蕉;
+        V(banana);
+    }
+}
+```
+
+### 硬件同步机制
+
+#### 关中断
+
+关中断是实现互斥的最简单的⽅法之⼀. 在进⼊锁测试之前关闭中断, 直到完成锁测试并上锁之后才能打开中断. 这样, 进程在临界区执⾏期间, 计算机系统不响应中断, 从⽽不会引发调度, 也就不会发⽣进程或线程切换. 由此, 保证了对锁的测试和关锁操作的连续性和完整性, 有效地保证了互斥. 
+
+#### 关中断的缺点
+
+1. 滥⽤关中断权⼒可能导致严重后果. 
+1. 关中断时间过长, 会影响系统效率, 限制了处理器交叉执⾏程序的能⼒. 
+1. 关中断⽅法也不适⽤于多 CPU 系统, 因为在⼀个处理器上关中断并不能防⽌进程在其它处理器上执⾏相同的临界段代码.  -->
+</details></section><footer></footer></article>
+
+</div></body></html>
