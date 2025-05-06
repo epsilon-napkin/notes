@@ -28,7 +28,11 @@ F(x)
 &\spaces= \frac{\pi}{2} \int_0^\pi \sqrt{1+\cos^2x} \d x \\
 &\spaces= \frac{\pi}{2} \int_0^\pi \frac{1+\cos^2x}{\sqrt{1+\cos^2x}} \d x \\
 &\spaces\geqslant \frac{\pi}{2\sqrt{2}} \int_0^\pi 1+\cos^2x \d x \\
-&\spaces= \frac{\pi}{2\sqrt{2}} \bigg(x + \frac{\sin(2x)}{4} + \frac{x}{2}\bigg)\bigg|_0^\pi \\
+&\spaces= \frac{\pi}{2\sqrt{2}} \bigg(x + \frac{\sin 2x}{4} + \frac{x}{2}\bigg)\bigg|_0^\pi \\
 &\spaces= \frac{3\sqrt2}{8}\pi^2
 \end{aligned}
 $$
+
+---
+
+$\textbf{Remark.}$ $\int \cos^2x \d x = \int \cos x \d \sin x = \cos x \sin x - \int \sin x \d \cos x$, 于是 $2\int \cos^2x \d x = \int \cos x \d \sin x - \int \sin x \d \cos x + \cos x \sin x = x + \cos x \sin x$. 解得 $\int \cos^2x \d x = \frac{x}{2} + \frac{\sin 2x}{4}$. 这里我们使用 $\int \cos x \d \sin x - \int \sin x \d \cos x = \int \cos^2 x \d x + \int \sin^2 x \d x =  x$. 
