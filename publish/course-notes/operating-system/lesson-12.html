@@ -147,6 +147,26 @@ em {
 <tr><td>9KB</td><td>10 4 8 $~$ 8 $~$ 7 9 12 6</td></tr>
 </tbody></table>
 <hr />
-</details></section><footer></footer></article>
+<h3>习题</h3>
+<p>用可变分区方式管理内存时, 假定内存中按地址顺序依次有 5 个空闲区, 大小为 32、 10、 5、 228、 100, 单位为 KB, 现有 5 个作业, 各需内存 11、 10、 108、 28、 115, 若采用首次适用分配算法能全部装入吗? 怎样才能装入?</p>
+<div>
+<table><thead><tr><th>请求队列</th><th>⾸次适应算法</th></tr></thead><tbody>
+<tr><td>初始</td><td>32 10 5 228 100</td></tr>
+<tr><td>11</td><td><em>21</em> 10 5 228 100</td></tr>
+<tr><td>10</td><td><em>11</em> 10 5 228 100</td></tr>
+<tr><td>108</td><td>11 10 5 <em>120</em> 100</td></tr>
+<tr><td>28</td><td>11 10 5 <em>92</em> 100</td></tr>
+<tr><td>115</td><td>失败</td></tr>
+</tbody></table>
+<p>因为失败的原因是缺乏大分区, 所以我们考虑最佳适应算法. 如下所示.</p>
+<table><thead><tr><th>请求队列</th><th>最佳适应算法</th></tr></thead><tbody>
+<tr><td>初始</td><td>32 10 5 228 100</td></tr>
+<tr><td>11</td><td><em>21</em> 10 5 228 100</td></tr>
+<tr><td>10</td><td>21 <em>0</em> 5 228 100</td></tr>
+<tr><td>108</td><td>21 0 5 <em>120</em> 100</td></tr>
+<tr><td>28</td><td>21 0 5 120 <em>72</em></td></tr>
+<tr><td>115</td><td>21 0 5 <em>5</em> 72</td></tr>
+</tbody></table>
+</div></details></section><footer></footer></article>
 
 </div></body></html>
