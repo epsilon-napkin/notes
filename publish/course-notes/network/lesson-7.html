@@ -29,6 +29,18 @@ h6 {
 nav {
   font-family: "Inria Sans", sans-serif;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  text-align: left;
+}
+
+table th, table td {
+  padding: 0.4em;
+}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
   integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
@@ -114,11 +126,12 @@ em {
 <li><code>10000001</code> = $2^7 + 1 = 129$</li>
 <li><code>11111111</code> = $2^8 - 1 = 255$</li>
 </ul>
-<table><thead><tr><th>网络类别</th><th>IP 范围</th></tr></thead><tbody>
-<tr><th>A</th><th><code>1</code> ~ <code>126</code></th></tr>
-<tr><th>B</th><th><code>128.1</code> ~ <code>191.255</code></th></tr>
-<tr><th>C</th><th><code>192.0.1</code> ~ <code>223.255.255</code></th></tr>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-network-category"><header><h1><span class="taxon"></span>网络类别 <a class="slug" href="/408/network/network-category">[network-category]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/network-category.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><table><thead><tr><th>网络类别</th><th>IP 范围</th><th>网络地址位数</th><th>默认子网掩码</th></tr></thead><tbody>
+<tr><td>A</td><td><code>1</code> ~ <code>126</code></td><td>8</td><td><code>255.0.0.0</code></td></tr>
+<tr><td>B</td><td><code>128.1</code> ~ <code>191.255</code></td><td>16</td><td><code>255.255.0.0</code></td></tr>
+<tr><td>C</td><td><code>192.0.1</code> ~ <code>223.255.255</code></td><td>24</td><td><code>255.255.255.0</code></td></tr>
 </tbody></table>
+</details></section></p>
 <p>$\textbf{Remark.}$ IP 地址放在网络层的首部, 而硬件地址则放数据链路层的首部. <br />
 $\textbf{Remark.}$ IP 地址 (32bit) 确定唯一的主机, MAC 地址 (48bit) 找到唯一的接口.</p>
 <h3>地址解析协议 ARP</h3>
@@ -127,4 +140,4 @@ $\textbf{Remark.}$ IP 地址 (32bit) 确定唯一的主机, MAC 地址 (48bit) �
 </ul>
 </details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>计算机网络 Lesson 8 <a class="slug" href="/course-notes/network/lesson-8">[lesson-8]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-8.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></section></details></section></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/network-category" title="网络类别 [408/network/network-category]">■</a><span class="link local" onclick="window.location.href='#408-network-network-category'"><span class="taxon"></span>网络类别</span></li></ul></div></nav></div></body></html>

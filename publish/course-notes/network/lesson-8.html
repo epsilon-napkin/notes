@@ -29,6 +29,18 @@ h6 {
 nav {
   font-family: "Inria Sans", sans-serif;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  text-align: left;
+}
+
+table th, table td {
+  padding: 0.4em;
+}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
   integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
@@ -79,20 +91,20 @@ em {
 </ul>
 <p>$\textbf{Example.}$ 一个数据报长度为 4000 字节, <em>固定首部长度 20</em>. 现在经过一个网络传送, 但 <em>此网络能够传送的最大数据长度为 1500 字节</em>. 试问应当划分为几个短些的数据报片? 各数据报片的数据字段长度、片偏移字段和 MF 标志应为何数值?</p>
 <table><thead><tr><th></th><th>总长度</th><th>MF</th><th>DF</th><th>片偏移</th></tr></thead><tbody>
-<tr><th>原始</th><th>4000</th><th>0</th><th>0</th><th>0</th></tr>
-<tr><th>数据报片 1</th><th>1500</th><th>1</th><th>0</th><th>0</th></tr>
-<tr><th>数据报片 2</th><th>1500</th><th>1</th><th>0</th><th>185</th></tr>
-<tr><th>数据报片 3</th><th>1040</th><th>0</th><th>0</th><th>370</th></tr>
+<tr><td>原始</td><td>4000</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 1</td><td>1500</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 2</td><td>1500</td><td>1</td><td>0</td><td>185</td></tr>
+<tr><td>数据报片 3</td><td>1040</td><td>0</td><td>0</td><td>370</td></tr>
 </tbody></table>
 <p>$4000 - 20 = 3980$, $3980 - 2 \times 1480 = 1020$.</p>
 <p>$\textbf{Remark.}$ $185 = \frac{1500-20}{8} = 185$.</p>
 <p>$\textbf{Example.}$ 数据报长度为 4800 字节. 网络能够传送的最大数据长度为 1420 字节.</p>
 <table><thead><tr><th></th><th>总长度</th><th>MF</th><th>DF</th><th>片偏移</th></tr></thead><tbody>
-<tr><th>原始</th><th>4800</th><th>0</th><th>0</th><th>0</th></tr>
-<tr><th>数据报片 1</th><th>1420</th><th>1</th><th>0</th><th>0</th></tr>
-<tr><th>数据报片 2</th><th>1420</th><th>1</th><th>0</th><th>175</th></tr>
-<tr><th>数据报片 3</th><th>1420</th><th>1</th><th>0</th><th>350</th></tr>
-<tr><th>数据报片 4</th><th>600</th><th>0</th><th>0</th><th>525</th></tr>
+<tr><td>原始</td><td>4800</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 1</td><td>1420</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 2</td><td>1420</td><td>1</td><td>0</td><td>175</td></tr>
+<tr><td>数据报片 3</td><td>1420</td><td>1</td><td>0</td><td>350</td></tr>
+<tr><td>数据报片 4</td><td>600</td><td>0</td><td>0</td><td>525</td></tr>
 </tbody></table>
 <p>$4800-20 = 4780$, $4780 - 3 \times 1400 = 580$.</p>
 <p>$\textbf{Remark.}$ IP 组转发分组流程.</p>
@@ -119,14 +131,18 @@ em {
 <p>$\textbf{Example.}$ IP 地址为 <code>89.189.72.35</code>, 子网掩码为 <code>255.255.0.0</code>, 则该 IP 地址中, 网络地址占前几位?</p>
 <p>$\textbf{Remark.}$ $192 = 128 + 64$, $224 = 128 + 64 + 32$, <code>255.255.255.192</code> $\to 8 \times 3 + 2 = 26$.</p>
 <p>见 <span class="link local"><a href="/course-notes/network/lesson-7" title="计算机网络 Lesson 7 [course-notes/network/lesson-7]">网络类别 & IP 范围</a></span>.</p>
-<p>$\textbf{Example.}$ 可用地址总数</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-address-count"><header><h1><span class="taxon"></span>可用地址总数 <a class="slug" href="/408/network/address-count">[address-count]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/address-count.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$</p>
+<p>一般出现在填空题的计算中. 使用如下公式即可</p>
 <p>$$
 (2^n-2)(2^{N-n}-2)
 $$</p>
+<p>$\textbf{Example.}$ 我们举一例, 对 <span class="link local"><a href="/408/network/network-category" title="网络类别 [408/network/network-category]">C 类网络</a></span> <code>202.78.135.192</code> 计算其可用地址总数.</p>
 <ul>
-<li>$202.78.135.192 \to C \to N = 32 - 24 = 8$.</li>
+<li>$202.78.135.192 \to N = 32 - 24 = 8$.</li>
 <li>$255.255.255.192 \to n = 2$.</li>
 </ul>
+<p>故总数为 $(2^2-2)(2^6-2) = 2 \times 62 = 124$.</p>
+</details></section></p>
 </details></section><footer></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/address-count" title="可用地址总数 [408/network/address-count]">■</a><span class="link local" onclick="window.location.href='#408-network-address-count'"><span class="taxon"></span>可用地址总数</span></li></ul></div></nav></div></body></html>

@@ -81,11 +81,4 @@ $\textbf{Remark.}$ $192 = 128 + 64$, $224 = 128 + 64 + 32$, `255.255.255.192` $\
 
 见 [网络类别 & IP 范围](/course-notes/network/lesson-7.md).
 
-$\textbf{Example.}$ 可用地址总数
-
-$$
-(2^n-2)(2^{N-n}-2)
-$$
-
-- $202.78.135.192 \to C \to N = 32 - 24 = 8$. 
-- $255.255.255.192 \to n = 2$. 
+[](/408/network/address-count.md#:embed)

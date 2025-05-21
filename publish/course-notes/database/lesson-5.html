@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>数据库原理及应用 Lesson 5</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  text-align: left;
+}
+
+table th, table td {
+  padding: 0.4em;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-database-lesson-5"><header><h1><span class="taxon"></span>数据库原理及应用 Lesson 5 <a class="slug" href="/course-notes/database/lesson-5">[lesson-5]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/database/lesson-5.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><h3>5.1 数据库完整性概述</h3>
+<h4>5.1.1 完整性与安全性的区别</h4>
+<ul>
+<li><strong>完整性</strong>: 防止数据库中存在不符合语义的数据, 确保数据的正确性和相容性.<ul>
+<li>防范对象: 不正确的数据</li>
+<li>示例: 学号唯一, 性别只能是“男“或“女“</li>
+</ul>
+</li>
+<li><strong>安全性</strong>: 保护数据库防止非法存取和破坏.<ul>
+<li>防范对象: 非法用户和操作</li>
+</ul>
+</li>
+</ul>
+<h4>5.1.2 完整性约束条件</h4>
+<p>DBMS 需提供:</p>
+<ol>
+<li>定义完整性约束的机制 (如 PRIMARY KEY, FOREIGN KEY).</li>
+<li>完整性检查方法 (在 INSERT/UPDATE/DELETE 后触发).</li>
+<li>违约处理 (拒绝/级联/设置为空值).</li>
+</ol>
+<hr />
+<h3>5.2 实体完整性</h3>
+<h4>5.2.1 定义</h4>
+<ul>
+<li>主码唯一且非空, 通过 <code>PRIMARY KEY</code> 定义:<pre><code class="language-sql">-- 列级定义
+CREATE TABLE Student (Sno CHAR(9) PRIMARY KEY, ...);
+
+-- 表级定义 (多属性主码必须用表级)
+CREATE TABLE SC (Sno CHAR(9), Cno CHAR(4), PRIMARY KEY(Sno, Cno));
+</code></pre>
+</li>
+</ul>
+<h4>5.2.2 检查与违约处理</h4>
+<ul>
+<li><strong>检查</strong>: 插入或修改主码时自动检查唯一性和非空性.</li>
+<li><strong>优化</strong>: 通过主码索引避免全表扫描.</li>
+</ul>
+<hr />
+<h3>5.3 参照完整性</h3>
+<h4>5.3.1 定义</h4>
+<ul>
+<li>外码通过 <code>FOREIGN KEY REFERENCES</code> 定义:<pre><code class="language-sql">CREATE TABLE SC (
+  Sno CHAR(9) REFERENCES Student(Sno),  -- 列级
+  FOREIGN KEY (Cno) REFERENCES Course(Cno)  -- 表级
+);
+</code></pre>
+</li>
+</ul>
+<h4>5.3.2 违约处理</h4>
+<table><thead><tr><th>操作类型</th><th>处理方式</th></tr></thead><tbody>
+<tr><td>参照表插入/修改</td><td>拒绝 (默认)</td></tr>
+<tr><td>被参照表删除/修改</td><td>拒绝 / 级联 (CASCADE) / 设置为空值 (SET NULL)</td></tr>
+</tbody></table>
+<p><strong>示例</strong>:</p>
+<pre><code class="language-sql">FOREIGN KEY (Sno) REFERENCES Student(Sno) 
+ON DELETE CASCADE  -- 级联删除
+ON UPDATE CASCADE; -- 级联更新
+</code></pre>
+<hr />
+<h3>5.4 用户定义的完整性</h3>
+<h4>5.4.1 属性级约束</h4>
+<ul>
+<li><strong>NOT NULL</strong>: 非空约束.</li>
+<li><strong>UNIQUE</strong>: 唯一约束.</li>
+<li><strong>CHECK</strong>: 条件约束.<pre><code class="language-sql">CREATE TABLE Student (
+  Ssex CHAR(2) CHECK(Ssex IN ('男', '女')  -- 性别限制
+);
+</code></pre>
+</li>
+</ul>
+<h4>5.4.2 元组级约束</h4>
+<ul>
+<li>跨属性的条件约束:<pre><code class="language-sql">CHECK (Ssex='女' OR Sname NOT LIKE 'Ms.%')  -- 男性名字不以 Ms. 开头
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3>5.5 完整性约束命名与修改</h3>
+<h4>5.5.1 命名约束</h4>
+<pre><code class="language-sql">CREATE TABLE Student (
+  Sno NUMERIC(6) CONSTRAINT C1 CHECK (Sno BETWEEN 90000 AND 99999)
+);
+</code></pre>
+<h4>5.5.2 修改约束</h4>
+<pre><code class="language-sql">ALTER TABLE Student DROP CONSTRAINT C1;  -- 删除约束
+ALTER TABLE Student ADD CONSTRAINT C1 CHECK (Sno &gt; 100000);  -- 新增约束
+</code></pre>
+<hr />
+<h3>5.6 断言 (Assertion)</h3>
+<ul>
+<li>定义跨表的复杂约束:<pre><code class="language-sql">CREATE ASSERTION ASSE_SC_DB_NUM  -- 限制数据库课程选修人数≤60
+CHECK (60 &gt;= (SELECT COUNT(*) FROM SC, Course 
+              WHERE SC.Cno=Course.Cno AND Course.Cname='数据库'));
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3>5.7 触发器 (Trigger)</h3>
+<h4>5.7.1 定义</h4>
+<pre><code class="language-sql">CREATE TRIGGER SC_T  -- 记录分数增长超过10%的修改
+AFTER UPDATE OF Grade ON SC
+REFERENCING OLDROW AS OldTuple, NEWROW AS NewTuple
+FOR EACH ROW
+WHEN (NewTuple.Grade &gt;= 1.1*OldTuple.Grade)
+    INSERT INTO SC_U VALUES(OldTuple.Sno, OldTuple.Cno, OldTuple.Grade, NewTuple.Grade);
+</code></pre>
+<h4>5.7.2 执行顺序</h4>
+<ol>
+<li>执行 BEFORE 触发器.</li>
+<li>执行触发语句 (INSERT/UPDATE/DELETE).</li>
+<li>执行 AFTER 触发器.</li>
+</ol>
+<h4>5.7.3 删除触发器</h4>
+<pre><code class="language-sql">DROP TRIGGER SC_T ON SC;
+</code></pre>
+<hr />
+<h3>5.8 小结</h3>
+<ul>
+<li><strong>完整性机制</strong>: 约束定义 → 检查 → 违约处理.</li>
+<li><strong>关键约束类型</strong>:<ul>
+<li>实体完整性 (主码).</li>
+<li>参照完整性 (外码).</li>
+<li>用户定义完整性 (CHECK/触发器).</li>
+</ul>
+</li>
+<li><strong>高级特性</strong>: 断言和触发器可实现复杂业务规则.</li>
+</ul>
+</details></section><footer></footer></article>
+
+</div></body></html>

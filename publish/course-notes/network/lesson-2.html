@@ -29,6 +29,18 @@ h6 {
 nav {
   font-family: "Inria Sans", sans-serif;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  text-align: left;
+}
+
+table th, table td {
+  padding: 0.4em;
+}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
   integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
@@ -107,16 +119,18 @@ $$</p>
 <blockquote>
 <p>协议是水平的, 服务是垂直的.</p>
 </blockquote>
-<h3>具有五层协议的体系结构</h3>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-layered-metwork-model"><header><h1><span class="taxon"></span>三种体系结构 <a class="slug" href="/408/network/layered-metwork-model">[layered-metwork-model]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/layered-metwork-model.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{\footnotesize{#1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 <table><thead><tr><th>OSI 的体系结构</th><th>(四层) TCP/IP 的体系结构</th><th>五层协议的体系结构</th></tr></thead><tbody>
-<tr><th>7	应用层</th><th>应用层 (应用层协议如	DNS, HTTP, SMTP, RTP 等)</th><th>5 应用层</th></tr>
-<tr><th>6 表示层</th><th></th><th></th></tr>
-<tr><th>5 会话层</th><th></th><th></th></tr>
-<tr><th>4 运输层</th><th>运输层 (TCP 或UDP)</th><th>4 运输层</th></tr>
-<tr><th>3 网络层</th><th>网际层 IP</th><th>3 网络层</th></tr>
-<tr><th>2 数据链路层</th><th>网络接口层 (这一层并没有具体内容)</th><th>2 数据链路层</th></tr>
-<tr><th>1 物理层</th><th>$\hint{网络接口层}$</th><th>1 物理层</th></tr>
+<tr><td>7	应用层</td><td>应用层 (应用层协议如	DNS, HTTP, SMTP, RTP 等)</td><td>5 应用层</td></tr>
+<tr><td>6 表示层</td><td></td><td></td></tr>
+<tr><td>5 会话层</td><td></td><td></td></tr>
+<tr><td>4 运输层</td><td>运输层 (TCP 或UDP)</td><td>4 运输层</td></tr>
+<tr><td>3 网络层</td><td>网际层 IP</td><td>3 网络层</td></tr>
+<tr><td>2 数据链路层</td><td>网络接口层 (这一层并没有具体内容)</td><td>2 数据链路层</td></tr>
+<tr><td>1 物理层</td><td>$\hint{网络接口层}$</td><td>1 物理层</td></tr>
 </tbody></table>
+</details></section></p>
 <h3>物理层</h3>
 <p>常用术语</p>
 <ul>
@@ -152,4 +166,4 @@ $$</p>
 力, 而曼彻斯特编码具有自同步能力.</p>
 </details></section><footer></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/layered-metwork-model" title="三种体系结构 [408/network/layered-metwork-model]">■</a><span class="link local" onclick="window.location.href='#408-network-layered-metwork-model'"><span class="taxon"></span>三种体系结构</span></li></ul></div></nav></div></body></html>
