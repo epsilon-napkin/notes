@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>分页存储管理⽅式</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  text-align: left;
+}
+
+table th, table td {
+  padding: 0.4em;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/course-notes/operating-system/lesson-13.html'" title="操作系统 Lesson 13 - 离散分配">« 操作系统 Lesson 13 - 离散分配</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-分页存储管理⽅式"><header><h1><span class="taxon"></span>分页存储管理⽅式 <a class="slug" href="/408/operating-system/分页存储管理⽅式.html">[分页存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/分页存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
+<p>在该⽅式中, 将 <em>⽤户程序的地址空间</em> 分为若⼲个固定⼤⼩的区域, 称 “页” [page] 或 “页⾯”. 典型的页⾯⼤⼩为 1KB. 相应地, 也 <em>将内存空间</em> 分为若⼲个物理块 [block] 或页框 [frame], 页和块的⼤⼩相同. 这样可将⽤户程序的任⼀页放⼊任⼀物理块中, 实现了离散分配.</p>
+<p>$$
+\hint{页号} ~ P = \bigg\lfloor \frac{\hint{逻辑地址} ~ A}{\hint{页⾯⼤⼩} ~ L} \bigg\rfloor, \quad
+\hint{页内地址} ~ d = \hint{逻辑地址} ~ A \mod \hint{页⾯⼤⼩} ~ L
+$$</p>
+<p>$\textbf{Example. (\str{地址变换})}$ 逻辑地址为 2500, 每页大小为 1KB, 页表如下. 求物理地址.</p>
+<div style="display: flex; width: 100%;">
+  <div style="flex: 1; padding: 0 10px;">
+<table><thead><tr><th>页号</th><th>块号</th></tr></thead><tbody>
+<tr><td>0</td><td>2</td></tr>
+<tr><td>1</td><td>3</td></tr>
+<tr><td>2</td><td>8</td></tr>
+</tbody></table>
+  </div>
+  <div style="flex: 2.5; padding: 0 10px;">
+<p>$P = \lfloor \frac{2500}{1 ~\text{K}} \rfloor = 2, d = 2500 \mod 1 ~\text{KB} = 452$</p>
+<p>$ \str{物理地址} = \hint{块号} ~ 8 \times \hint{页表长度} ~ 1 ~\text{K} + 452 = 8644$</p>
+  </div>
+</div>
+<div style="text-align: center; ">
+<p><img src="/assets/分页系统的地址变换机构.png" title="" alt=""></p>
+</div>
+<p>$\textbf{Remark.}$ 为了提⾼地址变换速度, 可在地址变换机构中增设⼀个具有并⾏查寻能⼒的特⾼速缓冲寄存器, 又称为 “联想寄存器” [Associative Memory], 或称为 <em>“快表”</em>.</p>
+<div style="text-align: center; ">
+<p><img src="/assets/具有快表的地址变换机构.png" title="" alt=""></p>
+</div>
+<h4>基本分页存储管理的缺点: 将用户作业物理划分页</h4>
+<ul>
+<li>不方便共享</li>
+<li>不方便信息保护</li>
+<li>不方便动态增长</li>
+<li>不方便动态链接</li>
+</ul>
+</details></section><footer></footer></article>
+
+</div></body></html>

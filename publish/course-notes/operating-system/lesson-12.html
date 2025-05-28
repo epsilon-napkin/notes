@@ -65,7 +65,7 @@ table th, table td {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-operating-system-lesson-12"><header><h1><span class="taxon"></span>操作系统 Lesson 12 <a class="slug" href="/course-notes/operating-system/lesson-12">[lesson-12]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/operating-system/lesson-12.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-operating-system-lesson-12"><header><h1><span class="taxon"></span>操作系统 Lesson 12 <a class="slug" href="/course-notes/operating-system/lesson-12.html">[lesson-12]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/operating-system/lesson-12.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index.html" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
 hint {
   color: gray;  
 }
@@ -76,14 +76,13 @@ em {
 </style>
 <h3>连续分配存储管理⽅式</h3>
 <p>连续分配⽅式是最早出现的⼀种存储器分配⽅式, 曾被⼴泛应⽤于上世纪 60~80 年代的 OS 中, 该分配⽅式为⼀个⽤户程序分配⼀个连续的内存空间, 即程序中代码或数据的逻辑地址相邻, 体现在内存空间分配时物理地址的相邻. 连续分配 ⽅ 式可分为四类: 单⼀连续分配、 固定分区分配、 动态分区分配以及动态可重定位分区分配算法四种⽅式.</p>
-<h3>单⼀连续分配</h3>
-<p><strong>分配思想</strong>: 内存分为 OS 区和用户区. 用户区仅允许分配一个作业. <br />
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-单⼀连续分配"><header><h1><span class="taxon"></span>单⼀连续分配 <a class="slug" href="/408/operating-system/单⼀连续分配.html">[单⼀连续分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/单⼀连续分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><strong>分配思想</strong>: 内存分为 OS 区和用户区. 用户区仅允许分配一个作业. <br />
 <strong>数据结构</strong>: 起始地址, 大小. <br />
 <strong>分配和回收</strong>: 用户区空闲则分配. 作业运行完回收. <br />
 <strong>优点</strong>: 简单. <br />
 <strong>缺点</strong>: 单作业. 主存利用率不高. 程序是否运行受到主存大小的限制.</p>
-<h3>固定分区分配</h3>
-<p><strong>分配思想</strong>:</p>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-固定分区分配"><header><h1><span class="taxon"></span>固定分区分配 <a class="slug" href="/408/operating-system/固定分区分配.html">[固定分区分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/固定分区分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><strong>分配思想</strong>:</p>
 <ul>
 <li>预先将主存空间分成若干个区域.</li>
 <li>每个区域被称为一个分区.</li>
@@ -95,8 +94,8 @@ em {
 <strong>优点</strong>: 适合多道程序环境. 实现简单. <br />
 <strong>缺点</strong>: 有内零头, 主存利用率不高. 程序是否运行受到分区大小的限制.</p>
 <p>$\textbf{Remark.}$ 内零头和外零头都是指分区内未被利用的空间. 但是外零头可以分配空间.</p>
-<h3>动态分区</h3>
-<p><strong>分配思想</strong>: 内存不预先划分好. 根据作业的大小分配内存. 如果有空闲区满足作业大小的需求就分配. <br />
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-动态分区"><header><h1><span class="taxon"></span>动态分区 <a class="slug" href="/408/operating-system/动态分区.html">[动态分区]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/动态分区.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><strong>分配思想</strong>: 内存不预先划分好. 根据作业的大小分配内存. 如果有空闲区满足作业大小的需求就分配. <br />
 <strong>数据结构</strong>: 利用空闲分区表记录空闲区情况. 利用已分配分区表记录内存分配情况. <br />
 <strong>分配和回收</strong>:</p>
 <ol>
@@ -105,8 +104,7 @@ em {
 <li>修改 $F_1$ 的长度, 删除 $F_2$. $F_1$ + 回收区 + $F_2$ 长度.</li>
 <li>新增一条记录, 分别是回收区的始地址和长度.</li>
 </ol>
-<!-- **优点**:  -->
-<!-- **缺点**:  -->
+</details></section></p>
 <h3>动态可重定位分区</h3>
 <p>动态分区分配方式 + 紧凑.</p>
 <hr />
@@ -169,4 +167,4 @@ em {
 </tbody></table>
 </div></details></section><footer></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/单⼀连续分配.html" title="单⼀连续分配 [408/operating-system/单⼀连续分配]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-单⼀连续分配'"><span class="taxon"></span>单⼀连续分配</span></li><li class=""><a class="bullet" href="/408/operating-system/固定分区分配.html" title="固定分区分配 [408/operating-system/固定分区分配]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-固定分区分配'"><span class="taxon"></span>固定分区分配</span></li><li class=""><a class="bullet" href="/408/operating-system/动态分区.html" title="动态分区 [408/operating-system/动态分区]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-动态分区'"><span class="taxon"></span>动态分区</span></li></ul></div></nav></div></body></html>

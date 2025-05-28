@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>计算机网络</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  text-align: left;
+}
+
+table th, table td {
+  padding: 0.4em;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-index"><header><h1><span class="taxon"></span>计算机网络 <a class="slug" href="/408/network/index.html">[network]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/index.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-physical-layer"><header><h1><span class="taxon"></span>物理层 <a class="slug" href="/408/network/physical-layer.html">[physical-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/physical-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary></details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-data-link-layer"><header><h1><span class="taxon"></span>数据链路层 <a class="slug" href="/408/network/data-link-layer.html">[data-link-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/data-link-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+</style>
+<p>可靠传输协议将在 <span class="link local"><a href="/408/network/transport-layer.html" title="运输层 [408/network/transport-layer]">运输层</a></span> 中讨论. 本章介绍的数据链路层协议都不是可靠传输的协议. 数据链路层属于计算机网络的低层, 其使用的信道与相应的协议主要有以下两种类型:</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-point-to-point"><header><h1><span class="taxon"> 1. </span>点对点 <a class="slug" href="/408/network/point-to-point.html">[point-to-point]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/point-to-point.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><em>帧</em> 是点对点信道的数据链路层的协议数据单元. 这种信道使用一对一的点对点通信方式. 相应的点对点协议 PPP 应满足下列需求:</p>
+<ol>
+<li>简单 — 这是首要的要求.</li>
+<li>封装成帧 — 必须规定特殊的字符作为帧定界符.</li>
+<li>透明性 — 必须保证数据传输的透明性.</li>
+<li>多种网络层协议 — 能够在同一条物理链路上同时支持多种网络层协议.</li>
+<li>多种类型链路 — 能够在多种类型的链路上运行.</li>
+<li>差错检测 — 能够对接收端收到的帧进行检测, 并立即丢弃有差错的帧.</li>
+<li>检测连接状态 — 能够及时自动检测出链路是否处于正常工作状态.</li>
+<li>最大传送单元 — 必须对每一种类型的点对点链路设置 <span class="link local"><a href="/408/network/maximum-transmission-unit.html" title="最⼤传送单元 [408/network/maximum-transmission-unit]">最大传送单元 MTU</a></span> 的标准默认值, 促进各种实现之间的互操作性.</li>
+<li>网络层地址协商 — 必须提供一种机制使通信的两个网络层实体能够通过协商知道或能够配置彼此的网络层地址.</li>
+<li>数据压缩协商 — 必须提供一种方法来协商使用数据压缩算法.</li>
+</ol>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-point-to-point-1"><header><h1><span class="taxon"></span>PPP 协议的组成 <a class="slug" href="/408/network/point-to-point-1.html">[point-to-point-1]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/point-to-point-1.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p style="text-align: center;"><img src="../../assets/PPP 帧的格式.png" style="border-radius: 0.2em; width: 400px;"></p>
+<p>⾸部的第⼀个字段和尾部的第⼆个字段都是标志字段 $\text{F}$ (Flag), 规定为 <code>Ox7E</code>, ⼗六进制的 <code>7E</code> 的⼆进制表⽰是 <code>01111110</code>. 标志字段表⽰⼀个帧的开始或结束. 因此标志字段就是 PPP 帧的定界符. 连续两帧之间只需要⽤⼀个标志字段. 如果出现连续两个标志字段, 就表⽰这是⼀个空帧, 应当丢弃.</p>
+<p>⾸部中的地址字段 $\text{A}$ 规定 <code>OxFF</code> 即 <code>11111111</code>, 控制字段 $\text{C}$ 规定为 <code>0x03</code> 即 <code>00000011</code>. 最初曾考虑以后再对这两个字段的值进⾏其他定义, 但⾄今也没有给出. 可见这两个字段实际上并没有携带 PPP 帧的信息.</p>
+<p>PPP ⾸部的第四个字段是 2 字节的协议字段. 当协议字段为 <code>0x0021</code> 时, PPP 帧的信息字段就是 IP 数据报. 若为 <code>OxCO21</code>, 则信息字段是 PPP 链路控制协议 LCP 的数据,⽽ <code>0x8021</code> 表⽰这是⽹络层的控制数据. 信息字段的长度是可变的, 不超过 <span class="link local"><a href="/408/network/maximum-transmission-unit.html" title="最⼤传送单元 [408/network/maximum-transmission-unit]">1500 字节</a></span>. 尾部中的第⼀个字段 (2 字节) 是使⽤ CRC 的帧检验序列 FCS.</p>
+</details></section></p>
+<p>$\textbf{Remark.}$ FCS [Frame Check Sequence] 帧检验序列.</p>
+<ol>
+<li>字节填充. <code>7D 5[X]</code> $\lrarr$ <code>7[X]</code>, <code>[X] = D, E</code>.</li>
+<li>零⽐特填充. 每 5 个 <code>1</code> 插入 <code>0</code> .</li>
+</ol>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-broadcast"><header><h1><span class="taxon"> 2. </span>广播 <a class="slug" href="/408/network/broadcast.html">[broadcast]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/broadcast.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$</p>
+<p>这种信道使用一对多的广播通信方式, 因此过程比较复杂. 广播信道上连接的主机很多, 因此必须使用专用的共享信道协议来协调这些主机的数据发送.</p>
+<p>CSMA / CD 的意思是 载波监听多点接⼊ / 碰撞检测 [Carrier Sense Multiple Access with Collision Detection], 其中:</p>
+<ul>
+<li>“多点接入” 表示许多计算机以多点接入的方式连接在一根总线上.</li>
+<li>“载波监听” 是指每一个站在发送数据之前先要检测一下总线上是否有其他计算机在发送数据, 如果有, 则暂时不要发送数据, 以免发生碰撞.</li>
+<li>“碰撞检测” 是适配器边发送数据边检测信道上的信号电压的变化情况 (大小).</li>
+</ul>
+<p>$\textbf{Remark.}$ 总线上并没有什么 “载波”. 因此, “载波监听” 就是用电子技术检测总线上有没有其他计算机发送的数据信号.</p>
+<p>$\textbf{Remark.}$ 当两个或⼏个站同时在总线上发送数据时, 总线上的信号电压变化幅度将会增⼤ (互相叠加). 当适配器检测到的信号电压变化幅度超过⼀定的门限值时, 就认为总线上⾄少有两个站同时在发送数据, 表明产⽣了碰撞. 所谓 “碰撞” 就是发⽣了冲突. 因此 “碰撞检测” 也称为 “冲突检测”.</p>
+<p>以太⽹使⽤截断⼆进制指数退避 [truncated binary exponential backoff] 算法来确定碰撞后重传的时机. 截断⼆进制指数退避算法并不复杂. 这种算法让发⽣碰撞的站在停⽌发送数据后, 不是等待信道变为空闲后就⽴即再发送数据, ⽽是退避⼀个随机的时间 $r 2^\tau$. 其中</p>
+<ul>
+<li>$r \in \operatorname{random}([0, 1, \cdots, 2^k-1])$.</li>
+<li>$k = \min(\str{重传次数}, 10)$.</li>
+</ul>
+<p>$\textbf{Remark.}$ 以太⽹规定了⼀个最短帧长 64 字节, 即 512 ⽐特.</p>
+</details></section></p>
+<p>数据链路层把网络层交下来的数据构成帧发送到链路上, 以及把接收到的帧中的数据取出并上交给网络层. 在互联网中, 网络层协议数据单元就是 IP 数据报 (或简称为数据报、分组或包).</p>
+<p>数据链路层协议有许多种, 但有三个基本问题则是共同的. 这三个基本问题是:</p>
+<ol>
+<li><p>封装成帧. <br />
+就是在一段数据的前后分别添加首部 <em>帧头</em> 和尾部 <em>帧尾</em>, 这样就构成了一个帧.</p>
+</li>
+<li><p>透明传输. <br />
+插入转义字符 <code>ESC</code> (escape). 这种方法称为 <em>字节填充</em> (byte stuffing) 或 <em>字符填充</em> (character stuffing).</p>
+</li>
+<li><p>差错检测. 目前广泛使用 <span class="link local"><a href="/408/network/cyclic-redundancy-check.html" title="循环冗余检验 [408/network/cyclic-redundancy-check]">循环冗余检验 CRC</a></span>.</p>
+</li>
+</ol>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-cyclic-redundancy-check"><header><h1><span class="taxon"></span>循环冗余检验 <a class="slug" href="/408/network/cyclic-redundancy-check.html">[cyclic-redundancy-check]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/cyclic-redundancy-check.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\len{\operatorname{length}}$</p>
+<p>$\gdef\spaces#1{~ #1 ~}$
+$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
+<p>新帧 $M \cdot 2^n + R$ 的计算可通过 $\mathbf{F}_2[X]$ 上的带余除法 $(M, P) \to (Q, R)$ 完成. 这里 $n$ 是 $\deg P$, 即 $P$ 的位长度减一.</p>
+<p>$$
+\hint{源数据} ~ M \cdot 2^n \spaces= \hint{生成多项式} ~ P \cdot \hint{} ~ Q + \hint{校验码} ~ R
+$$</p>
+<p>$\textbf{Example.}$ $M = 10110011$, $P = 10011$, 按以下步骤求得 $R = 0100$.</p>
+<p>$$
+\begin{array}{ll}
+& \hspace{0.9em} x^7 + x^5 + x^3 + x^2 \\
+x^4 + x + 1 
+& \sqrt{x^{11} + x^9 + x^8 + x^5 + x^4} \\
+& \hspace{0.9em} x^{11} + x^8 + x^7 \\
+& \hspace{0.6em} \text{------------------------------} \\
+& \hspace{3em} x^9 + x^7 + x^5 + x^4 \\
+& \hspace{3em} x^9 + x^6 + x^5 \\
+& \hspace{3em} \text{-----------------------} \\
+& \hspace{5.2em} x^7 + x^6 + x^4 \\
+& \hspace{5.2em} x^7 + x^4 + x^3 \\
+& \hspace{5.2em} \text{-----------------} \\
+& \hspace{7.4em} x^6 + x^3 \\
+& \hspace{7.4em} x^6 + x^3 + x^2 \\
+& \hspace{7.4em} \text{-----------------} \\
+& \hspace{9.6em} x^2
+\end{array}
+$$</p>
+</details></section></p>
+<p>$\textbf{Remark.}$ 在数据链路层若 <em>仅仅</em> 使用循环冗余检验 CRC 差错检测技术, 则只能做到对帧的 <em>无差错接受</em>, 即: “凡是接收端数据链路层接受的帧, 我们都能以非常接近于 1 的概率认为这些帧在传输过程中没有产生差错”. 接收端丢弃的帧虽然曾收到了, 但最终还是因为有差错被丢弃, 即没有被接受. 以上所述的可以 <em>近似地</em> 表述为 (通常都是这样认为): <em>“凡是接收端数据链路层接受的帧均无差错”</em>.</p>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-network-layer"><header><h1><span class="taxon"></span>网络层 <a class="slug" href="/408/network/network-layer.html">[network-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/network-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary></details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-transport-layer"><header><h1><span class="taxon"></span>运输层 <a class="slug" href="/408/network/transport-layer.html">[transport-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/transport-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary></details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-application-layer"><header><h1><span class="taxon"></span>应用层 <a class="slug" href="/408/network/application-layer.html">[application-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/application-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary></details></section></p>
+</details></section><footer></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/physical-layer.html" title="物理层 [408/network/physical-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer'"><span class="taxon"></span>物理层</span></li><li class=""><a class="bullet" href="/408/network/data-link-layer.html" title="数据链路层 [408/network/data-link-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-data-link-layer'"><span class="taxon"></span>数据链路层</span><ul class="block"><li class=""><a class="bullet" href="/408/network/point-to-point.html" title="点对点 [408/network/point-to-point]">■</a><span class="link local" onclick="window.location.href='#408-network-point-to-point'"><span class="taxon"> 1. </span>点对点</span><ul class="block"><li class=""><a class="bullet" href="/408/network/point-to-point-1.html" title="PPP 协议的组成 [408/network/point-to-point-1]">■</a><span class="link local" onclick="window.location.href='#408-network-point-to-point-1'"><span class="taxon"></span>PPP 协议的组成</span></li></ul></li><li class=""><a class="bullet" href="/408/network/broadcast.html" title="广播 [408/network/broadcast]">■</a><span class="link local" onclick="window.location.href='#408-network-broadcast'"><span class="taxon"> 2. </span>广播</span></li><li class=""><a class="bullet" href="/408/network/cyclic-redundancy-check.html" title="循环冗余检验 [408/network/cyclic-redundancy-check]">■</a><span class="link local" onclick="window.location.href='#408-network-cyclic-redundancy-check'"><span class="taxon"></span>循环冗余检验</span></li></ul></li><li class=""><a class="bullet" href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-network-layer'"><span class="taxon"></span>网络层</span></li><li class=""><a class="bullet" href="/408/network/transport-layer.html" title="运输层 [408/network/transport-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-transport-layer'"><span class="taxon"></span>运输层</span></li><li class=""><a class="bullet" href="/408/network/application-layer.html" title="应用层 [408/network/application-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-application-layer'"><span class="taxon"></span>应用层</span></li></ul></div></nav></div></body></html>

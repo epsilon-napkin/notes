@@ -93,7 +93,7 @@ $\textbf{Remark.}$ 进程控制的目的是实现进程的状态转换.
   - 当前进程阻塞. 
   - 当前进程终止. 
 
-<p style="text-align: center;"><img src="./full-seven-state.svg" style="border-radius: 0.2em; width: 800px;"><br>七态模型及原语</p>
+<p style="text-align: center;"><img src="../../assets/full-seven-state.svg" style="border-radius: 0.2em; width: 800px;"><br>七态模型及原语</p>
 
 ### 进程间的相互关系
 

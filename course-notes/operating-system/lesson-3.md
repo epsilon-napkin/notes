@@ -21,7 +21,7 @@ em {
 1. 负荷调节的需要. 实时系统工作负荷较重, 影响对实时任务的控制.
 1. 操作系统的需要. 检查运行中的资源使用情况或进行记账
 
-<p style="text-align: center;"><img src="./seven-state.svg" style="border-radius: 0.2em; width: 800px;"><br>七态模型</p>
+<p style="text-align: center;"><img src="../../assets/seven-state.svg" style="border-radius: 0.2em; width: 800px;"><br>七态模型</p>
 
 ### 进程的结构
 <div style="display: flex; column-gap: 0.5em;">
@@ -32,7 +32,7 @@ em {
 - 程序段
 
 </div>
-<p style="text-align: center;"><img src="./process.svg" style="border-radius: 0.2em; width: 300px;"><br>进程的结构</p>
+<p style="text-align: center;"><img src="../../assets/process.svg" style="border-radius: 0.2em; width: 300px;"><br>进程的结构</p>
 </div>
 
 ### 进程控制块 [PCB] 的定义

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>数据库原理及应用 Lesson 6</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  text-align: left;
+}
+
+table th, table td {
+  padding: 0.4em;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-database-lesson-6"><header><h1><span class="taxon"></span>数据库原理及应用 Lesson 6 <a class="slug" href="/course-notes/database/lesson-6.html">[lesson-6]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/database/lesson-6.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index.html" title="索引 [index]">索引</a></span></li></ul></div></header></summary><h3>6.1 问题的提出</h3>
+<h4>6.1.1 关系模式的问题</h4>
+<ul>
+<li><strong>数据冗余</strong>: 相同数据重复存储 (如系主任姓名).</li>
+<li><strong>更新异常</strong>: 修改冗余数据需更新多处 (如更换系主任).</li>
+<li><strong>插入异常</strong>: 无法插入部分信息 (如新系无学生时无法添加系信息).</li>
+<li><strong>删除异常</strong>: 删除数据时丢失关联信息 (如删除所有学生导致系信息丢失).</li>
+</ul>
+<p><strong>示例</strong>:</p>
+<pre><code class="language-sql">STUDENT(Sno, Sdept, Mname, Cno, Grade)  
+F={Sno→Sdept, Sdept→Mname, (Sno,Cno)→Grade}
+</code></pre>
+<h4>6.1.2 数据依赖</h4>
+<ul>
+<li><strong>函数依赖 (FD)</strong>: 属性间语义关联 (如 <code>Sno→Sdept</code>).</li>
+<li><strong>多值依赖 (MVD)</strong>: 更复杂的关联类型.</li>
+</ul>
+<h4>6.1.3 关系模式表示</h4>
+<ul>
+<li>简化为 <code>R&lt;U, F&gt;</code>, 其中 <code>U</code> 为属性集, <code>F</code> 为函数依赖集.</li>
+</ul>
+<hr />
+<h3>6.2 规范化理论</h3>
+<h4>6.2.1 函数依赖</h4>
+<ol>
+<li><strong>完全函数依赖</strong>: <code>X→Y</code> 且 <code>X</code> 的任意真子集不能决定 <code>Y</code> (如 <code>(Sno,Cno)→Grade</code>).</li>
+<li><strong>部分函数依赖</strong>: <code>X→Y</code> 但 <code>Y</code> 不完全依赖 <code>X</code> (如 <code>(Sno,Cno)→Sdept</code>).</li>
+<li><strong>传递函数依赖</strong>: <code>X→Y→Z</code> 且 <code>Y↛X</code> (如 <code>Sno→Sdept→Mname</code>).</li>
+</ol>
+<h4>6.2.2 码</h4>
+<ul>
+<li><strong>候选码</strong>: 最小属性组能唯一标识元组 (如 <code>(Sno,Cno)</code>).</li>
+<li><strong>外码</strong>: 非本关系码, 但为其他关系码 (如 <code>SC</code> 中的 <code>Sno</code>).</li>
+</ul>
+<h4>6.2.3 范式</h4>
+<ul>
+<li><strong>1NF</strong>: 属性不可再分 (原子性).</li>
+<li><strong>2NF</strong>: 消除非主属性对码的部分函数依赖.</li>
+<li><strong>3NF</strong>: 消除非主属性对码的传递函数依赖.</li>
+<li><strong>BCNF</strong>: 消除主属性对码的部分和传递函数依赖.</li>
+</ul>
+<p><strong>规范化过程</strong>:</p>
+<pre><code>1NF → 消除部分依赖 → 2NF → 消除传递依赖 → 3NF → BCNF → 4NF
+</code></pre>
+<h4>6.2.4 1NF 示例</h4>
+<ul>
+<li><strong>问题</strong>: 数据冗余和操作异常.</li>
+<li><strong>解决</strong>: 分解为 <code>SC(Sno,Cno,Grade)</code> 和 <code>S-L(Sno,Sdept,Sloc)</code>.</li>
+</ul>
+<h4>6.2.5 2NF 示例</h4>
+<ul>
+<li><strong>问题</strong>: 非主属性 (<code>Sdept</code>, <code>Sloc</code>) 部分依赖码 <code>(Sno,Cno)</code>.</li>
+<li><strong>解决</strong>: 分解为 <code>SC(Sno,Cno,Grade)</code> 和 <code>S-L(Sno,Sdept,Sloc)</code>.</li>
+</ul>
+<h4>6.2.6 3NF 示例</h4>
+<ul>
+<li><strong>问题</strong>: <code>Sloc</code> 传递依赖于 <code>Sno</code> (<code>Sno→Sdept→Sloc</code>).</li>
+<li><strong>解决</strong>: 分解为 <code>S-D(Sno,Sdept)</code> 和 <code>D-L(Sdept,Sloc)</code>.</li>
+</ul>
+<h4>6.2.7 规范化小结</h4>
+<ul>
+<li><strong>目标</strong>: 减少冗余, 避免异常.</li>
+<li><strong>平衡</strong>: 并非范式越高越好, 需结合实际需求.</li>
+</ul>
+<hr />
+<h3>6.5 小结</h3>
+<ul>
+<li><strong>工具性</strong>: 规范化理论指导数据库设计, 需灵活应用.</li>
+<li><strong>关键步骤</strong>:<ol>
+<li>分析函数依赖.</li>
+<li>逐步分解至目标范式.</li>
+<li>验证分解后的模式是否满足应用需求.</li>
+</ol>
+</li>
+</ul>
+<p><strong>示例分解流程</strong>:</p>
+<pre><code>STUDENT(Sno,Sdept,Mname,Cno,Grade)  
+→ 2NF: SC(Sno,Cno,Grade) + S-L(Sno,Sdept,Sloc)  
+→ 3NF: S-D(Sno,Sdept) + D-L(Sdept,Sloc)
+</code></pre>
+</details></section><footer></footer></article>
+
+</div></body></html>

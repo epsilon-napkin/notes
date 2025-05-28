@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>广播</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  text-align: left;
+}
+
+table th, table td {
+  padding: 0.4em;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/data-link-layer.html'" title="数据链路层">« 数据链路层</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-broadcast"><header><h1><span class="taxon"></span>广播 <a class="slug" href="/408/network/broadcast.html">[broadcast]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/broadcast.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$</p>
+<p>这种信道使用一对多的广播通信方式, 因此过程比较复杂. 广播信道上连接的主机很多, 因此必须使用专用的共享信道协议来协调这些主机的数据发送.</p>
+<p>CSMA / CD 的意思是 载波监听多点接⼊ / 碰撞检测 [Carrier Sense Multiple Access with Collision Detection], 其中:</p>
+<ul>
+<li>“多点接入” 表示许多计算机以多点接入的方式连接在一根总线上.</li>
+<li>“载波监听” 是指每一个站在发送数据之前先要检测一下总线上是否有其他计算机在发送数据, 如果有, 则暂时不要发送数据, 以免发生碰撞.</li>
+<li>“碰撞检测” 是适配器边发送数据边检测信道上的信号电压的变化情况 (大小).</li>
+</ul>
+<p>$\textbf{Remark.}$ 总线上并没有什么 “载波”. 因此, “载波监听” 就是用电子技术检测总线上有没有其他计算机发送的数据信号.</p>
+<p>$\textbf{Remark.}$ 当两个或⼏个站同时在总线上发送数据时, 总线上的信号电压变化幅度将会增⼤ (互相叠加). 当适配器检测到的信号电压变化幅度超过⼀定的门限值时, 就认为总线上⾄少有两个站同时在发送数据, 表明产⽣了碰撞. 所谓 “碰撞” 就是发⽣了冲突. 因此 “碰撞检测” 也称为 “冲突检测”.</p>
+<p>以太⽹使⽤截断⼆进制指数退避 [truncated binary exponential backoff] 算法来确定碰撞后重传的时机. 截断⼆进制指数退避算法并不复杂. 这种算法让发⽣碰撞的站在停⽌发送数据后, 不是等待信道变为空闲后就⽴即再发送数据, ⽽是退避⼀个随机的时间 $r 2^\tau$. 其中</p>
+<ul>
+<li>$r \in \operatorname{random}([0, 1, \cdots, 2^k-1])$.</li>
+<li>$k = \min(\str{重传次数}, 10)$.</li>
+</ul>
+<p>$\textbf{Remark.}$ 以太⽹规定了⼀个最短帧长 64 字节, 即 512 ⽐特.</p>
+</details></section><footer></footer></article>
+
+</div></body></html>

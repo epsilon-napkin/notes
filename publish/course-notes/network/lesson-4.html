@@ -65,7 +65,7 @@ table th, table td {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-lesson-4"><header><h1><span class="taxon"></span>计算机网络 Lesson 4 <a class="slug" href="/course-notes/network/lesson-4">[lesson-4]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-4.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-lesson-4"><header><h1><span class="taxon"></span>计算机网络 Lesson 4 <a class="slug" href="/course-notes/network/lesson-4.html">[lesson-4]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-4.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index.html" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
 hint {
   color: gray;  
 }
@@ -94,11 +94,10 @@ em {
 <li><p>透明传输. <br />
 插入转义字符 <code>ESC</code> (escape). 这种方法称为 <em>字节填充</em> (byte stuffing) 或 <em>字符填充</em> (character stuffing).</p>
 </li>
-<li><p>差错检测. <br />
-循环冗余检验 CRC. 给定序列 $M$, CRC 生成多项式或除数 $P$, 记 $n = \len(P) - 1$, 通过带余除法 $2^nM/P \to 2^nM = PQ+R$ 可算出 $Q, R$, 发送数据 $2^nM+R$, 长度 $\len(M)+n$ 位.</p>
+<li><p>差错检测. 通过 <span class="link local"><a href="/408/network/cyclic-redundancy-check.html" title="循环冗余检验 [408/network/cyclic-redundancy-check]">循环冗余检验</a></span> 实现.</p>
 </li>
 </ol>
-<p>$\textbf{Remark.}$ 在数据链路层若 <em>仅仅</em> 使用循环冗余检验 CRC 差错检测技术, 则只能做到对帧的 <em>无差错接受</em>, 即: “凡是接收端数据链路层接受的帧, 我们都能以非常接近于 1 的概率认为这些帧在传输过程中没有产生差错”. 接收端丢弃的帧虽然曾收到了, 但最终还是因为有差错被丢弃, 即没有被接受. 以上所述的可以 <em>近似地</em> 表述为 (通常都是这样认): <em>“凡是接收端数据链路层接受的帧均无差错”</em>.</p>
+<p>$\textbf{Remark.}$ 在数据链路层若 <em>仅仅</em> 使用循环冗余检验 CRC 差错检测技术, 则只能做到对帧的 <em>无差错接受</em>, 即: “凡是接收端数据链路层接受的帧, 我们都能以非常接近于 1 的概率认为这些帧在传输过程中没有产生差错”. 接收端丢弃的帧虽然曾收到了, 但最终还是因为有差错被丢弃, 即没有被接受. 以上所述的可以 <em>近似地</em> 表述为 (通常都是这样认为): <em>“凡是接收端数据链路层接受的帧均无差错”</em>.</p>
 </details></section><footer></footer></article>
 
 </div></body></html>

@@ -10,7 +10,7 @@ $\gdef\d{\operatorname{d}}$
 
 求由心形线 $r = a(1+\cos \theta)$, $a>0$ 所围区域的面积
 
-<p style="text-align: center;"><img src="./problem-0001-1.svg" style="border-radius: 0.5em; width: 400px;"></p>
+<p style="text-align: center;"><img src="../assets/problem-0001-1.svg" style="border-radius: 0.5em; width: 400px;"></p>
 
 如图, 我们先计算 $y>0$ 的部分, 由 [](/math/curved-edge-fan-area.md) 可知其面积 $S$ 为  
 

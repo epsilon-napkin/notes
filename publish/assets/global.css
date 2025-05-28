@@ -1,0 +1,12 @@
+
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}

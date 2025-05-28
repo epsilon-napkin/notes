@@ -62,7 +62,7 @@ $\gdef\type#1{~:~\texttt{#1}}$
 
 </div>
 
-<p style="text-align: center;"><img class="theme" src="./full-seven-state-dispatch.svg" style="border-radius: 0.2em; width: 800px;"><br>七态模型及调度</p>
+<p style="text-align: center;"><img class="theme" src="../../assets/full-seven-state-dispatch.svg" style="border-radius: 0.2em; width: 800px;"><br>七态模型及调度</p>
 
 #### 1. 高级调度 (作业调度)
   - 作业调度是内存与辅存之间的调度. 频率最低.

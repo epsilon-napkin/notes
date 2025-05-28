@@ -65,13 +65,17 @@ table th, table td {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-operating-system-lesson-2"><header><h1><span class="taxon"></span>操作系统 Lesson 2 <a class="slug" href="/course-notes/operating-system/lesson-2">[lesson-2]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/operating-system/lesson-2.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-operating-system-lesson-2"><header><h1><span class="taxon"></span>操作系统 Lesson 2 <a class="slug" href="/course-notes/operating-system/lesson-2.html">[lesson-2]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/operating-system/lesson-2.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index.html" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
 hint {
   color: gray;  
 }
 em {
   color: rgb(249, 117, 131);
   font-style: normal;
+}
+img {
+  border-radius: 0.2em; 
+  width: 500px;
 }
 </style>
 <h4>操作系统的四个特征: 并发 共享 虚拟 异步</h4>
@@ -138,7 +142,7 @@ em {
 </ul>
 <h3>进程的基本状态</h3>
 <p>由于多个进程在并发执行时共享系统资源, 致使它们在运行过程中呈现间断性的运行规律, 所以进程在其生命周期内可能具有多种状态. 一般而言, 每一个进程 <em>至少</em> 应处于以下三种基本状态之一:</p>
-<p style="text-align: center;"><img src="./three-state.svg" style="border-radius: 0.2em; width: 500px;"><br>三态模型</p>
+<p style="text-align: center;"><img src="../../assets/three-state.svg" style="border-radius: 0.2em; width: 500px;"><br>三态模型</p>
 <ol>
 <li><p>就绪 [Ready] 状态. 进程已处于准备好运行的状态, 即进程已分配到除 CPU 以外的所有必要资源后, 只要再获得 CPU, 便可立即执行. <hint>如果系统中有许多处于就绪状态的进程, 通常将它们按一定的策略 (如优先级策略) 排成一个队列, 称该队列为就绪队列.</hint></p>
 </li>
@@ -152,7 +156,7 @@ em {
 <li><p>终止状态 [Terminated], 又称结束态. 通过执行 <code>exit</code> 系统调用, 请求操作系统终止该进程. 进程正在从系统中撤销, 操作系统会回收进程拥有的资源、撤销 PCB.</p>
 </li>
 </ol>
-<p style="text-align: center;"><img src="./five-state.svg" style="border-radius: 0.2em; width: 500px;"><br>五态模型</p>
+<p style="text-align: center;"><img src="../../assets/five-state.svg" style="border-radius: 0.2em; width: 500px;"><br>五态模型</p>
 </details></section><footer></footer></article>
 
 </div></body></html>

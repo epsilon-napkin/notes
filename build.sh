@@ -1,2 +1,2 @@
 
-kodama c --short-slug --edit vscode://file:
+kodama c --short-slug --disable-pretty-urls --edit vscode://file:

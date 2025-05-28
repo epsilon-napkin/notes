@@ -65,7 +65,11 @@ table th, table td {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-lesson-2"><header><h1><span class="taxon"></span>计算机网络 Lesson 2 <a class="slug" href="/course-notes/network/lesson-2">[lesson-2]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-2.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-lesson-2"><header><h1><span class="taxon"></span>计算机网络 Lesson 2 <a class="slug" href="/course-notes/network/lesson-2.html">[lesson-2]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-2.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index.html" title="索引 [index]">索引</a></span></li></ul></div></header></summary><style>
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
 hint {
   color: gray;  
 }
@@ -91,7 +95,9 @@ $\gdef\type#1{~:~\texttt{#1}}$</p>
 </ul>
 <p>区分 <code>MiB → GiB (/1000)</code> 和 <code>MB → GB (/1024)</code> 换算的区别. <code>1kb/s = 10³b/s</code>.</p>
 <p>吞吐量 [throughput] 表示在单位时间内通过某个网络(或信道、接口) 的数据量. 吞吐量更经常地用于对现实世界中的网络的一种测量, 以便知道实际上到底有多少数据量能够通过网络. 吞吐量受网络的带宽或网络的额定速率的限制.</p>
-<p>时延 [delay / latency] 是指数据 (一个报文或分组, 甚至比特) 从网络 (或链路) 的一端传送到另一端所需的时间. 有时也称为延迟或迟延. 网络中的时延由以下几个不同的部分组成:</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-delay"><header><h1><span class="taxon"></span>时延 <a class="slug" href="/408/network/delay.html">[delay]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/delay.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\type#1{~:~\texttt{#1}}$</p>
+<p>时延 [delay / latency] 是指数据 (一个报文或分组, 甚至比特) 从网络或链路的一端传送到另一端所需的时间. 有时也称为延迟或迟延. 网络中的时延由以下几个不同的部分组成:</p>
 <ol>
 <li><p>发送时延 $~ = ~ \dfrac{\str{数据帧长度; 数据块长度} ~ l \type{bit}}{\str{发送速率; 信道带宽} ~ v \type{bit/s}}$</p>
 </li>
@@ -102,6 +108,7 @@ $\gdef\type#1{~:~\texttt{#1}}$</p>
 <li><p>排队时延</p>
 </li>
 </ol>
+</details></section></p>
 <h3>利用率分为信道利用率和网络利用率</h3>
 <p>信道利用率指出某信道有百分之几的时间是被利用的 (有数据通过).</p>
 <ul>
@@ -119,7 +126,7 @@ $$</p>
 <blockquote>
 <p>协议是水平的, 服务是垂直的.</p>
 </blockquote>
-<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-layered-metwork-model"><header><h1><span class="taxon"></span>三种体系结构 <a class="slug" href="/408/network/layered-metwork-model">[layered-metwork-model]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/layered-metwork-model.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{\footnotesize{#1}}$
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-layered-metwork-model"><header><h1><span class="taxon"></span>三种体系结构 <a class="slug" href="/408/network/layered-metwork-model.html">[layered-metwork-model]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/layered-metwork-model.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{\footnotesize{#1}}$
 $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 <table><thead><tr><th>OSI 的体系结构</th><th>(四层) TCP/IP 的体系结构</th><th>五层协议的体系结构</th></tr></thead><tbody>
 <tr><td>7	应用层</td><td>应用层 (应用层协议如	DNS, HTTP, SMTP, RTP 等)</td><td>5 应用层</td></tr>
@@ -155,15 +162,30 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 </ul>
 </li>
 </ul>
-<p style="text-align: center;"><img src="./encode-ways.jpg" style="border-radius: 0.2em; width: 500px;"></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-encoding-method"><header><h1><span class="taxon"></span>数字信号编码方法 <a class="slug" href="/408/network/encoding-method.html">[encoding-method]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/encoding-method.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+</style>
+<div style="text-align: center;">
+<p><img src="/assets/数字信号编码方法.jpg" title="" alt=""></p>
+</div>
 <ul>
 <li>不归零制: 正电平代表 1, 负电平代表 0.</li>
 <li>归零制: 正脉冲代表 1, 负脉冲代表 0.</li>
 <li>曼彻斯特编码: 位周期中心的向上跳变代表 0, 位周期中心的向下跳变代表 1. <em>但也可反过来定义</em>.</li>
 <li>差分曼彻斯特编码: 在每一位的中心处始终都有跳变, 位开始边界有跳变代表 0, 而位开始边界没有跳变代表 1.</li>
 </ul>
-<p>从信号波形中可以看出, 曼彻斯特 [Manchester] 编码产生的信号频率比不归堆制高. 从自同步能力来看, 不归零制不能从信号波形本身中提取信号时钟频率, 这叫作没有自同步能
-力, 而曼彻斯特编码具有自同步能力.</p>
+<p>从信号波形中可以看出, 曼彻斯特 [Manchester] 编码产生的信号频率比不归零制高. 从自同步能力来看, 不归零制不能从信号波形本身中提取信号时钟频率, 这叫作没有自同步能力, 而曼彻斯特编码具有自同步能力.</p>
+</details></section></p>
 </details></section><footer></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/layered-metwork-model" title="三种体系结构 [408/network/layered-metwork-model]">■</a><span class="link local" onclick="window.location.href='#408-network-layered-metwork-model'"><span class="taxon"></span>三种体系结构</span></li></ul></div></nav></div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/delay.html" title="时延 [408/network/delay]">■</a><span class="link local" onclick="window.location.href='#408-network-delay'"><span class="taxon"></span>时延</span></li><li class=""><a class="bullet" href="/408/network/layered-metwork-model.html" title="三种体系结构 [408/network/layered-metwork-model]">■</a><span class="link local" onclick="window.location.href='#408-network-layered-metwork-model'"><span class="taxon"></span>三种体系结构</span></li><li class=""><a class="bullet" href="/408/network/encoding-method.html" title="数字信号编码方法 [408/network/encoding-method]">■</a><span class="link local" onclick="window.location.href='#408-network-encoding-method'"><span class="taxon"></span>数字信号编码方法</span></li></ul></div></nav></div></body></html>

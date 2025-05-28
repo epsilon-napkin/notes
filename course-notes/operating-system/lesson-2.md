@@ -12,6 +12,10 @@ em {
   color: rgb(249, 117, 131);
   font-style: normal;
 }
+img {
+  border-radius: 0.2em; 
+  width: 500px;
+}
 </style>
 
 #### 操作系统的四个特征: 并发 共享 虚拟 异步
@@ -81,7 +85,7 @@ em {
 
 由于多个进程在并发执行时共享系统资源, 致使它们在运行过程中呈现间断性的运行规律, 所以进程在其生命周期内可能具有多种状态. 一般而言, 每一个进程 *至少* 应处于以下三种基本状态之一:
 
-<p style="text-align: center;"><img src="./three-state.svg" style="border-radius: 0.2em; width: 500px;"><br>三态模型</p>
+<p style="text-align: center;"><img src="../../assets/three-state.svg" style="border-radius: 0.2em; width: 500px;"><br>三态模型</p>
 
 1. 就绪 [Ready] 状态. 进程已处于准备好运行的状态, 即进程已分配到除 CPU 以外的所有必要资源后, 只要再获得 CPU, 便可立即执行. <hint>如果系统中有许多处于就绪状态的进程, 通常将它们按一定的策略 (如优先级策略) 排成一个队列, 称该队列为就绪队列.</hint> 
 
@@ -94,4 +98,4 @@ em {
 
 1. 终止状态 [Terminated], 又称结束态. 通过执行 `exit` 系统调用, 请求操作系统终止该进程. 进程正在从系统中撤销, 操作系统会回收进程拥有的资源、撤销 PCB. 
 
-<p style="text-align: center;"><img src="./five-state.svg" style="border-radius: 0.2em; width: 500px;"><br>五态模型</p>
+<p style="text-align: center;"><img src="../../assets/five-state.svg" style="border-radius: 0.2em; width: 500px;"><br>五态模型</p>
