@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>IP 数据报的格式</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  section .block[data-taxon]>header>h1,
+  section .block[data-taxon] details>summary>header>h1 {
+    font-size: 13pt;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(18, 202, 178);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/ip.html'" title="网际协议 IP">« 网际协议 IP</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-ip-datagram"><header><h1><span class="taxon"></span>IP 数据报的格式 <a class="slug" href="/408/network/ip-datagram.html">[ip-datagram]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-datagram.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+</style>
+<p>一个 IP 数据报由首部和数据两部分组成:</p>
+<ul>
+<li>首部的前一部分是固定长度, 共 20 字节, 是所有 IP 数据报必须具有的.</li>
+<li>在首部的固定部分的后面是一些可选字段, 其长度是可变的.</li>
+</ul>
+<div style="text-align: center;">
+<p><img src="/assets/ipv4-header.png" title="" alt=""></p>
+</div>
+<ul>
+<li>总长度. 占 16bit. 指首部和数据之和的长度, 单位为字节, 因此数据报的最大长度为 $2^{16}-1$ 65535 字节 (B).总 长度必须不超过 <span class="link local"><a href="/408/network/maximum-transmission-unit.html" title="最⼤传送单元 [408/network/maximum-transmission-unit]">最大传送单元 MTU</a></span>.</li>
+<li>片偏移. 占 13bit. 指出较长的分组在分片后, 某片在原分组中的相对位置. 片偏移以 8 个字节 (8B) 为偏移单位.</li>
+<li>标识. 占 16bit. 计数器, 每产生一个数据报就加 1, 当一个数据报的长度超过网络的 <span class="link local"><a href="/408/network/maximum-transmission-unit.html" title="最⼤传送单元 [408/network/maximum-transmission-unit]">MTU</a></span> 时, 必须分片, 每个数据报片都复制一次标识号, 以便重装成原来数据报. 属于同一个数据报各分片有相同的标识.</li>
+<li>区分服务, 占 8bit. 用来获得更好的服务.在旧标准中叫做服务类型, 但实际上一直未被使用过.1998 年这个字段改名为区分服务. 只有在使用区分服务 [DiffServ] 时, 这个字段才起作用. 在一般的情况下都不使用这个字段.</li>
+<li>标志. 占 3bit. 标志字段的最低位为 <code>MF</code> [More Fragment], <code>MF=1</code> 表示后面还有分片, <code>MF=0</code> 表示最后一个分片. 标志字段中间一位是 DF [Don’t Fragment], 只有当 <code>DF=0</code> 时才允许分片.</li>
+<li>生存时间 TTL. 占 8bit. 路由器在转发分组前, 先把 TTL 减 1. <em>若 TTL 被减为 0, 则该分组必须丢弃</em>.</li>
+<li>首部校验和. 占 16bit. 只校验分组的首部, 而不校验数据部分. 每经过一个路由器, 都重新计算.</li>
+</ul>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-sharding-offset"><header><h1><span class="taxon"></span>分片与片偏移大小的计算 <a class="slug" href="/408/network/sharding-offset.html">[sharding-offset]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/sharding-offset.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+</style>
+<p>$\textbf{Example.}$ 一个数据报长度为 4000 字节, <em>固定首部长度 20</em>. 现在经过一个网络传送, 但 <em>此网络能够传送的最大数据长度为 1500 字节</em>. 试问应当划分为几个短些的数据报片? 各数据报片的数据字段长度、片偏移字段和 MF 标志应为何数值?</p>
+<table><thead><tr><th></th><th>总长度</th><th>MF</th><th>DF</th><th>片偏移</th></tr></thead><tbody>
+<tr><td>原始</td><td>4000</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 1</td><td>1500</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 2</td><td>1500</td><td>1</td><td>0</td><td>185</td></tr>
+<tr><td>数据报片 3</td><td>1040</td><td>0</td><td>0</td><td>370</td></tr>
+</tbody></table>
+<p>其中数据报片 3 的 $1040$ 来自 $((4000 - 20) \mod (1500 - 20)) + 20$. 片偏移 $185$ 来自 $\frac{1500-20}{8}$.</p>
+<p>$\textbf{Example.}$ 数据报长度为 4800 字节. 网络能够传送的最大数据长度为 1420 字节.</p>
+<table><thead><tr><th></th><th>总长度</th><th>MF</th><th>DF</th><th>片偏移</th></tr></thead><tbody>
+<tr><td>原始</td><td>4800</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 1</td><td>1420</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 2</td><td>1420</td><td>1</td><td>0</td><td>175</td></tr>
+<tr><td>数据报片 3</td><td>1420</td><td>1</td><td>0</td><td>350</td></tr>
+<tr><td>数据报片 4</td><td>600</td><td>0</td><td>0</td><td>525</td></tr>
+</tbody></table>
+<p>$(4800 - 20) \mod (1420 - 20) + 20 = 600$. $\frac{1420 - 20}{8} = 175$.</p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details ><summary id="408-network-ip-forward-group"><header><h1><span class="taxon"></span>IP 转发分组流程. <a class="slug" href="/408/network/ip-forward-group.html">[ip-forward-group]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-forward-group.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+<li>从数据报的首部提取目的主机的 IP 地址 D, 得出目的网络地址 N.</li>
+<li>若网络 N 与此路由器直接相连, 则把数据报直接交付给目的主机 D; 否则是间接交付, 执行步骤 3.</li>
+<li>若路由表中有目的地址为 D 的特定主机路由, 则把数据报传送给路由表中所指明的下一跳路由器; 否则, 执行步骤 4.</li>
+<li>若路由表中有到达网络 N 的路由, 则把数据报传送给路由表指明的下一跳路由器; 否则, 执行步骤 5.</li>
+<li>若路由表中有一个默认路由, 则把数据报传送给路由表中所指明的默认路由器; 否则, 执行步骤 6.</li>
+<li>报告转发分组出错 (ICMP).</li>
+</ol>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details ><summary id="408-network-ip-convert-mac"><header><h1><span class="taxon"></span>IP 转换 MAC <a class="slug" href="/408/network/ip-convert-mac.html">[ip-convert-mac]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-convert-mac.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+</style>
+<ol>
+<li>得到下一跳路由器的 IP 地址后并不是直接将该地址填入待发送的数据报, <em>而是将该 IP 地址转换成 MAC 地址 (通过 ARP)</em>, 将其放到 MAC 帧首部中, 然后根据这个 MAC 地址找到下一跳路由器.</li>
+<li>在不同网络中传送时, MAC 帧中的源地址和目的地址要发生变化, 但是网桥转发帧时, 不改变帧的源地址.</li>
+<li><em>路由表并没有给分组指明到某个网络的完整路径</em>. 路由表指出, 到某个网络应当先到某个路由器 (下一跳), 在到达以后, 继续查找路由表, 知道再下一步到哪个路由器.</li>
+</ol>
+</details></section></p>
+</details></section><footer></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">■</a><span class="link local" onclick="window.location.href='#408-network-sharding-offset'"><span class="taxon"></span>分片与片偏移大小的计算</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-forward-group.html" title="IP 转发分组流程. [408/network/ip-forward-group]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-forward-group'"><span class="taxon"></span>IP 转发分组流程.</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-convert-mac'"><span class="taxon"></span>IP 转换 MAC</span></li></ul></div></nav></div></body></html>

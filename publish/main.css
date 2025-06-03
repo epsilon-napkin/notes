@@ -125,11 +125,9 @@ pre>code {
   display: none;
 }
 
-/*
 blockquote {
   font-style: italic;
 }
-*/
 
 blockquote {
   display: block;
@@ -141,29 +139,21 @@ blockquote {
 }
 
 h1,
-/* h2, */
-/* h3, */
+h2,
+h3,
 h4 {
   margin-top: .5em;
 }
 
 h1,
+h2,
+h3,
+h4,
 h5,
 h6 {
   font-weight: normal;
   font-weight: 500;
   margin-bottom: 0;
-}
-
-h2,
-h3,
-h4 {
-  font-weight: 500;
-}
-
-h3::before {
-  color: var(--logo-color);
-  content: "§ "
 }
 
 h5,
@@ -201,6 +191,7 @@ span.taxon {
   font-weight: 500;
 }
 
+section .block[data-taxon]>header>h1,
 section .block[data-taxon] details>summary>header>h1 {
   font-size: 13pt;
 }

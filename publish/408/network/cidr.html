@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>⽆分类域间路由选择 CIDR</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  section .block[data-taxon]>header>h1,
+  section .block[data-taxon] details>summary>header>h1 {
+    font-size: 13pt;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(18, 202, 178);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/ip.html'" title="网际协议 IP">« 网际协议 IP</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-cidr"><header><h1><span class="taxon"></span>⽆分类域间路由选择 CIDR <a class="slug" href="/408/network/cidr.html">[cidr]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/cidr.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>CIDR 把⽹络号改称为 “⽹络前缀” [network-prefix] 或简称为“前缀”, ⽤来指明⽹络, 剩下的后⾯部分仍然是主机号或称为后缀, ⽤来指明主机.</p>
+<pre><code>IP := { &lt;⽹络前缀&gt;, &lt;主机号&gt; }
+</code></pre>
+<p>相比 分类的 IP 地址, 这⾥最⼤的区别就是⽹络前缀的位数 n 不是固定的数,⽽是可以在 0~32 之间选取任意的值.</p>
+<p>CIDR 使⽤ “斜线记法” [slash notation], 或称 CIDR 记法, 即在 IP 地址后⾯加上斜线 <code>/</code>, 斜线后⾯是⽹络前缀所占的位数. 例如, CIDR 表⽰的⼀个 IP 地址 <code>128.14.35.7/20</code>, ⼆进制 IP 地址的前 20 位是⽹络前缀, 相当于原来的⽹络号, 剩下后⾯ 12 位是主机号.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-subnet-mask"><header><h1><span class="taxon"></span>子网掩码 <a class="slug" href="/408/network/subnet-mask.html">[subnet-mask]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/subnet-mask.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\spaces#1{~ #1 ~}$</p>
+<p>计算机为了能够从 IP 地址迅速算出⽹络地址, 引入了 32 位的地址掩码. 地址掩码常简称为掩码, 由⼀连串 <code>1</code> 和接着的⼀连串 <code>0</code> 组成,⽽ <code>1</code> 的个数就是⽹络前缀的长度. 地址掩码又称为⼦⽹掩码. 在 CIDR 记法中, 斜线后⾯的数字就是地址掩码中 <code>1</code> 的个数. 例如, <code>/20</code> 地址块的地址掩码是 20 个连续的 <code>1</code> 和接着的 12 个连续的 <code>0</code>:</p>
+<pre><code>11111111 11111111 11110000 00000000
+</code></pre>
+<p>这个掩码⽤ CIDR 记法表⽰就是 <code>255.255.240.0/20</code>, <code>240</code> 来自 $255 - (2^4 - 1) = 240$.</p>
+<ul>
+<li>目的: 使路由器知道 IP 地址是否使用了子网划分, 并且能快速知道子网号.</li>
+<li>优点: 只要把子网掩码和 IP 地址逐位进行与运算, 可以得出网络地址. <span class="link local"><a href="/408/network/cidr.html" title="⽆分类域间路由选择 CIDR [408/network/cidr]">主机号</a></span> 全变 0.</li>
+</ul>
+<p>$$
+\str{网络地址} \spaces= \str{\text{IP 地址}} \spaces\& \str{子网掩码}
+$$</p>
+<p>$\textbf{Example.}$ IP 地址为 <code>89.189.72.35</code>, 子网掩码为 <code>255.255.0.0</code>, 则该 IP 地址中, 网络地址占前几位?</p>
+<p>$$
+\begin{array}{ll}
+& 01011001 ~ 10111101 ~ 01001000 ~ 00100011 \\
+\& & 11111111 ~ 11111111 ~ 00000000 ~ 00000000 \\
+\hline \\
+& 01011001 ~ 10111101 ~ \cdots
+\end{array}
+$$</p>
+<p>故前 16 位.</p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-address-count"><header><h1><span class="taxon"></span>可用地址总数 <a class="slug" href="/408/network/address-count.html">[address-count]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/address-count.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$</p>
+<p>一般出现在填空题的计算中. 使用如下公式即可</p>
+<p>$$
+(2^n-2)(2^{N-n}-2)
+$$</p>
+<p>$\textbf{Example.}$ 我们举一例, 对 <span class="link local"><a href="/408/network/ip-category.html" title="分类 IP 地址 [408/network/ip-category]">C 类网络</a></span> <code>202.78.135.192</code> 计算其可用地址总数.</p>
+<ul>
+<li>$202.78.135.192 \to N = 32 - 24 = 8$.</li>
+<li>$255.255.255.192 \to n = 2$.</li>
+</ul>
+<p>故总数为 $(2^2-2)(2^6-2) = 2 \times 62 = 124$.</p>
+</details></section></p>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>子网掩码 <a class="slug" href="/408/network/subnet-mask.html">[subnet-mask]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/subnet-mask.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/subnet-mask.html" title="子网掩码 [408/network/subnet-mask]">■</a><span class="link local" onclick="window.location.href='#408-network-subnet-mask'"><span class="taxon"></span>子网掩码</span></li><li class=""><a class="bullet" href="/408/network/address-count.html" title="可用地址总数 [408/network/address-count]">■</a><span class="link local" onclick="window.location.href='#408-network-address-count'"><span class="taxon"></span>可用地址总数</span></li></ul></div></nav></div></body></html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>网际协议 IP</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  section .block[data-taxon]>header>h1,
+  section .block[data-taxon] details>summary>header>h1 {
+    font-size: 13pt;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(18, 202, 178);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/network-layer.html'" title="网络层">« 网络层</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-ip"><header><h1><span class="taxon"></span>网际协议 IP <a class="slug" href="/408/network/ip.html">[ip]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+</style>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-dotted-decimal-notation"><header><h1><span class="taxon"></span>IP 地址的表示 <a class="slug" href="/408/network/dotted-decimal-notation.html">[dotted-decimal-notation]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/dotted-decimal-notation.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>对主机或路由器来说, IP 地址都是 32 位的⼆进制代码. 为了提⾼可读性, 书写时常常把 32 位的 IP 地址中的每隔 8 位插⼊⼀个空格. 也是为了便于书写记忆, 常⽤其等效的⼗进制数字表⽰, 并且在每段数字之间加上⼀个⼩数点.</p>
+<p>$\textbf{Example.}$</p>
+<p>$$
+\underbrace{10000000}_{128} ~~ \underbrace{00001011}_{11} ~~ \underbrace{00000011}_{3} ~~ \underbrace{00011111}_{31} \\
+\darr \\
+128.11.3.31
+$$</p>
+</details></section></p>
+<p>与协议 IP 配套使⽤的还有三个协议:</p>
+<ul>
+<li><span class="link local"><a href="/408/network/arp.html" title="地址解析协议 ARP [408/network/arp]">地址解析协议 ARP</a></span> [Address Resolution Protocol].</li>
+<li>⽹际控制报⽂协议 ICMP [Internet Control Message Protocol].</li>
+<li>⽹际组管理协议 IGMP [Internet Group Management Protocol].</li>
+</ul>
+<p>给每个主机 (或路由器) 的接口分配⼀个 IP 地址, 其含义就是这个 IP 地址不但标志了这个主机 (或路由器), ⽽且还标志了此接口所连接的⽹络. 因此, 32 位的 IP 地址采⽤两级结构, 由两个字段组成. 第⼀个字段是 <em>⽹络号</em>, 它标志主机 (或路由器) 所连接到的⽹络.⼀个⽹络号在整个互联⽹范围内必须是唯⼀的. 第⼆个字段是 <em>主机号</em>, 它标志该主机 (对路由器来说, 就是标志该路由器). ⼀个主机号在所连接的⽹络 (即前⾯的⽹络号所指明的⽹络) 中必须是唯⼀的. 由此可见, ⼀个 IP 地址 <em>在整个互联⽹范围内是唯⼀的</em>. 因此, IP 地址可以记为</p>
+<pre><code>IP := { &lt;⽹络号&gt;, &lt;主机号&gt; }
+</code></pre>
+<p>IP 地址中的前 $n$ 位是主机所连接的⽹络号, ⽽ IP 地址中后⾯的 $32-n$ 位是主机号.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-ip-category"><header><h1><span class="taxon"></span>分类 IP 地址 <a class="slug" href="/408/network/ip-category.html">[ip-category]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-category.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>在互联⽹发展早期采⽤的是分类的 IP 地址, 也就是要求 $n$ 是固定的⼏个数 ($8, 16, 24$) 之⼀. 由于近年来已经⼴泛使⽤⽆分类 IP 地址进⾏路由选择, A 类、 B 类和 C 类这种分类地址已成为历史. 把 IP 地址划分为 A 类、 B 类、 C 类三个类别, 当初是这样考虑的: 各种⽹络的差异很⼤, 有的⽹络拥有很多主机,⽽有的⽹络上的主机则很少. 把 IP 地址划分为 A 类、 B 类和C 类是为了更好地满⾜不同⽤户的需求.</p>
+<table><thead><tr><th>网络类别</th><th>IP 范围</th><th>网络地址位数</th><th>默认子网掩码</th></tr></thead><tbody>
+<tr><td>A</td><td><code>1</code> ~ <code>126</code></td><td>8</td><td><code>255.0.0.0</code></td></tr>
+<tr><td>B</td><td><code>128.1</code> ~ <code>191.255</code></td><td>16</td><td><code>255.255.0.0</code></td></tr>
+<tr><td>C</td><td><code>192.0.1</code> ~ <code>223.255.255</code></td><td>24</td><td><code>255.255.255.0</code></td></tr>
+</tbody></table>
+</details></section></p>
+<p>在 20 世纪 90 年代, 当发现 IP 地址在不久后将会枯竭时, ⼀种新的⽆分类编址⽅法 CIDR 就问世了. 这种⽅法虽然也⽆法解决 IP 地址枯竭的问题, 但可以推迟 IP 地址⽤尽的⽇子.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-cidr"><header><h1><span class="taxon"></span>⽆分类编址⽅法 CIDR <a class="slug" href="/408/network/cidr.html">[cidr]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/cidr.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>CIDR 把⽹络号改称为 “⽹络前缀” [network-prefix] 或简称为“前缀”, ⽤来指明⽹络, 剩下的后⾯部分仍然是主机号或称为后缀, ⽤来指明主机.</p>
+<pre><code>IP := { &lt;⽹络前缀&gt;, &lt;主机号&gt; }
+</code></pre>
+<p>相比 分类的 IP 地址, 这⾥最⼤的区别就是⽹络前缀的位数 n 不是固定的数,⽽是可以在 0~32 之间选取任意的值.</p>
+<p>CIDR 使⽤ “斜线记法” [slash notation], 或称 CIDR 记法, 即在 IP 地址后⾯加上斜线 <code>/</code>, 斜线后⾯是⽹络前缀所占的位数. 例如, CIDR 表⽰的⼀个 IP 地址 <code>128.14.35.7/20</code>, ⼆进制 IP 地址的前 20 位是⽹络前缀, 相当于原来的⽹络号, 剩下后⾯ 12 位是主机号.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-subnet-mask"><header><h1><span class="taxon"></span>子网掩码 <a class="slug" href="/408/network/subnet-mask.html">[subnet-mask]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/subnet-mask.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\spaces#1{~ #1 ~}$</p>
+<p>计算机为了能够从 IP 地址迅速算出⽹络地址, 引入了 32 位的地址掩码. 地址掩码常简称为掩码, 由⼀连串 <code>1</code> 和接着的⼀连串 <code>0</code> 组成,⽽ <code>1</code> 的个数就是⽹络前缀的长度. 地址掩码又称为⼦⽹掩码. 在 CIDR 记法中, 斜线后⾯的数字就是地址掩码中 <code>1</code> 的个数. 例如, <code>/20</code> 地址块的地址掩码是 20 个连续的 <code>1</code> 和接着的 12 个连续的 <code>0</code>:</p>
+<pre><code>11111111 11111111 11110000 00000000
+</code></pre>
+<p>这个掩码⽤ CIDR 记法表⽰就是 <code>255.255.240.0/20</code>, <code>240</code> 来自 $255 - (2^4 - 1) = 240$.</p>
+<ul>
+<li>目的: 使路由器知道 IP 地址是否使用了子网划分, 并且能快速知道子网号.</li>
+<li>优点: 只要把子网掩码和 IP 地址逐位进行与运算, 可以得出网络地址. <span class="link local"><a href="/408/network/cidr.html" title="⽆分类域间路由选择 CIDR [408/network/cidr]">主机号</a></span> 全变 0.</li>
+</ul>
+<p>$$
+\str{网络地址} \spaces= \str{\text{IP 地址}} \spaces\& \str{子网掩码}
+$$</p>
+<p>$\textbf{Example.}$ IP 地址为 <code>89.189.72.35</code>, 子网掩码为 <code>255.255.0.0</code>, 则该 IP 地址中, 网络地址占前几位?</p>
+<p>$$
+\begin{array}{ll}
+& 01011001 ~ 10111101 ~ 01001000 ~ 00100011 \\
+\& & 11111111 ~ 11111111 ~ 00000000 ~ 00000000 \\
+\hline \\
+& 01011001 ~ 10111101 ~ \cdots
+\end{array}
+$$</p>
+<p>故前 16 位.</p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-address-count"><header><h1><span class="taxon"></span>可用地址总数 <a class="slug" href="/408/network/address-count.html">[address-count]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/address-count.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$</p>
+<p>一般出现在填空题的计算中. 使用如下公式即可</p>
+<p>$$
+(2^n-2)(2^{N-n}-2)
+$$</p>
+<p>$\textbf{Example.}$ 我们举一例, 对 <span class="link local"><a href="/408/network/ip-category.html" title="分类 IP 地址 [408/network/ip-category]">C 类网络</a></span> <code>202.78.135.192</code> 计算其可用地址总数.</p>
+<ul>
+<li>$202.78.135.192 \to N = 32 - 24 = 8$.</li>
+<li>$255.255.255.192 \to n = 2$.</li>
+</ul>
+<p>故总数为 $(2^2-2)(2^6-2) = 2 \times 62 = 124$.</p>
+</details></section></p>
+</details></section></p>
+<p>在局域⽹中, 由于 MAC 地址已固化在⽹卡上的 ROM 中, 因此常常将 MAC 地址称为硬件地址或物理地址. 从层次的⾓度看, MAC 地址是数据链路层使⽤的地址,⽽IP 地址是⽹络层和以上各层使⽤的地址, 是⼀种逻辑地址.</p>
+<p>在发送数据时, 数据从⾼层下到低层, 然后才到通信链路上传输. 使⽤IP 地址的 IP 数据报⼀旦交给数据链路层, 就被封装成 MAC 帧. MAC 帧在传送时使⽤的源地址和⽬的地址都是 MAC 地址, 这两个 MAC 地址都写在 MAC 帧的⾸部中.连接在通信链路上的设备 (主机或路由器) 在收到 MAC 帧时, 根据 MAC 帧⾸部中的MAC 地址决定收下或丢弃. 只有在剥去 MAC 帧的⾸部和尾部后把 MAC 层的数据上交给⽹络层后,⽹络层才能在 IP 数据报的⾸部中找到源 IP 地址和⽬的 IP 地址. 简单来说, 32bit 的 IP 地址确定唯一的主机, 48bit 的 MAC 地址找到唯一的接口.</p>
+<p>总之, IP 地址放在 IP 数据报的⾸部,⽽ MAC 地址则放在 MAC 帧的⾸部. 在⽹络层和⽹络层以上使⽤的是 IP 地址, ⽽数据链路层及以下使⽤的是 MAC 地址. 即 <em>IP 地址放在网络层的首部, 而硬件地址则放数据链路层的首部.</em> 当 IP 数据报插⼊到数据链路层的 MAC 帧以后, 整个的 IP 数据报就成为 MAC 帧的数据, 因⽽在数据链路层看不见数据报的 IP 地址.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-ip-datagram"><header><h1><span class="taxon"></span>IP 数据报的格式 <a class="slug" href="/408/network/ip-datagram.html">[ip-datagram]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-datagram.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+</style>
+<p>一个 IP 数据报由首部和数据两部分组成:</p>
+<ul>
+<li>首部的前一部分是固定长度, 共 20 字节, 是所有 IP 数据报必须具有的.</li>
+<li>在首部的固定部分的后面是一些可选字段, 其长度是可变的.</li>
+</ul>
+<div style="text-align: center;">
+<p><img src="/assets/ipv4-header.png" title="" alt=""></p>
+</div>
+<ul>
+<li>总长度. 占 16bit. 指首部和数据之和的长度, 单位为字节, 因此数据报的最大长度为 $2^{16}-1$ 65535 字节 (B).总 长度必须不超过 <span class="link local"><a href="/408/network/maximum-transmission-unit.html" title="最⼤传送单元 [408/network/maximum-transmission-unit]">最大传送单元 MTU</a></span>.</li>
+<li>片偏移. 占 13bit. 指出较长的分组在分片后, 某片在原分组中的相对位置. 片偏移以 8 个字节 (8B) 为偏移单位.</li>
+<li>标识. 占 16bit. 计数器, 每产生一个数据报就加 1, 当一个数据报的长度超过网络的 <span class="link local"><a href="/408/network/maximum-transmission-unit.html" title="最⼤传送单元 [408/network/maximum-transmission-unit]">MTU</a></span> 时, 必须分片, 每个数据报片都复制一次标识号, 以便重装成原来数据报. 属于同一个数据报各分片有相同的标识.</li>
+<li>区分服务, 占 8bit. 用来获得更好的服务.在旧标准中叫做服务类型, 但实际上一直未被使用过.1998 年这个字段改名为区分服务. 只有在使用区分服务 [DiffServ] 时, 这个字段才起作用. 在一般的情况下都不使用这个字段.</li>
+<li>标志. 占 3bit. 标志字段的最低位为 <code>MF</code> [More Fragment], <code>MF=1</code> 表示后面还有分片, <code>MF=0</code> 表示最后一个分片. 标志字段中间一位是 DF [Don’t Fragment], 只有当 <code>DF=0</code> 时才允许分片.</li>
+<li>生存时间 TTL. 占 8bit. 路由器在转发分组前, 先把 TTL 减 1. <em>若 TTL 被减为 0, 则该分组必须丢弃</em>.</li>
+<li>首部校验和. 占 16bit. 只校验分组的首部, 而不校验数据部分. 每经过一个路由器, 都重新计算.</li>
+</ul>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-sharding-offset"><header><h1><span class="taxon"></span>分片与片偏移大小的计算 <a class="slug" href="/408/network/sharding-offset.html">[sharding-offset]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/sharding-offset.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+</style>
+<p>$\textbf{Example.}$ 一个数据报长度为 4000 字节, <em>固定首部长度 20</em>. 现在经过一个网络传送, 但 <em>此网络能够传送的最大数据长度为 1500 字节</em>. 试问应当划分为几个短些的数据报片? 各数据报片的数据字段长度、片偏移字段和 MF 标志应为何数值?</p>
+<table><thead><tr><th></th><th>总长度</th><th>MF</th><th>DF</th><th>片偏移</th></tr></thead><tbody>
+<tr><td>原始</td><td>4000</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 1</td><td>1500</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 2</td><td>1500</td><td>1</td><td>0</td><td>185</td></tr>
+<tr><td>数据报片 3</td><td>1040</td><td>0</td><td>0</td><td>370</td></tr>
+</tbody></table>
+<p>其中数据报片 3 的 $1040$ 来自 $((4000 - 20) \mod (1500 - 20)) + 20$. 片偏移 $185$ 来自 $\frac{1500-20}{8}$.</p>
+<p>$\textbf{Example.}$ 数据报长度为 4800 字节. 网络能够传送的最大数据长度为 1420 字节.</p>
+<table><thead><tr><th></th><th>总长度</th><th>MF</th><th>DF</th><th>片偏移</th></tr></thead><tbody>
+<tr><td>原始</td><td>4800</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 1</td><td>1420</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>数据报片 2</td><td>1420</td><td>1</td><td>0</td><td>175</td></tr>
+<tr><td>数据报片 3</td><td>1420</td><td>1</td><td>0</td><td>350</td></tr>
+<tr><td>数据报片 4</td><td>600</td><td>0</td><td>0</td><td>525</td></tr>
+</tbody></table>
+<p>$(4800 - 20) \mod (1420 - 20) + 20 = 600$. $\frac{1420 - 20}{8} = 175$.</p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details ><summary id="408-network-ip-forward-group"><header><h1><span class="taxon"></span>IP 转发分组流程. <a class="slug" href="/408/network/ip-forward-group.html">[ip-forward-group]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-forward-group.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+<li>从数据报的首部提取目的主机的 IP 地址 D, 得出目的网络地址 N.</li>
+<li>若网络 N 与此路由器直接相连, 则把数据报直接交付给目的主机 D; 否则是间接交付, 执行步骤 3.</li>
+<li>若路由表中有目的地址为 D 的特定主机路由, 则把数据报传送给路由表中所指明的下一跳路由器; 否则, 执行步骤 4.</li>
+<li>若路由表中有到达网络 N 的路由, 则把数据报传送给路由表指明的下一跳路由器; 否则, 执行步骤 5.</li>
+<li>若路由表中有一个默认路由, 则把数据报传送给路由表中所指明的默认路由器; 否则, 执行步骤 6.</li>
+<li>报告转发分组出错 (ICMP).</li>
+</ol>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details ><summary id="408-network-ip-convert-mac"><header><h1><span class="taxon"></span>IP 转换 MAC <a class="slug" href="/408/network/ip-convert-mac.html">[ip-convert-mac]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-convert-mac.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+</style>
+<ol>
+<li>得到下一跳路由器的 IP 地址后并不是直接将该地址填入待发送的数据报, <em>而是将该 IP 地址转换成 MAC 地址 (通过 ARP)</em>, 将其放到 MAC 帧首部中, 然后根据这个 MAC 地址找到下一跳路由器.</li>
+<li>在不同网络中传送时, MAC 帧中的源地址和目的地址要发生变化, 但是网桥转发帧时, 不改变帧的源地址.</li>
+<li><em>路由表并没有给分组指明到某个网络的完整路径</em>. 路由表指出, 到某个网络应当先到某个路由器 (下一跳), 在到达以后, 继续查找路由表, 知道再下一步到哪个路由器.</li>
+</ol>
+</details></section></p>
+</details></section></p>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>网络层 <a class="slug" href="/408/network/network-layer.html">[network-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/network-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/dotted-decimal-notation.html" title="点分⼗进制记法 [408/network/dotted-decimal-notation]">■</a><span class="link local" onclick="window.location.href='#408-network-dotted-decimal-notation'"><span class="taxon"></span>IP 地址的表示</span></li><li class=""><a class="bullet" href="/408/network/ip-category.html" title="分类 IP 地址 [408/network/ip-category]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-category'"><span class="taxon"></span>分类 IP 地址</span></li><li class=""><a class="bullet" href="/408/network/cidr.html" title="⽆分类域间路由选择 CIDR [408/network/cidr]">■</a><span class="link local" onclick="window.location.href='#408-network-cidr'"><span class="taxon"></span>⽆分类编址⽅法 CIDR</span><ul class="block"><li class=""><a class="bullet" href="/408/network/subnet-mask.html" title="子网掩码 [408/network/subnet-mask]">■</a><span class="link local" onclick="window.location.href='#408-network-subnet-mask'"><span class="taxon"></span>子网掩码</span></li><li class=""><a class="bullet" href="/408/network/address-count.html" title="可用地址总数 [408/network/address-count]">■</a><span class="link local" onclick="window.location.href='#408-network-address-count'"><span class="taxon"></span>可用地址总数</span></li></ul></li><li class=""><a class="bullet" href="/408/network/ip-datagram.html" title="IP 数据报的格式 [408/network/ip-datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-datagram'"><span class="taxon"></span>IP 数据报的格式</span><ul class="block"><li class=""><a class="bullet" href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">■</a><span class="link local" onclick="window.location.href='#408-network-sharding-offset'"><span class="taxon"></span>分片与片偏移大小的计算</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-forward-group.html" title="IP 转发分组流程. [408/network/ip-forward-group]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-forward-group'"><span class="taxon"></span>IP 转发分组流程.</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-convert-mac'"><span class="taxon"></span>IP 转换 MAC</span></li></ul></li></ul></div></nav></div></body></html>

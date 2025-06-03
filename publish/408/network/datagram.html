@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>数据报</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  section .block[data-taxon]>header>h1,
+  section .block[data-taxon] details>summary>header>h1 {
+    font-size: 13pt;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(18, 202, 178);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/network-layer.html'" title="网络层">« 网络层</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-datagram"><header><h1><span class="taxon"></span>数据报 <a class="slug" href="/408/network/datagram.html">[datagram]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/datagram.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li><p>步骤:</p>
+<ol>
+<li>把报文拆成若干带有序号的数据单元, 在网络层加上地址等控制信息后形成数据报分组 (网络层的 PDU).</li>
+<li>中间结点存储分组, 找到最佳的路由后, 尽快转发每个分组. 不同的分组可以走不同的路径, 按不同的顺序到达目的结点.</li>
+</ol>
+</li>
+<li><p>特点:</p>
+<ol>
+<li>发送分组前不需要建立连接. 发送方可随时发送分组, 结点可随时接收分组.</li>
+<li>网络尽最大努力交付, 传输不保证可靠性, 可能丢失; 每个分组独立选择路由, 转发路径可能不同, 分组不一定按序到达目的结点.</li>
+<li>发送的分组中要包括发送端和接收端的完整地址, 独立传输.</li>
+<li>分组在交换结点存储转发时, 需要排队等候处理. 通过交换结点的通信较大或网络发生拥塞时, 时延增加, 交换结点可根据情况丢弃部分分组.</li>
+<li>网络具有冗余路径, 当某个交换结点或一条链路出现故障时, 可相应地更新转发表, 寻找另一条路径转发分组, 对故障适应能力强.</li>
+<li>存储转发延时一般较小, 提高网络吞吐量.</li>
+<li>收发双方不独占某条链路, 资源利用率较高</li>
+</ol>
+</li>
+</ul>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>网络层 <a class="slug" href="/408/network/network-layer.html">[network-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/network-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
+
+</div></body></html>
