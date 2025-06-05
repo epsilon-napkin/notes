@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>物理层</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,6 +96,56 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/index.html'" title="计算机网络">« 计算机网络</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-physical-layer"><header><h1><span class="taxon"></span>物理层 <a class="slug" href="/408/network/physical-layer.html">[physical-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/physical-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary></details></section><footer></footer></article>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/index.html'" title="计算机网络">« 计算机网络</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-physical-layer"><header><h1><span class="taxon"></span>物理层 <a class="slug" href="/408/network/physical-layer.html">[physical-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/physical-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-physical-layer-0001"><header><h1><span class="taxon"></span>常用术语 <a class="slug" href="/408/network/physical-layer-0001.html">[physical-layer-0001]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/physical-layer-0001.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>数据 [data] — 运送消息的实体.</li>
+<li>信号 [signal] — 数据的电气的或电磁的表现.</li>
+<li>模拟信号 [analogous signal] — 代表消息的参数的取值是连续的.</li>
+<li>数字信号 [digital signal] — 代表消息的参数的取值是离散的.</li>
+<li>码元 [code] — 在使用时间域 (或简称为时域) 的波形表示数字信号时, 代表不同离散数值的基本波形.</li>
+</ul>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-physical-layer-0002"><header><h1><span class="taxon"></span>有关信道的几个基本概念 <a class="slug" href="/408/network/physical-layer-0002.html">[physical-layer-0002]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/physical-layer-0002.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>信道 — 一般用来表示向某一个方向传送信息的媒体.</li>
+<li>单向通信 (单工通信) — 只能有一个方向的通信而没有反方向的交互.</li>
+<li>双向交替通信 (半双工通信) — 通信的双方都可以发送信息, 但不能双方同时发送 (当然也就不能同时接收).</li>
+<li>双向同时通信 (全双工通信) — 通信的双方可以同时发送和接收信息.</li>
+</ul>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-modulation"><header><h1><span class="taxon"></span>调制 <a class="slug" href="/408/network/modulation.html">[modulation]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/modulation.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>调制分为两大类:</p>
+<ul>
+<li><p>基带调制: 仅对基带信号的波形进行变换, 使它能够与信道特性相适应. 变换后的信号仍然是基带信号. 把这种过程称为编码 [coding].</p>
+</li>
+<li><p>带通调制: 使用载波 [carrier] 进行调制, 把基带信号的频率范围搬移到较高的频段, 并转换为模拟信号, 这样就能够更好地在模拟信道中传输 (即仅在一段频率范围内能够通过信道).</p>
+<ul>
+<li>带通信号: 经过载波调制后的信号.</li>
+</ul>
+</li>
+</ul>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-encoding-method"><header><h1><span class="taxon"></span>数字信号编码方法 <a class="slug" href="/408/network/encoding-method.html">[encoding-method]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/encoding-method.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+</style>
+<div style="text-align: center;">
+<p><img src="/assets/数字信号编码方法.jpg" title="" alt=""></p>
+</div>
+<ul>
+<li>不归零制: 正电平代表 1, 负电平代表 0.</li>
+<li>归零制: 正脉冲代表 1, 负脉冲代表 0.</li>
+<li>曼彻斯特编码: 位周期中心的向上跳变代表 0, 位周期中心的向下跳变代表 1. <em>但也可反过来定义</em>.</li>
+<li>差分曼彻斯特编码: 在每一位的中心处始终都有跳变, 位开始边界有跳变代表 0, 而位开始边界没有跳变代表 1.</li>
+</ul>
+<p>从信号波形中可以看出, 曼彻斯特 [Manchester] 编码产生的信号频率比不归零制高. 从自同步能力来看, 不归零制不能从信号波形本身中提取信号时钟频率, 这叫作没有自同步能力, 而曼彻斯特编码具有自同步能力.</p>
+</details></section></p>
+</details></section><footer></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/physical-layer-0001.html" title="常用术语 [408/network/physical-layer-0001]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0001'"><span class="taxon"></span>常用术语</span></li><li class=""><a class="bullet" href="/408/network/physical-layer-0002.html" title="有关信道的几个基本概念 [408/network/physical-layer-0002]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0002'"><span class="taxon"></span>有关信道的几个基本概念</span></li><li class=""><a class="bullet" href="/408/network/modulation.html" title="调制 [408/network/modulation]">■</a><span class="link local" onclick="window.location.href='#408-network-modulation'"><span class="taxon"></span>调制</span></li><li class=""><a class="bullet" href="/408/network/encoding-method.html" title="数字信号编码方法 [408/network/encoding-method]">■</a><span class="link local" onclick="window.location.href='#408-network-encoding-method'"><span class="taxon"></span>数字信号编码方法</span></li></ul></div></nav></div></body></html>

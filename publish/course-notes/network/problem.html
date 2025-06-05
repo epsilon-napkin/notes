@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>计算机网络 Problem Set</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  section .block[data-taxon]>header>h1,
+  section .block[data-taxon] details>summary>header>h1 {
+    font-size: 13pt;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-problem"><header><h1><span class="taxon"></span>计算机网络 Problem Set <a class="slug" href="/course-notes/network/problem.html">[problem]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/problem.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><h3>选择 10, 20.</h3>
+<ol>
+<li>内外核模型.</li>
+<li><span class="link local"><a href="/408/network/tcp.html" title="传输控制协议 TCP [408/network/tcp]">TCP 建立的过程</a></span>, 工作在哪一层.</li>
+<li>TCP 流量控制.</li>
+<li><code>ping</code>, <code>tracert</code>.</li>
+<li>协议水平, 服务垂直.</li>
+<li>传输速率.</li>
+<li>解决传输层的拥塞控制问题 (4 种算法: 慢启动, 拥塞避免, 快速重传, 快速恢复).</li>
+<li>广播地址.</li>
+<li>应用层, 实现端到端的服务.</li>
+</ol>
+<h3>填空 15, 15 &amp; 判断 12, 12.</h3>
+<ol>
+<li><span class="link local"><a href="/408/network/layered-network-model.html" title="三种体系结构 [408/network/layered-network-model]">三种体系结构</a></span></li>
+<li>电路交换的过程.</li>
+<li>数据单元传输的名称.</li>
+<li><span class="link local"><a href="/408/network/ip.html" title="网际协议 IP [408/network/ip]">IP</a></span> MAC.</li>
+<li><span class="link local"><a href="/408/network/subnet-mask.html" title="子网掩码 [408/network/subnet-mask]">子网掩码求网络地址</a></span></li>
+<li>传输层的协议.</li>
+<li>常见的复用技术.</li>
+<li>三种交换技术.</li>
+<li>网络的分类 (专用网, 局域网, 广域网).</li>
+<li><span class="link local"><a href="/408/network/address-count.html" title="可用地址总数 [408/network/address-count]">主机数量计算</a></span></li>
+<li><span class="link local"><a href="/408/network/ip-category.html" title="分类 IP 地址 [408/network/ip-category]">地址类别</a></span></li>
+<li>不同设备用于哪一层.</li>
+<li>通讯遵循协议.</li>
+<li><span class="link local"><a href="/408/network/tcp-vs-udp.html" title="TCP 和 UDP 的对比 [408/network/tcp-vs-udp]">TCP 和 UDP 的对比</a></span>.</li>
+<li>最短帧长.</li>
+<li>通信方式 (单工, 半双工, 全双通).</li>
+<li><span class="link local"><a href="/408/network/modulation.html" title="调制 [408/network/modulation]">基带调制, 带通调制</a></span>.</li>
+<li>计算子网掩码.</li>
+<li><span class="link local"><a href="/408/network/dotted-decimal-notation.html" title="点分⼗进制记法 [408/network/dotted-decimal-notation]">IP 地址的表示</a></span></li>
+<li>DNS 的作用: 将域名解析为 IP 地址.</li>
+<li>模拟信号, 数字信号.</li>
+</ol>
+<h3>简述题 7, 28.</h3>
+<ol>
+<li>网络的理解.</li>
+<li>交换机.</li>
+<li>路由器.</li>
+<li><span class="link local"><a href="/408/network/arp.html" title="地址解析协议 ARP [408/network/arp]">地址解析协议 ARP</a></span></li>
+<li><span class="link local"><a href="/408/network/virtual-circuit-vs-datagram.html" title="虚电路和数据报服务的对比 [408/network/virtual-circuit-vs-datagram]">虚电路和数据报服务的关联</a></span>.</li>
+<li><span class="link local"><a href="/408/network/csma-cd.html" title="CSMA / CD [408/network/csma-cd]">CSMA / CD - 载波监听多点接⼊ / 碰撞检测</a></span></li>
+<li>TCP 拥塞控制.</li>
+<li>VLAN.</li>
+<li>串行并行概念.</li>
+</ol>
+<h3>计算 3, 15.</h3>
+<ol>
+<li><span class="link local"><a href="/408/network/cyclic-redundancy-check.html" title="循环冗余检验 [408/network/cyclic-redundancy-check]">循环冗余检验</a></span></li>
+<li><span class="link local"><a href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">分片与片偏移大小的计算</a></span></li>
+<li><span class="link local"><a href="/408/network/subnet-division.html" title="子网划分 [408/network/subnet-division]">子网划分</a></span></li>
+</ol>
+<h3>画图 1, 10.</h3>
+<ol>
+<li><span class="link local"><a href="/408/network/encoding-method.html" title="数字信号编码方法 [408/network/encoding-method]">数字信号编码方法</a></span></li>
+</ol>
+</details></section><footer></footer></article>
+
+</div></body></html>

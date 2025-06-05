@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>矩阵的秩</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,21 +96,20 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-matrix-rank"><header><h1><span class="taxon"></span>矩阵的秩 <a class="slug" href="/math/matrix-rank.html">[matrix-rank]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/matrix-rank.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$
-$\gdef\Mat{\operatorname{Mat}}$
-$\gdef\rank{\operatorname{rank}}$</p>
-<p>以下条件等价:</p>
-<ol>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-matrix-rank"><header><h1><span class="taxon"></span>矩阵的秩 <a class="slug" href="/math/matrix-rank.html">[matrix-rank]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/matrix-rank.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary><p>矩阵 $A$ 的秩是由其列向量生成或张成的向量空间的维度, 对应于 $A$ 的极大线性无关列数, 反过来又与由其行向量生成的向量空间的维度相同. 相应的, 线性映射或算子 $\varphi$ 的秩定义为它的像 $\operatorname{im} \varphi$ 的维度, 即 $r(\varphi) = \dim(\operatorname{im} \varphi)$.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="math-matrix-rank-0001"><header><h1><span class="taxon"></span>等价条件 <a class="slug" href="/math/matrix-rank-0001.html">[matrix-rank-0001]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/matrix-rank-0001.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
 <li>$n$ 阶矩阵 $A$ 可逆.</li>
-<li>$\det A \ne 0$.</li>
-<li>$\rank(A) = n$, 即满秩.</li>
-<li>$A$ 的列 (或行) 向量组线性无关.</li>
+<li>行列式 $\det A \ne 0$.</li>
+<li>$r(A) = n$, 即满秩.</li>
+<li>$A$ 的列向量或行向量组线性无关.</li>
 <li>齐次线性方程组 $Ax = 0$ 只有零解.</li>
 <li>非齐次线性方程组 $Ax = b$ 有唯一解.</li>
 <li>$A$ 的特征值均不为零.</li>
 </ol>
-<p>$\textbf{Remark.}$ 设 $A \in \Mat_{n \times n}(F)$, $Ax = 0$ 有非零解 $\iff \rank(A)  <  n$.</p>
-<p>$\textbf{Example.}$ 讨论矩阵 $A$ 的秩</p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="math-matrix-rank-0002"><header><h1><span class="taxon"></span>矩阵秩的计算 <a class="slug" href="/math/matrix-rank-0002.html">[matrix-rank-0002]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/matrix-rank-0002.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$</p>
+<p>用初等行变换将矩阵化为 <span class="link local"><a href="/math/row-echelon-form.html" title="行梯矩阵 [math/row-echelon-form]">行阶梯形</a></span>. 此时秩等于 <span class="link local"><a href="/math/row-echelon-form.html" title="行梯矩阵 [math/row-echelon-form]">主元</a></span> 的数量, 也是非零行的数量.</p>
+<p>$\textbf{Example.}$ 讨论矩阵 $A$ 的秩.</p>
 <p>$$
 A \spaces= 
 \begin{pmatrix}
@@ -137,12 +152,23 @@ $$</p>
 \end{pmatrix}
 \end{aligned}
 $$</p>
-<p>立刻得到:</p>
+<p>此时可对于 $r(A) \le 4$ 讨论之.</p>
 <ul>
-<li>$\rank A = 4 \implies a \ne 1, b \ne 2$.</li>
-<li>$\rank A = 3 \implies a \ne 1, b = 2$ 或 $a = 1, b \ne 2$.</li>
-<li>$\rank A = 2 \implies a = 1, b = 2$.</li>
+<li>$r(A) = 4 \implies a \ne 1, b \ne 2$.</li>
+<li>$r(A) = 3 \implies a \ne 1, b = 2$ 或 $a = 1, b \ne 2$.</li>
+<li>$r(A) = 2 \implies a = 1, b = 2$.</li>
 </ul>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="math-matrix-rank-0003"><header><h1><span class="taxon"></span>线性方程组解的情况 <a class="slug" href="/math/matrix-rank-0003.html">[matrix-rank-0003]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/matrix-rank-0003.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\Mat{\operatorname{Mat}}$</p>
+<p>设 $A \in \Mat_{m \times n}(F)$, 向量 $b \in F^m$. $x \in F^n$. 线性方程组解的情况完全由 $r(A)$ 和 $r(A,b)$ 决定.</p>
+<ol>
+<li>齐次方程组 $Ax = 0$ 有非零解 $\iff r(A)  <  n$.</li>
+<li>$Ax = b$ 有解 $\iff$ $r(A) = r(A,b)$.</li>
+<li>$Ax = b$ 无解 $\iff$ $r(A)  <  r(A,b)$.</li>
+<li>$Ax = b$ 有唯一解 $\iff$ $r(A) = r(A,b) = n$.</li>
+<li>$Ax = b$ 有无穷多解 $\iff$ $r(A) = r(A,b)  <  n$. 此时存在 $n-r(A)$ 个自由变量.</li>
+</ol>
+</details></section></p>
 </details></section><footer></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/math/matrix-rank-0001.html" title="等价条件 [math/matrix-rank-0001]">■</a><span class="link local" onclick="window.location.href='#math-matrix-rank-0001'"><span class="taxon"></span>等价条件</span></li><li class=""><a class="bullet" href="/math/matrix-rank-0002.html" title="矩阵秩的计算 [math/matrix-rank-0002]">■</a><span class="link local" onclick="window.location.href='#math-matrix-rank-0002'"><span class="taxon"></span>矩阵秩的计算</span></li><li class=""><a class="bullet" href="/math/matrix-rank-0003.html" title="线性方程组解的情况 [math/matrix-rank-0003]">■</a><span class="link local" onclick="window.location.href='#math-matrix-rank-0003'"><span class="taxon"></span>线性方程组解的情况</span></li></ul></div></nav></div></body></html>

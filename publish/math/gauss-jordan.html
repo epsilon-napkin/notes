@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>Gauss–Jordan 消元法</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,29 +96,28 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-gauss-jordan"><header><h1><span class="taxon"></span>Gauss–Jordan 消元法 <a class="slug" href="/math/gauss-jordan.html">[gauss-jordan]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/gauss-jordan.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary><p>大而化之地说, Gauss–Jordan 消元法的思路是在同解的方程组之间过渡, 直至方程组化为一类可直接求解的形式为止. Gauss–Jordan 消元法的思路是用以下三种操作来简化方程组, 或者换句话说, 简化相应的矩阵.</p>
-<ol>
-<li><p>设 $1 \leq i \neq k \leq m$, 而 $c$ 是任意常数. 将第 $i$ 行乘以 $c$ 的结果加到第 $k$ 行, 其他的行保持不变.</p>
-</li>
-<li><p>设 $1 \leq i  <  k \leq m$. 交换第 $i$ 行和第 $k$ 行.</p>
-</li>
-<li><p>设 $1 \leq i \leq m$ 而 $c$ 是非零常数. 将第 $i$ 行的每一项都乘以 $c$.</p>
-</li>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-gauss-jordan"><header><h1><span class="taxon"></span>Gauss–Jordan 消元法 <a class="slug" href="/math/gauss-jordan.html">[gauss-jordan]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/gauss-jordan.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary><blockquote>
+<p>本节完全来自 <span class="link local"><a href="/.html" title=" []">代数学讲义</a></span>, 笔者只做了顺序调整或微不足道的补充.</p>
+</blockquote>
+<p>大而化之地说, Gauss–Jordan 消元法的思路是在同解的方程组之间过渡, 直至方程组化为一类可直接求解的形式为止. Gauss–Jordan 消元法的思路是用以下三种操作来简化方程组, 或者换句话说, 简化相应的矩阵.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="math-gauss-jordan-0001"><header><h1><span class="taxon"></span>初等行变换 <a class="slug" href="/math/gauss-jordan-0001.html">[gauss-jordan-0001]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/gauss-jordan-0001.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+<li>设 $1 \leq i \neq k \leq m$, 而 $c$ 是任意常数. 将第 $i$ 行乘以 $c$ 的结果加到第 $k$ 行, 其他的行保持不变.</li>
+<li>设 $1 \leq i  <  k \leq m$. 交换第 $i$ 行和第 $k$ 行.</li>
+<li>设 $1 \leq i \leq m$ 而 $c$ 是非零常数. 将第 $i$ 行的每一项都乘以 $c$.</li>
 </ol>
-<p>这些操作称为对矩阵的 <strong>初等行变换</strong>. 我们仅容许交换行的顺序, 列的顺序不变, 所以变元 $X_{i}$ 的顺序恒定. 如果
+<p>我们仅容许交换行的顺序, 列的顺序不变, 所以变元 $X_{i}$ 的顺序恒定.</p>
+</details></section></p>
+<p>如果
 $\left( x_{1},\cdots,x_{n} \right)$ 是原矩阵对应的方程组的解,
 则相对于初等行变换之后的矩阵, 它仍是对应的方程组的解.
-注意到上述每一种操作都可以被相应的逆操作撤销, 以回到原来的矩阵. 综上,
-矩阵的初等行变换给出同解的方程组.</p>
-<p>消元法的目标称为 <strong>行梯矩阵</strong>, 它们所对应的线性方程组易于求解.
-回到增广矩阵, 求解下面形式的方程组只需将 $a_{ij}$ 不断向前一行代入.</p>
+注意到上述每一种操作都可以被相应的逆操作撤销, 以回到原来的矩阵. 综上, 矩阵的 <span class="link local"><a href="/math/gauss-jordan-0001.html" title="初等行变换 [math/gauss-jordan-0001]">初等行变换</a></span> 给出同解的方程组.</p>
+<p>消元法的目标称为 <span class="link local"><a href="/math/row-echelon-form.html" title="行梯矩阵 [math/row-echelon-form]">行梯矩阵</a></span>, 它们所对应的线性方程组易于求解. 回到增广矩阵, 求解下面形式的方程组只需将 $a_{ij}$ 不断向前一行代入.</p>
 <p>$$\begin{pmatrix}
 a_{11} & \cdots & a_{1n} & b_{1~} \\
        & \ddots & \vdots & b_{2~} \\
        &        & a_{mn} & b_{m}
 \end{pmatrix}$$</p>
-<p>其中左下空白部分的矩阵元皆为零, $a_\square$ 部分逐行向内严格缩进, 而且要求 $a_{ij}$ 部分每一行的左端都是非零元, 它们称为此行梯矩阵的 <strong>主元</strong>.
-主元们对应的列为 <strong>主列</strong>. 注意到方程组对非主列所对应的变元 $X_{j}$ 没有约束 — 它们是 “自由变元”.</p>
+<p>其中左下空白部分的矩阵元皆为零, $a_\square$ 部分逐行向内严格缩进, 而且要求 $a_{ij}$ 部分每一行的左端都是非零元, 它们称为此 <span class="link local"><a href="/math/row-echelon-form.html" title="行梯矩阵 [math/row-echelon-form]">行梯矩阵</a></span> 的 <strong>主元</strong>. 主元们对应的列为 <strong>主列</strong>. 注意到方程组对非主列所对应的变元 $X_{j}$ 没有约束 — 它们是 “自由变元”.</p>
 <p>更加严格却不尽直观的定义如下:</p>
 <ul>
 <li><p>存在整数 $0 \leq r \leq m$ 使得第 $i$ 行全为 $0$ 当且仅当 $i > r$ (因此行梯矩阵中不全为 $0$ 的行恰好是前 $r$ 行);</p>
@@ -110,14 +125,7 @@ a_{11} & \cdots & a_{1n} & b_{1~} \\
 <li><p>对于每个 $1 \leq k \leq r$ (非零行的编号), 取 $$j_{k} ≔ \min\left\{ j:a_{kj} \neq 0 \right\}$$ 则 $j_{1}  <  j_{2}  <  \cdots  <  j_{r}$. 先前提及的主元正是 $a_{1,j_{1}},\cdots,a_{r,j_{r}}$.</p>
 </li>
 </ul>
-<p>在关于行梯矩阵的定义中, 倘若进一步对所有主元全为 $1$ 且落在主元以上的项全为 $0$, 则称此矩阵为 <strong>简化行梯矩阵</strong>. 虽然矩阵可能具有多个行梯形式, 但其简化行梯形式是唯一的.</p>
-<p>简化行梯矩阵的左侧部分并不总是单位矩阵, 以下仅举一例. $$\begin{pmatrix}
-1 & 0 & a_{1} & 0 & b_{1} \\
-0 & 1 & a_{2} & 0 & b_{2} \\
-0 & 0 & 0 & 1 & b_{3}
-\end{pmatrix}$$ 此时方程组的解为
-$x = \left( b_{1} - a_{1}x_{3},b_{2} - a_{2}x_{3},x_{3},b_{3} \right)$,
-$x_{3}$ 正是自由变元.</p>
-</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>矩阵求逆 <a class="slug" href="/math/matrix-inverse.html">[matrix-inverse]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/matrix-inverse.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></section></details></section></footer></article>
+<p>在关于 <span class="link local"><a href="/math/row-echelon-form.html" title="行梯矩阵 [math/row-echelon-form]">行梯矩阵</a></span> 的定义中, 倘若进一步对所有主元全为 $1$ 且落在主元以上的项全为 $0$, 则称此矩阵为 <span class="link local"><a href="/math/reduced-row-echelon-form.html" title="行最简形 [math/reduced-row-echelon-form]">简化行梯矩阵</a></span>. 虽然矩阵可能具有多个 <span class="link local"><a href="/math/row-echelon-form.html" title="行梯矩阵 [math/row-echelon-form]">行梯形式</a></span>, 但其 <span class="link local"><a href="/math/reduced-row-echelon-form.html" title="行最简形 [math/reduced-row-echelon-form]">简化行梯形式</a></span> 是唯一的.</p>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>行列式 <a class="slug" href="/math/determinant.html">[determinant]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/determinant.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></section><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>矩阵求逆 <a class="slug" href="/math/matrix-inverse.html">[matrix-inverse]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/matrix-inverse.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></section></details></section></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/math/gauss-jordan-0001.html" title="初等行变换 [math/gauss-jordan-0001]">■</a><span class="link local" onclick="window.location.href='#math-gauss-jordan-0001'"><span class="taxon"></span>初等行变换</span></li></ul></div></nav></div></body></html>

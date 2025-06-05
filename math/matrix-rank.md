@@ -4,69 +4,10 @@ title: 矩阵的秩
 tag: [](/math/index.md)
 ---
 
-$\gdef\spaces#1{~ #1 ~}$
-$\gdef\Mat{\operatorname{Mat}}$
-$\gdef\rank{\operatorname{rank}}$
+矩阵 $A$ 的秩是由其列向量生成或张成的向量空间的维度, 对应于 $A$ 的极大线性无关列数, 反过来又与由其行向量生成的向量空间的维度相同. 相应的, 线性映射或算子 $\varphi$ 的秩定义为它的像 $\operatorname{im} \varphi$ 的维度, 即 $r(\varphi) = \dim(\operatorname{im} \varphi)$. 
 
-以下条件等价: 
-1. $n$ 阶矩阵 $A$ 可逆. 
-1. $\det A \ne 0$. 
-1. $\rank(A) = n$, 即满秩. 
-1. $A$ 的列 (或行) 向量组线性无关. 
-1. 齐次线性方程组 $Ax = 0$ 只有零解.
-1. 非齐次线性方程组 $Ax = b$ 有唯一解.
-1. $A$ 的特征值均不为零. 
+[等价条件](/math/matrix-rank-0001.md#:embed)
 
-$\textbf{Remark.}$ 设 $A \in \Mat_{n \times n}(F)$, $Ax = 0$ 有非零解 $\iff \rank(A) < n$. 
+[矩阵秩的计算](/math/matrix-rank-0002.md#:embed)
 
-$\textbf{Example.}$ 讨论矩阵 $A$ 的秩
-
-$$
-A \spaces= 
-\begin{pmatrix}
-1 & 1 & 1 & 1 \\
-0 & -1 & 1 & b \\
-2 & a & 3 & 4 \\
-3 & 1 & 5 & 7
-\end{pmatrix}
-$$
-
-注意 $(r_1)_i = 1$, $(r_2)_1 = 0$, 故借其消去 $r_4$. 再用 $r_1, r_2$ 消去 $r_3$, 得到
-
-$$
-\begin{aligned}
-\begin{pmatrix}
-1 & 1 & 1 & 1 \\
-0 & -1 & 1 & b \\
-2 & a & 3 & 4 \\
-0 & -2 & 2 & 4
-\end{pmatrix}
-&\spaces\to 
-\begin{pmatrix}
-1 & 1 & 1 & 1 \\
-0 & -1 & 1 & b \\
-2 & a & 3 & 4 \\
-0 & 0 & 0 & 4-2b
-\end{pmatrix}
-\\
-&\spaces\to 
-\begin{pmatrix}
-1 & 1 & 1 & 1 \\
-0 & -1 & 1 & b \\
-0 & a-2 & 1 & 2 \\
-0 & 0 & 0 & 4-2b
-\end{pmatrix}
-\spaces\to 
-\begin{pmatrix}
-1 & 1 & 1 & 1 \\
-0 & -1 & 1 & b \\
-0 & 0 & a-1 & 2+b(a-2) \\
-0 & 0 & 0 & 4-2b
-\end{pmatrix}
-\end{aligned}
-$$
-
-立刻得到: 
-- $\rank A = 4 \implies a \ne 1, b \ne 2$.
-- $\rank A = 3 \implies a \ne 1, b = 2$ 或 $a = 1, b \ne 2$.
-- $\rank A = 2 \implies a = 1, b = 2$.
+[线性方程组解的情况](/math/matrix-rank-0003.md#:embed)

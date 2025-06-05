@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width"><title>IP 转发分组流程.</title><link rel="stylesheet" href="/main.css">
+<meta name="viewport" content="width=device-width"><title>IP 转发分组流程</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +96,7 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/ip-datagram.html'" title="IP 数据报的格式">« IP 数据报的格式</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-ip-forward-group"><header><h1><span class="taxon"></span>IP 转发分组流程. <a class="slug" href="/408/network/ip-forward-group.html">[ip-forward-group]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-forward-group.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/ip-datagram.html'" title="IP 数据报的格式">« IP 数据报的格式</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-ip-forward-group"><header><h1><span class="taxon"></span>IP 转发分组流程 <a class="slug" href="/408/network/ip-forward-group.html">[ip-forward-group]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-forward-group.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
 <li>从数据报的首部提取目的主机的 IP 地址 D, 得出目的网络地址 N.</li>
 <li>若网络 N 与此路由器直接相连, 则把数据报直接交付给目的主机 D; 否则是间接交付, 执行步骤 3.</li>
 <li>若路由表中有目的地址为 D 的特定主机路由, 则把数据报传送给路由表中所指明的下一跳路由器; 否则, 执行步骤 4.</li>

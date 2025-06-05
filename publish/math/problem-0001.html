@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>心形线面积</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,7 +99,7 @@ nav {
 </script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon="Problem"><details open><summary id="math-problem-0001"><header><h1><span class="taxon">Problem. </span>心形线面积 <a class="slug" href="/math/problem-0001.html">[problem-0001]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/problem-0001.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$
 $\gdef\d{\operatorname{d}}$</p>
 <p>求由心形线 $r = a(1+\cos \theta)$, $a>0$ 所围区域的面积</p>
-<p style="text-align: center;"><img src="../assets/problem-0001-1.svg" style="border-radius: 0.5em; width: 400px;"></p>
+<p style="text-align: center;"><img src="../assets/心形线.svg" style="border-radius: 0.5em; width: 400px;"></p>
 <p>如图, 我们先计算 $y>0$ 的部分, 由 <span class="link local"><a href="/math/curved-edge-fan-area.html" title="曲边扇形面积 [math/curved-edge-fan-area]">曲边扇形面积</a></span> 可知其面积 $S$ 为</p>
 <p>$$
 \begin{aligned}

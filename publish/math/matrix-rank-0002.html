@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>矩阵秩的计算</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  section .block[data-taxon]>header>h1,
+  section .block[data-taxon] details>summary>header>h1 {
+    font-size: 13pt;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/math/matrix-rank.html'" title="矩阵的秩">« 矩阵的秩</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-matrix-rank-0002"><header><h1><span class="taxon"></span>矩阵秩的计算 <a class="slug" href="/math/matrix-rank-0002.html">[matrix-rank-0002]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/matrix-rank-0002.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$</p>
+<p>用初等行变换将矩阵化为 <span class="link local"><a href="/math/row-echelon-form.html" title="行梯矩阵 [math/row-echelon-form]">行阶梯形</a></span>. 此时秩等于 <span class="link local"><a href="/math/row-echelon-form.html" title="行梯矩阵 [math/row-echelon-form]">主元</a></span> 的数量, 也是非零行的数量.</p>
+<p>$\textbf{Example.}$ 讨论矩阵 $A$ 的秩.</p>
+<p>$$
+A \spaces= 
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+0 & -1 & 1 & b \\
+2 & a & 3 & 4 \\
+3 & 1 & 5 & 7
+\end{pmatrix}
+$$</p>
+<p>注意 $(r_1)_i = 1$, $(r_2)_1 = 0$, 故借其消去 $r_4$. 再用 $r_1, r_2$ 消去 $r_3$, 得到</p>
+<p>$$
+\begin{aligned}
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+0 & -1 & 1 & b \\
+2 & a & 3 & 4 \\
+0 & -2 & 2 & 4
+\end{pmatrix}
+&\spaces\to 
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+0 & -1 & 1 & b \\
+2 & a & 3 & 4 \\
+0 & 0 & 0 & 4-2b
+\end{pmatrix}
+\\
+&\spaces\to 
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+0 & -1 & 1 & b \\
+0 & a-2 & 1 & 2 \\
+0 & 0 & 0 & 4-2b
+\end{pmatrix}
+\spaces\to 
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+0 & -1 & 1 & b \\
+0 & 0 & a-1 & 2+b(a-2) \\
+0 & 0 & 0 & 4-2b
+\end{pmatrix}
+\end{aligned}
+$$</p>
+<p>此时可对于 $r(A) \le 4$ 讨论之.</p>
+<ul>
+<li>$r(A) = 4 \implies a \ne 1, b \ne 2$.</li>
+<li>$r(A) = 3 \implies a \ne 1, b = 2$ 或 $a = 1, b \ne 2$.</li>
+<li>$r(A) = 2 \implies a = 1, b = 2$.</li>
+</ul>
+</details></section><footer></footer></article>
+
+</div></body></html>

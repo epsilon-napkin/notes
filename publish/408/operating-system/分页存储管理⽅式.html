@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>分页存储管理⽅式</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,7 +116,9 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 \hint{页号} ~ P = \bigg\lfloor \frac{\hint{逻辑地址} ~ A}{\hint{页⾯⼤⼩} ~ L} \bigg\rfloor, \quad
 \hint{页内地址} ~ d = \hint{逻辑地址} ~ A \mod \hint{页⾯⼤⼩} ~ L
 $$</p>
-<p>$\textbf{Example. (\str{地址变换})}$ 逻辑地址为 2500, 每页大小为 1KB, 页表如下. 求物理地址.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-分页系统地址变换"><header><h1><span class="taxon"></span>分页系统地址变换 <a class="slug" href="/408/operating-system/分页系统地址变换.html">[分页系统地址变换]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/分页系统地址变换.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
+<p>$\textbf{Example.}$ 逻辑地址为 2500, 每页大小为 1KB, 页表如下. 求物理地址.</p>
 <div style="display: flex; width: 100%;">
   <div style="flex: 1; padding: 0 10px;">
 <table><thead><tr><th>页号</th><th>块号</th></tr></thead><tbody>
@@ -117,6 +135,7 @@ $$</p>
 <div style="text-align: center; ">
 <p><img src="/assets/分页系统的地址变换机构.png" title="" alt=""></p>
 </div>
+</details></section></p>
 <p>$\textbf{Remark.}$ 为了提⾼地址变换速度, 可在地址变换机构中增设⼀个具有并⾏查寻能⼒的特⾼速缓冲寄存器, 又称为 “联想寄存器” [Associative Memory], 或称为 <em>“快表”</em>.</p>
 <div style="text-align: center; ">
 <p><img src="/assets/具有快表的地址变换机构.png" title="" alt=""></p>
@@ -128,6 +147,6 @@ $$</p>
 <li>不方便动态增长</li>
 <li>不方便动态链接</li>
 </ul>
-</details></section><footer></footer></article>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>虚拟存储器 <a class="slug" href="/408/operating-system/虚拟存储器.html">[虚拟存储器]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/虚拟存储器.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/分页系统地址变换.html" title="分页系统地址变换 [408/operating-system/分页系统地址变换]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分页系统地址变换'"><span class="taxon"></span>分页系统地址变换</span></li></ul></div></nav></div></body></html>

@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>广播</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,7 +98,7 @@ nav {
   });
 </script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/data-link-layer.html'" title="数据链路层">« 数据链路层</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-broadcast"><header><h1><span class="taxon"></span>广播 <a class="slug" href="/408/network/broadcast.html">[broadcast]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/broadcast.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$</p>
 <p>这种信道使用一对多的广播通信方式, 因此过程比较复杂. 广播信道上连接的主机很多, 因此必须使用专用的共享信道协议来协调这些主机的数据发送.</p>
-<p>CSMA / CD 的意思是 载波监听多点接⼊ / 碰撞检测 [Carrier Sense Multiple Access with Collision Detection], 其中:</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-csma-cd"><header><h1><span class="taxon"></span>载波监听多点接⼊ / 碰撞检测 <a class="slug" href="/408/network/csma-cd.html">[csma-cd]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/csma-cd.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>CSMA / CD 的意思是 “载波监听多点接⼊ / 碰撞检测” [Carrier Sense Multiple Access with Collision Detection], 其中:</p>
 <ul>
 <li>“多点接入” 表示许多计算机以多点接入的方式连接在一根总线上.</li>
 <li>“载波监听” 是指每一个站在发送数据之前先要检测一下总线上是否有其他计算机在发送数据, 如果有, 则暂时不要发送数据, 以免发生碰撞.</li>
@@ -90,6 +106,7 @@ nav {
 </ul>
 <p>$\textbf{Remark.}$ 总线上并没有什么 “载波”. 因此, “载波监听” 就是用电子技术检测总线上有没有其他计算机发送的数据信号.</p>
 <p>$\textbf{Remark.}$ 当两个或⼏个站同时在总线上发送数据时, 总线上的信号电压变化幅度将会增⼤ (互相叠加). 当适配器检测到的信号电压变化幅度超过⼀定的门限值时, 就认为总线上⾄少有两个站同时在发送数据, 表明产⽣了碰撞. 所谓 “碰撞” 就是发⽣了冲突. 因此 “碰撞检测” 也称为 “冲突检测”.</p>
+</details></section></p>
 <p>以太⽹使⽤截断⼆进制指数退避 [truncated binary exponential backoff] 算法来确定碰撞后重传的时机. 截断⼆进制指数退避算法并不复杂. 这种算法让发⽣碰撞的站在停⽌发送数据后, 不是等待信道变为空闲后就⽴即再发送数据, ⽽是退避⼀个随机的时间 $r 2^\tau$. 其中</p>
 <ul>
 <li>$r \in \operatorname{random}([0, 1, \cdots, 2^k-1])$.</li>
@@ -98,4 +115,4 @@ nav {
 <p>$\textbf{Remark.}$ 以太⽹规定了⼀个最短帧长 64 字节, 即 512 ⽐特.</p>
 </details></section><footer></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/csma-cd.html" title="CSMA / CD [408/network/csma-cd]">■</a><span class="link local" onclick="window.location.href='#408-network-csma-cd'"><span class="taxon"></span>载波监听多点接⼊ / 碰撞检测</span></li></ul></div></nav></div></body></html>

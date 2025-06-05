@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>协议与划分层次</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  section .block[data-taxon]>header>h1,
+  section .block[data-taxon] details>summary>header>h1 {
+    font-size: 13pt;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/overview.html'" title="概述">« 概述</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-protocol"><header><h1><span class="taxon"></span>协议与划分层次 <a class="slug" href="/408/network/protocol.html">[protocol]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/protocol.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>计算机网络中的数据交换必须遵守事先约定好的规则.
+这些规则明确规定了所交换的数据的格式以及有关的同步问题 (同步含有时序的意思). 网络协议 (Network Protocol), 简称为协议, 是为进行网络中的数据交换而建立的规则、标准或约定.</p>
+<blockquote>
+<p>协议是水平的, 服务是垂直的.</p>
+</blockquote>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-layered-network-model"><header><h1><span class="taxon"></span>三种体系结构 <a class="slug" href="/408/network/layered-network-model.html">[layered-network-model]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/layered-network-model.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{\footnotesize{#1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
+<table><thead><tr><th>OSI 的体系结构</th><th>(四层) TCP/IP 的体系结构</th><th>五层协议的体系结构</th></tr></thead><tbody>
+<tr><td>7	应用层</td><td>应用层 (应用层协议如	DNS, HTTP, SMTP, RTP 等)</td><td>5 应用层</td></tr>
+<tr><td>6 表示层</td><td></td><td></td></tr>
+<tr><td>5 会话层</td><td></td><td></td></tr>
+<tr><td>4 运输层</td><td>运输层 (TCP 或UDP)</td><td>4 运输层</td></tr>
+<tr><td>3 网络层</td><td>网际层 IP</td><td>3 网络层</td></tr>
+<tr><td>2 数据链路层</td><td>网络接口层 (这一层并没有具体内容)</td><td>2 数据链路层</td></tr>
+<tr><td>1 物理层</td><td>$\hint{网络接口层}$</td><td>1 物理层</td></tr>
+</tbody></table>
+</details></section></p>
+</details></section><footer></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/layered-network-model.html" title="三种体系结构 [408/network/layered-network-model]">■</a><span class="link local" onclick="window.location.href='#408-network-layered-network-model'"><span class="taxon"></span>三种体系结构</span></li></ul></div></nav></div></body></html>

@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>运输层</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,6 +96,56 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/index.html'" title="计算机网络">« 计算机网络</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-transport-layer"><header><h1><span class="taxon"></span>运输层 <a class="slug" href="/408/network/transport-layer.html">[transport-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/transport-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary></details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>数据链路层 <a class="slug" href="/408/network/data-link-layer.html">[data-link-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/data-link-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>网络层 <a class="slug" href="/408/network/network-layer.html">[network-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/network-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/index.html'" title="计算机网络">« 计算机网络</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-transport-layer"><header><h1><span class="taxon"></span>运输层 <a class="slug" href="/408/network/transport-layer.html">[transport-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/transport-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(201, 152, 244);
+  font-style: normal;
+}
+</style>
+<p>从通信和信息处理的⾓度看, <em>运输层向它上⾯的 <span class="link local"><a href="/408/network/application-layer.html" title="应用层 [408/network/application-layer]">应⽤层</a></span> 提供通信服务</em>, 它属于⾯向通信部分的最⾼层, 同时也是⽤户功能中的最低层. 当⽹络边缘部分的两台主机使⽤⽹络核⼼部分的功能进⾏端到端的通信时, 都要使⽤协议栈中的运输层,⽽⽹络核⼼部分中的路由器在 <em>转发分组时只⽤到下三层的功能</em>.</p>
+<p>运输层的重要功能:</p>
+<ul>
+<li>复⽤ [multiplexing], 是指在发送⽅不同的应⽤进程都可以使 ⽤同⼀个运输层协议传送数据 (当然需要加上适当的⾸部).</li>
+<li>分⽤ [demultiplexing]. 是指接收⽅的运输层在剥去报⽂的⾸部后能够把这些数据正确交付⽬的应⽤进程.</li>
+</ul>
+<p>从这⾥可以看出 <span class="link local"><a href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">⽹络层</a></span> 和运输层有明显的区别. <em><span class="link local"><a href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">⽹络层</a></span> 为主机之间的通信提供服务, ⽽运输层则在⽹络层的基础上, 为应⽤进程之间的通信提供服务.</em> 然⽽正如后⾯还要讨论的, 运输层还具有 <span class="link local"><a href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">⽹络层</a></span> ⽆法代替的许多其他重要功能.</p>
+<p>运输层还要对收到的报⽂进⾏差错检测. 在 <span class="link local"><a href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">⽹络层</a></span>, IP 数据报⾸部中的检验和字段只检验⾸部是否出现差错⽽不检查数据部分.</p>
+<p>根据应⽤程序的不同需求, 运输层需要有两种不同的运输协议, 即⾯向连接的 <span class="link local"><a href="/408/network/tcp.html" title="传输控制协议 TCP [408/network/tcp]">TCP</a></span> 和⽆连接的 <span class="link local"><a href="/408/network/udp.html" title="⽤户数据报协议 UDP [408/network/udp]">UDP</a></span>.</p>
+<ul>
+<li><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-udp"><header><h1><span class="taxon"></span>⽤户数据报协议 UDP <a class="slug" href="/408/network/udp.html">[udp]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/udp.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>⽤户数据报协议 UDP 只在 IP 的 <span class="link local"><a href="/408/network/ip-datagram.html" title="IP 数据报的格式 [408/network/ip-datagram]">数据报</a></span> 服务之上增加了很少⼀点的功能, 这就是 <span class="link local"><a href="/408/network/transport-layer.html" title="运输层 [408/network/transport-layer]">复⽤和分⽤</a></span> 的功能以及差错检测的功能. 当运输层采⽤⽆连接的 UDP 协议时, 这种逻辑通信信道仍然是⼀条不可靠信道.</p>
+<ol>
+<li>UDP 是无连接的, 发送数据之前不需要建立连接, 因此减少了开销和发送数据之前的时延.</li>
+<li>UDP 使用尽最大努力交付, 即不保证可靠交付, 因此主机不需要维持复杂的连接状态表.</li>
+<li>UDP 是面向报文的. UDP 对应用层交下来的报文, 既不合并, 也不拆分, 而是保留这些报文的边界. UDP 一次交付一个完整的报文.</li>
+<li>UDP 没有拥塞控制, 因此网络出现的拥塞不会使源主机的发送速率降低. 这对某些实时应用是很重要的. 很适合多媒体通信的要求.</li>
+<li>UDP 支持一对一、 一对多、 多对一和多对多的交互通信.</li>
+<li>UDP 的首部开销小, 只有 8 个字节, 比 <span class="link local"><a href="/408/network/tcp.html" title="传输控制协议 TCP [408/network/tcp]">TCP</a></span> 的 20 个字节的首部要短.</li>
+</ol>
+</details></section></li>
+<li><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-tcp"><header><h1><span class="taxon"></span>传输控制协议 TCP <a class="slug" href="/408/network/tcp.html">[tcp]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/tcp.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>当运输层采⽤⾯向连接的 TCP 协议时, 尽管下⾯的⽹络是不可靠的 (只提供尽最⼤努⼒服务), 但这种逻辑通信信道就相当于⼀条全双⼯的可靠信道. 以下列出 TCP 最主要的特点:</p>
+<ol>
+<li>TCP 是⾯向连接的运输层协议.</li>
+<li>每⼀条 TCP 连接只能有两个端点 (endpoint), 每⼀条 TCP 连接只能是点对点的 (⼀对⼀).</li>
+<li>TCP 提供可靠交付的服务. 通过 TCP 连接传送的数据,⽆差错、 不丢失、 不重复,并且按序到达.</li>
+<li>TCP 提供全双⼯通信. TCP 允许通信双⽅的应⽤进程在任何时候都能发送数据. TCP 连接的两端都设有发送缓存和接收缓存, ⽤来临时存放双向通信的数据. 在发送时,应⽤程序在把数据传送给 TCP 的缓存后, 就可以做⾃⼰的事, ⽽TCP 在合适的时候把数据发送出去. 在接收时, TCP 把收到的数据放⼊缓存, 上层的应⽤进程在合适的时候读取缓存中的数据.</li>
+<li>⾯向字节流. TCP 中的 “流” (stream) 指的是流⼊到进程或从进程流出的字节序列. “⾯向字节流” 的含义是: 虽然应⽤程序和 TCP 的交互是⼀次⼀个数据块 (⼤⼩不等), 但TCP 把应⽤程序交下来的数据仅仅看成是⼀连串的⽆结构的字节流. TCP 并不知道所传送的字节流的含义.</li>
+</ol>
+<p>套接字 <code>socket = (IP 地址: 端口号)</code>. 每一条 TCP 连接唯⼀地被通信两端的两个端点, 即套接字对 socket pair 所确定.</p>
+<pre><code>TCP 连接 := { socket1, socket2 } 
+         = { (IP1, port1), (IP2, port2) } 
+</code></pre>
+</details></section></li>
+</ul>
+<!-- 
+### 信道利⽤率 $U$
 
-</div></body></html>
+$$
+U = \frac{T_D}{T_D + \text{RTT} + T_A}
+$$ 
+-->
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>数据链路层 <a class="slug" href="/408/network/data-link-layer.html">[data-link-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/data-link-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>网络层 <a class="slug" href="/408/network/network-layer.html">[network-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/network-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>⽤户数据报协议 UDP <a class="slug" href="/408/network/udp.html">[udp]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/udp.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/udp.html" title="⽤户数据报协议 UDP [408/network/udp]">■</a><span class="link local" onclick="window.location.href='#408-network-udp'"><span class="taxon"></span>⽤户数据报协议 UDP</span></li><li class=""><a class="bullet" href="/408/network/tcp.html" title="传输控制协议 TCP [408/network/tcp]">■</a><span class="link local" onclick="window.location.href='#408-network-tcp'"><span class="taxon"></span>传输控制协议 TCP</span></li></ul></div></nav></div></body></html>

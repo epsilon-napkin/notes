@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>网络层</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -146,7 +162,7 @@ em {
 </ul>
 </details></section></li>
 </ul>
-<table><thead><tr><th>对⽐方面</th><th>虚电路服务</th><th>数据报服务</th></tr></thead><tbody>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-virtual-circuit-vs-datagram"><header><h1><span class="taxon"></span>虚电路和数据报服务的对比 <a class="slug" href="/408/network/virtual-circuit-vs-datagram.html">[virtual-circuit-vs-datagram]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/virtual-circuit-vs-datagram.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><table><thead><tr><th>对⽐方面</th><th>虚电路服务</th><th>数据报服务</th></tr></thead><tbody>
 <tr><td>思路</td><td>可靠通信应当由⽹络来保证</td><td>可靠通信应当由⽤户主机来保证</td></tr>
 <tr><td>连接的建⽴</td><td>必须有</td><td>不需要</td></tr>
 <tr><td>终点地址</td><td>仅在连接建⽴阶段使⽤, 每个分组使⽤短的虚电路号</td><td>每个分组都有终点的完整地址, 即 IP 地址</td></tr>
@@ -155,8 +171,9 @@ em {
 <tr><td>分组的顺序</td><td>总是按发送顺序到达终点</td><td>到达终点的顺序不⼀定按发送的顺序</td></tr>
 <tr><td>端到端的差错处理和流量控制</td><td>可以由⽹络负责, 也可以由⽤户主机负责</td><td>由⽤户主机负责</td></tr>
 </tbody></table>
+</details></section></p>
 <br>
-<p>互联网协议套件 [Internet Protocol Suite, IPS] 是一种网络通信模型, 以及用于网络传输的协议集合, 为网际网络的基础通信架构. 被应用于各种网络通信中. 它常通称为 TCP/IP 协议族, 简称TCP/IP 因为该协议家族的两个核心协议: <span class="link local"><a href="/408/network/tcp.html" title="TCP [408/network/tcp]">传输控制协议 TCP</a></span> 和 <span class="link local"><a href="/408/network/ip.html" title="网际协议 IP [408/network/ip]">网际协议 IP</a></span> 为该家族中最早通过的标准.</p>
+<p>互联网协议套件 [Internet Protocol Suite, IPS] 是一种网络通信模型, 以及用于网络传输的协议集合, 为网际网络的基础通信架构. 被应用于各种网络通信中. 它常通称为 TCP/IP 协议族, 简称TCP/IP 因为该协议家族的两个核心协议: <span class="link local"><a href="/408/network/tcp.html" title="传输控制协议 TCP [408/network/tcp]">传输控制协议 TCP</a></span> 和 <span class="link local"><a href="/408/network/ip.html" title="网际协议 IP [408/network/ip]">网际协议 IP</a></span> 为该家族中最早通过的标准.</p>
 <p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-ip"><header><h1><span class="taxon"></span>网际协议 IP <a class="slug" href="/408/network/ip.html">[ip]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
 img {
   border-radius: 0.2em; 
@@ -302,7 +319,7 @@ img {
 </tbody></table>
 <p>$(4800 - 20) \mod (1420 - 20) + 20 = 600$. $\frac{1420 - 20}{8} = 175$.</p>
 </details></section></p>
-<p><section class="block hide-metadata" data-taxon=""><details ><summary id="408-network-ip-forward-group"><header><h1><span class="taxon"></span>IP 转发分组流程. <a class="slug" href="/408/network/ip-forward-group.html">[ip-forward-group]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-forward-group.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+<p><section class="block hide-metadata" data-taxon=""><details ><summary id="408-network-ip-forward-group"><header><h1><span class="taxon"></span>IP 转发分组流程 <a class="slug" href="/408/network/ip-forward-group.html">[ip-forward-group]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-forward-group.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
 <li>从数据报的首部提取目的主机的 IP 地址 D, 得出目的网络地址 N.</li>
 <li>若网络 N 与此路由器直接相连, 则把数据报直接交付给目的主机 D; 否则是间接交付, 执行步骤 3.</li>
 <li>若路由表中有目的地址为 D 的特定主机路由, 则把数据报传送给路由表中所指明的下一跳路由器; 否则, 执行步骤 4.</li>
@@ -332,6 +349,6 @@ img {
 </details></section></p>
 </details></section></p>
 </details></section></p>
-</details></section><footer></footer></article>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>运输层 <a class="slug" href="/408/network/transport-layer.html">[transport-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/transport-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class="item-summary"><a class="bullet" href="/408/network/virtual-circuit.html" title="虚电路 [408/network/virtual-circuit]">■</a><span class="link local" onclick="window.location.href='#408-network-virtual-circuit'"><span class="taxon"></span>虚电路</span></li><li class="item-summary"><a class="bullet" href="/408/network/datagram.html" title="数据报 [408/network/datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-datagram'"><span class="taxon"></span>数据报</span></li><li class=""><a class="bullet" href="/408/network/ip.html" title="网际协议 IP [408/network/ip]">■</a><span class="link local" onclick="window.location.href='#408-network-ip'"><span class="taxon"></span>网际协议 IP</span><ul class="block"><li class=""><a class="bullet" href="/408/network/dotted-decimal-notation.html" title="点分⼗进制记法 [408/network/dotted-decimal-notation]">■</a><span class="link local" onclick="window.location.href='#408-network-dotted-decimal-notation'"><span class="taxon"></span>IP 地址的表示</span></li><li class=""><a class="bullet" href="/408/network/ip-category.html" title="分类 IP 地址 [408/network/ip-category]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-category'"><span class="taxon"></span>分类 IP 地址</span></li><li class=""><a class="bullet" href="/408/network/cidr.html" title="⽆分类域间路由选择 CIDR [408/network/cidr]">■</a><span class="link local" onclick="window.location.href='#408-network-cidr'"><span class="taxon"></span>⽆分类编址⽅法 CIDR</span><ul class="block"><li class=""><a class="bullet" href="/408/network/subnet-mask.html" title="子网掩码 [408/network/subnet-mask]">■</a><span class="link local" onclick="window.location.href='#408-network-subnet-mask'"><span class="taxon"></span>子网掩码</span></li><li class=""><a class="bullet" href="/408/network/address-count.html" title="可用地址总数 [408/network/address-count]">■</a><span class="link local" onclick="window.location.href='#408-network-address-count'"><span class="taxon"></span>可用地址总数</span></li></ul></li><li class=""><a class="bullet" href="/408/network/ip-datagram.html" title="IP 数据报的格式 [408/network/ip-datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-datagram'"><span class="taxon"></span>IP 数据报的格式</span><ul class="block"><li class=""><a class="bullet" href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">■</a><span class="link local" onclick="window.location.href='#408-network-sharding-offset'"><span class="taxon"></span>分片与片偏移大小的计算</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-forward-group.html" title="IP 转发分组流程. [408/network/ip-forward-group]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-forward-group'"><span class="taxon"></span>IP 转发分组流程.</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-convert-mac'"><span class="taxon"></span>IP 转换 MAC</span></li></ul></li></ul></li></ul></div></nav></div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class="item-summary"><a class="bullet" href="/408/network/virtual-circuit.html" title="虚电路 [408/network/virtual-circuit]">■</a><span class="link local" onclick="window.location.href='#408-network-virtual-circuit'"><span class="taxon"></span>虚电路</span></li><li class="item-summary"><a class="bullet" href="/408/network/datagram.html" title="数据报 [408/network/datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-datagram'"><span class="taxon"></span>数据报</span></li><li class=""><a class="bullet" href="/408/network/virtual-circuit-vs-datagram.html" title="虚电路和数据报服务的对比 [408/network/virtual-circuit-vs-datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-virtual-circuit-vs-datagram'"><span class="taxon"></span>虚电路和数据报服务的对比</span></li><li class=""><a class="bullet" href="/408/network/ip.html" title="网际协议 IP [408/network/ip]">■</a><span class="link local" onclick="window.location.href='#408-network-ip'"><span class="taxon"></span>网际协议 IP</span><ul class="block"><li class=""><a class="bullet" href="/408/network/dotted-decimal-notation.html" title="点分⼗进制记法 [408/network/dotted-decimal-notation]">■</a><span class="link local" onclick="window.location.href='#408-network-dotted-decimal-notation'"><span class="taxon"></span>IP 地址的表示</span></li><li class=""><a class="bullet" href="/408/network/ip-category.html" title="分类 IP 地址 [408/network/ip-category]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-category'"><span class="taxon"></span>分类 IP 地址</span></li><li class=""><a class="bullet" href="/408/network/cidr.html" title="⽆分类域间路由选择 CIDR [408/network/cidr]">■</a><span class="link local" onclick="window.location.href='#408-network-cidr'"><span class="taxon"></span>⽆分类编址⽅法 CIDR</span><ul class="block"><li class=""><a class="bullet" href="/408/network/subnet-mask.html" title="子网掩码 [408/network/subnet-mask]">■</a><span class="link local" onclick="window.location.href='#408-network-subnet-mask'"><span class="taxon"></span>子网掩码</span></li><li class=""><a class="bullet" href="/408/network/address-count.html" title="可用地址总数 [408/network/address-count]">■</a><span class="link local" onclick="window.location.href='#408-network-address-count'"><span class="taxon"></span>可用地址总数</span></li></ul></li><li class=""><a class="bullet" href="/408/network/ip-datagram.html" title="IP 数据报的格式 [408/network/ip-datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-datagram'"><span class="taxon"></span>IP 数据报的格式</span><ul class="block"><li class=""><a class="bullet" href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">■</a><span class="link local" onclick="window.location.href='#408-network-sharding-offset'"><span class="taxon"></span>分片与片偏移大小的计算</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-forward-group.html" title="IP 转发分组流程 [408/network/ip-forward-group]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-forward-group'"><span class="taxon"></span>IP 转发分组流程</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-convert-mac'"><span class="taxon"></span>IP 转换 MAC</span></li></ul></li></ul></li></ul></div></nav></div></body></html>

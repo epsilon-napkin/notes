@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>操作系统 Lesson 13 - 离散分配</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,7 +116,9 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 \hint{页号} ~ P = \bigg\lfloor \frac{\hint{逻辑地址} ~ A}{\hint{页⾯⼤⼩} ~ L} \bigg\rfloor, \quad
 \hint{页内地址} ~ d = \hint{逻辑地址} ~ A \mod \hint{页⾯⼤⼩} ~ L
 $$</p>
-<p>$\textbf{Example. (\str{地址变换})}$ 逻辑地址为 2500, 每页大小为 1KB, 页表如下. 求物理地址.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-分页系统地址变换"><header><h1><span class="taxon"></span>分页系统地址变换 <a class="slug" href="/408/operating-system/分页系统地址变换.html">[分页系统地址变换]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/分页系统地址变换.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
+<p>$\textbf{Example.}$ 逻辑地址为 2500, 每页大小为 1KB, 页表如下. 求物理地址.</p>
 <div style="display: flex; width: 100%;">
   <div style="flex: 1; padding: 0 10px;">
 <table><thead><tr><th>页号</th><th>块号</th></tr></thead><tbody>
@@ -117,6 +135,7 @@ $$</p>
 <div style="text-align: center; ">
 <p><img src="/assets/分页系统的地址变换机构.png" title="" alt=""></p>
 </div>
+</details></section></p>
 <p>$\textbf{Remark.}$ 为了提⾼地址变换速度, 可在地址变换机构中增设⼀个具有并⾏查寻能⼒的特⾼速缓冲寄存器, 又称为 “联想寄存器” [Associative Memory], 或称为 <em>“快表”</em>.</p>
 <div style="text-align: center; ">
 <p><img src="/assets/具有快表的地址变换机构.png" title="" alt=""></p>
@@ -165,8 +184,36 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 <p>逻辑地址 $[\hint{段号} ~ a, \hint{段内地址} ~ f]$ 的物理地址是 $\hint{段号对应的基址} ~ b + \hint{段内地址} ~ f$. 若 $ \hint{段内地址} ~ f &gt; \hint{段长} ~ \ell$, 则段长越界, 非法.</p>
 </div>
 </details></section></p>
-<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-段页式存储管理⽅式"><header><h1><span class="taxon"></span>段页式存储管理⽅式 <a class="slug" href="/408/operating-system/段页式存储管理⽅式.html">[段页式存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/段页式存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>这是分页和分段两种存储管理⽅式相结合的产物. 它同时具有两者的优点, 是⽬前应⽤较⼴泛的⼀种存储管理⽅式.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-段页式存储管理⽅式"><header><h1><span class="taxon"></span>段页式存储管理⽅式 <a class="slug" href="/408/operating-system/段页式存储管理⽅式.html">[段页式存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/段页式存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<p>这是分页和分段两种存储管理⽅式相结合的产物. 它同时具有两者的优点, 是⽬前应⽤较⼴泛的⼀种存储管理⽅式.</p>
+<p>分页系统以页⾯作为内存分配的基本单位, 能有效地提⾼内存利⽤率,⽽分段系统以段作为内存分配的基本单位, 它能够更好地满⾜⽤户多⽅⾯的需要. 如果能对两种存储管理⽅式 “各取所长”, 则可形成⼀种新的存储器管理⽅式—段页式存储管理⽅式. 这种新的系统既具有分段系统的便于实现、 分段可共享、 易于保护、 可动态链接等⼀系列优点,又能像分页系统那样, 很好地解决内存的外部碎⽚问题.</p>
+<p>段页式系统的基本原理是分段和分页原理的结合, 即 <em>先将⽤户程序分成若⼲个段, 再把每个段分成若⼲个页, 并为每⼀个段赋予⼀个段名.</em></p>
+<p style="text-align: center;"><img src="../../assets/段表和页表的地址映射.png" style="border-radius: 0.2em; width: 400px;"></p>
+<p><em>在段页式系统中, 为了实现从逻辑地址到物理地址的变换, 系统中需要同时配置段表和页表.</em> 段表的内容与分段系统略有不同, 它不再是内存始址和段长, 而是页表始址和页表长度. 上图示出了利用段表和页表进行从用户地址空间到物理 (内存) 空间的映射.</p>
+<p style="text-align: center;"><img src="../../assets/段页式系统中的地址变换机构.png" style="border-radius: 0.2em; width: 400px;"></p>
 </details></section></p>
+<p>分页和分段的相同点:</p>
+<ul>
+<li>都是为了提高内存利用率, 产生较少的内存碎片.</li>
+<li>页和段都是离散存储的, 都是离散分配内存的方式.</li>
+<li>每个页和段中的内存是连续的.</li>
+</ul>
+<p>分页和分段的不同点:</p>
+<ul>
+<li>页是信息的物理单位, 段则是信息的逻辑单位.</li>
+<li>页的大小固定且由系统决定, 段的长度不固定.</li>
+<li>分页的作业地址空间是一维的、分段是二维的.</li>
+<li>页为了系统管理需要, 段为了用户的需要.</li>
+<li>一般段比页长, 段表比页表短, 方便查找.</li>
+</ul>
 </details></section><footer></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/分页存储管理⽅式.html" title="分页存储管理⽅式 [408/operating-system/分页存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分页存储管理⽅式'"><span class="taxon"></span>分页存储管理⽅式</span></li><li class=""><a class="bullet" href="/408/operating-system/分段存储管理⽅式.html" title="分段存储管理⽅式 [408/operating-system/分段存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分段存储管理⽅式'"><span class="taxon"></span>分段存储管理⽅式</span></li><li class=""><a class="bullet" href="/408/operating-system/段页式存储管理⽅式.html" title="段页式存储管理⽅式 [408/operating-system/段页式存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-段页式存储管理⽅式'"><span class="taxon"></span>段页式存储管理⽅式</span></li></ul></div></nav></div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/分页存储管理⽅式.html" title="分页存储管理⽅式 [408/operating-system/分页存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分页存储管理⽅式'"><span class="taxon"></span>分页存储管理⽅式</span><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/分页系统地址变换.html" title="分页系统地址变换 [408/operating-system/分页系统地址变换]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分页系统地址变换'"><span class="taxon"></span>分页系统地址变换</span></li></ul></li><li class=""><a class="bullet" href="/408/operating-system/分段存储管理⽅式.html" title="分段存储管理⽅式 [408/operating-system/分段存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分段存储管理⽅式'"><span class="taxon"></span>分段存储管理⽅式</span></li><li class=""><a class="bullet" href="/408/operating-system/段页式存储管理⽅式.html" title="段页式存储管理⽅式 [408/operating-system/段页式存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-段页式存储管理⽅式'"><span class="taxon"></span>段页式存储管理⽅式</span></li></ul></div></nav></div></body></html>

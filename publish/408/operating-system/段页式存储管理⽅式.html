@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>段页式存储管理⽅式</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +96,21 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/course-notes/operating-system/lesson-13.html'" title="操作系统 Lesson 13 - 离散分配">« 操作系统 Lesson 13 - 离散分配</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-段页式存储管理⽅式"><header><h1><span class="taxon"></span>段页式存储管理⽅式 <a class="slug" href="/408/operating-system/段页式存储管理⽅式.html">[段页式存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/段页式存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>这是分页和分段两种存储管理⽅式相结合的产物. 它同时具有两者的优点, 是⽬前应⽤较⼴泛的⼀种存储管理⽅式.</p>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/course-notes/operating-system/lesson-13.html'" title="操作系统 Lesson 13 - 离散分配">« 操作系统 Lesson 13 - 离散分配</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-段页式存储管理⽅式"><header><h1><span class="taxon"></span>段页式存储管理⽅式 <a class="slug" href="/408/operating-system/段页式存储管理⽅式.html">[段页式存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/段页式存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<p>这是分页和分段两种存储管理⽅式相结合的产物. 它同时具有两者的优点, 是⽬前应⽤较⼴泛的⼀种存储管理⽅式.</p>
+<p>分页系统以页⾯作为内存分配的基本单位, 能有效地提⾼内存利⽤率,⽽分段系统以段作为内存分配的基本单位, 它能够更好地满⾜⽤户多⽅⾯的需要. 如果能对两种存储管理⽅式 “各取所长”, 则可形成⼀种新的存储器管理⽅式—段页式存储管理⽅式. 这种新的系统既具有分段系统的便于实现、 分段可共享、 易于保护、 可动态链接等⼀系列优点,又能像分页系统那样, 很好地解决内存的外部碎⽚问题.</p>
+<p>段页式系统的基本原理是分段和分页原理的结合, 即 <em>先将⽤户程序分成若⼲个段, 再把每个段分成若⼲个页, 并为每⼀个段赋予⼀个段名.</em></p>
+<p style="text-align: center;"><img src="../../assets/段表和页表的地址映射.png" style="border-radius: 0.2em; width: 400px;"></p>
+<p><em>在段页式系统中, 为了实现从逻辑地址到物理地址的变换, 系统中需要同时配置段表和页表.</em> 段表的内容与分段系统略有不同, 它不再是内存始址和段长, 而是页表始址和页表长度. 上图示出了利用段表和页表进行从用户地址空间到物理 (内存) 空间的映射.</p>
+<p style="text-align: center;"><img src="../../assets/段页式系统中的地址变换机构.png" style="border-radius: 0.2em; width: 400px;"></p>
 </details></section><footer></footer></article>
 
 </div></body></html>

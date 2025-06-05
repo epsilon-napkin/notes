@@ -3,6 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width"><title>IP 数据报的格式</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
   section .block[data-taxon]>header>h1,
   section .block[data-taxon] details>summary>header>h1 {
     font-size: 13pt;
@@ -13,7 +17,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +32,18 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,7 +157,7 @@ img {
 </tbody></table>
 <p>$(4800 - 20) \mod (1420 - 20) + 20 = 600$. $\frac{1420 - 20}{8} = 175$.</p>
 </details></section></p>
-<p><section class="block hide-metadata" data-taxon=""><details ><summary id="408-network-ip-forward-group"><header><h1><span class="taxon"></span>IP 转发分组流程. <a class="slug" href="/408/network/ip-forward-group.html">[ip-forward-group]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-forward-group.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+<p><section class="block hide-metadata" data-taxon=""><details ><summary id="408-network-ip-forward-group"><header><h1><span class="taxon"></span>IP 转发分组流程 <a class="slug" href="/408/network/ip-forward-group.html">[ip-forward-group]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/ip-forward-group.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
 <li>从数据报的首部提取目的主机的 IP 地址 D, 得出目的网络地址 N.</li>
 <li>若网络 N 与此路由器直接相连, 则把数据报直接交付给目的主机 D; 否则是间接交付, 执行步骤 3.</li>
 <li>若路由表中有目的地址为 D 的特定主机路由, 则把数据报传送给路由表中所指明的下一跳路由器; 否则, 执行步骤 4.</li>
@@ -169,6 +185,6 @@ img {
 <li><em>路由表并没有给分组指明到某个网络的完整路径</em>. 路由表指出, 到某个网络应当先到某个路由器 (下一跳), 在到达以后, 继续查找路由表, 知道再下一步到哪个路由器.</li>
 </ol>
 </details></section></p>
-</details></section><footer></footer></article>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>⽤户数据报协议 UDP <a class="slug" href="/408/network/udp.html">[udp]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/udp.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">■</a><span class="link local" onclick="window.location.href='#408-network-sharding-offset'"><span class="taxon"></span>分片与片偏移大小的计算</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-forward-group.html" title="IP 转发分组流程. [408/network/ip-forward-group]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-forward-group'"><span class="taxon"></span>IP 转发分组流程.</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-convert-mac'"><span class="taxon"></span>IP 转换 MAC</span></li></ul></div></nav></div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">■</a><span class="link local" onclick="window.location.href='#408-network-sharding-offset'"><span class="taxon"></span>分片与片偏移大小的计算</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-forward-group.html" title="IP 转发分组流程 [408/network/ip-forward-group]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-forward-group'"><span class="taxon"></span>IP 转发分组流程</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-convert-mac'"><span class="taxon"></span>IP 转换 MAC</span></li></ul></div></nav></div></body></html>
