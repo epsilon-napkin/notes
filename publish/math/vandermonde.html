@@ -7,11 +7,6 @@
     font-size: 1.25em;
   }
 
-  section .block[data-taxon]>header>h1,
-  section .block[data-taxon] details>summary>header>h1 {
-    font-size: 13pt;
-  }
-
   a.link.local,
   .link.local a {
     box-shadow: none;
@@ -96,6 +91,20 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-vandermonde"><header><h1><span class="taxon"></span>Vandermonde 矩阵 <a class="slug" href="/math/vandermonde.html">[vandermonde]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/vandermonde.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary></details></section><footer></footer></article>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-vandermonde"><header><h1><span class="taxon"></span>Vandermonde 矩阵 <a class="slug" href="/math/vandermonde.html">[vandermonde]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/vandermonde.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$</p>
+<p>$n \times n$ 的 Vandermonde 矩阵 $V$ 定义为：</p>
+<p>$$
+V \spaces= \begin{pmatrix}
+1 & x_1 & x_1^2 & \cdots & x_1^{n-1} \\
+1 & x_2 & x_2^2 & \cdots & x_2^{n-1} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^{n-1}
+\end{pmatrix}
+$$</p>
+<p>其行列式有简洁且重要的形式</p>
+<p>$$ \det(V) \spaces= \prod_{1 \leq i  <  j \leq n} (x_j - x_i) $$</p>
+<p>我们下面给出一个在已知命题叙述时的自然证明.</p>
+<p>$proof.$ 注意到 $x_i = x_j$ 时 $\det(V) = 0$, 这就意味着 $x_i - x_j$ 除尽 $\det(V)$. 因此 $\prod_{1 \leq i  <  j \leq n} (x_j - x_i)$ 除尽 $\det(A)$, 比较 $x_n^{n-1}x_{n-1}^{n-2} \cdots x_2 \cdot 1$ 的系数即可.</p>
+</details></section><footer></footer></article>
 
 </div></body></html>
