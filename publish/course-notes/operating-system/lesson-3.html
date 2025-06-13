@@ -40,6 +40,15 @@
   blockquote p {
     margin: 0;
   }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
@@ -112,52 +121,13 @@ em {
 <div style="display: flex; column-gap: 0.5em;">
 <div>
 <ul>
-<li>进程控制块 (PCB)</li>
+<li><span class="link local"><a href="/408/operating-system/进程控制块.html" title="进程控制块 PCB [408/operating-system/进程控制块]">进程控制块</a></span></li>
 <li>数据段</li>
 <li>程序段</li>
 </ul>
 </div>
 <p style="text-align: center;"><img src="../../assets/process.svg" style="border-radius: 0.2em; width: 300px;"><br>进程的结构</p>
 </div>
-<h3>进程控制块 [PCB] 的定义</h3>
-<ul>
-<li>系统为了 <em>管理</em> 进程而设置的一个 <em>数据结构</em>.</li>
-<li>记录操作系统所需要的、用于描述进程的 <em>当前信息</em> 以及控制进程运行的 <em>全部信息</em>.</li>
-<li>操作系统通过 <em>PCB</em> 感知进程的存在.</li>
-<li>PCB 是进程存在的 <em>唯一标志</em>.</li>
-<li>PCB 和进程是 <em>一一对应</em>.</li>
-</ul>
-<h4>PCB 的构成</h4>
-<ul>
-<li>标识符. 唯一地标识一个进程.<ul>
-<li>内部标识符.</li>
-<li>外部标识符.</li>
-</ul>
-</li>
-<li>调度信息. 进程状态转换需要的信息.</li>
-<li>处理机. 处理机中断或调用, 保护或恢复现场信息.</li>
-<li>控制信息. 控制进程执行的节奏.</li>
-</ul>
-<h4>PCB 的组织方式</h4>
-<ul>
-<li>线性<ul>
-<li>将所有 PCB 不分状态组织在一个连续表</li>
-<li>优点: 简单、且不需要额外开销</li>
-<li>缺点: 需扫描整个 PCB 表才能找到需要的 PCB</li>
-<li>适应进程数目不多的系统</li>
-</ul>
-</li>
-<li>链接<ul>
-<li>将状态相同的 PCB 链接起来</li>
-<li>等待队列可以有多个</li>
-<li>就绪队列排队和调度算法有关</li>
-</ul>
-</li>
-<li>索引<ul>
-<li>在链接方式的指针和 PCB 间加入索引表, 即二级索引</li>
-</ul>
-</li>
-</ul>
 <h3>内核</h3>
 <ul>
 <li>内核是计算机操作系统的核心程序, 始终对系统中的所有内容拥有完全控制权.</li>

@@ -40,6 +40,15 @@
   blockquote p {
     margin: 0;
   }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
@@ -115,36 +124,6 @@ table td {
 <li>抢占资源. 从⼀个或多个进程中抢占⾜够数量的资源, 分配给死锁进程, 以解除死锁状态.</li>
 <li>终⽌ (或撤消) 进程. 终⽌ (或撤消) 系统中的⼀个或多个死锁进程, 直⾄打破循环环路, 使系统从死锁状态解脱出来.</li>
 </ol>
-<h3>存储器</h3>
-<table><thead><tr><th>多级存储器结构</th><th></th></tr></thead><tbody>
-<tr><td>CPU 寄存器</td><td>寄存器</td></tr>
-<tr><td>主存</td><td>高速缓存, 主存, 磁盘缓存 (<code>buffer</code>)</td></tr>
-<tr><td>辅存</td><td>磁盘, 可移动存储介质</td></tr>
-</tbody></table>
-<br>
-<table><thead><tr><th>缓存</th><th>速度匹配</th><th>物理</th></tr></thead><tbody>
-<tr><td>高速缓存</td><td>CPU $\lrarr$ 主存</td><td>是</td></tr>
-<tr><td>磁盘缓存</td><td>主存 $\lrarr$ 磁盘</td><td>否, 是主存的一部分区域</td></tr>
-</tbody></table>
-<h3>程序的装⼊和链接</h3>
-<ul>
-<li>物理地址: 内存由若干存储单元构成, 每个存储单元有个编号, 也称绝对地址.</li>
-<li>物理空间: 物理地址的集合, 也称绝对地址空间或存储空间.</li>
-<li>逻辑地址: 每个目标程序一般从 <code>0</code> 开始编址, 也称相对地址.</li>
-<li>逻辑空间: 逻辑地址的集合, 也称相对地址空间或地址空间.</li>
-</ul>
-<h4>程序的装⼊</h4>
-<table><thead><tr><th>装⼊方式</th><th>装⼊时机</th><th>地址变化</th><th>优点</th><th>缺点</th><th>环境</th></tr></thead><tbody>
-<tr><td>绝对装⼊⽅式</td><td>编程时</td><td>编译期</td><td>装⼊简单</td><td>依赖硬件结构</td><td>单道程序环境</td></tr>
-<tr><td>可重定位装⼊⽅式</td><td>运行前</td><td>装入前静态重定位</td><td>不依赖硬件</td><td>必须有连续空间</td><td>多道程序环境</td></tr>
-<tr><td>动态运⾏时的装⼊⽅式</td><td>运行中</td><td>运行时完成</td><td>不需要连续空间</td><td>OS 开销大</td><td>多道程序环境</td></tr>
-</tbody></table>
-<h4>程序的链接</h4>
-<table><thead><tr><th>链接方式</th><th>链接时机</th><th>优点</th></tr></thead><tbody>
-<tr><td>静态链接</td><td>事先进⾏链接, 不再拆开</td><td>稳定</td></tr>
-<tr><td>装⼊时动态链接</td><td>装⼊内存时, 边装⼊边链接</td><td>便于修改和更新, 便于实现对⽬标模块的共享</td></tr>
-<tr><td>运⾏时动态链接</td><td>对某些模块的链接推迟到程序执⾏时才进⾏</td><td>加快程序的装⼊过程, 节省⼤量的内存空间</td></tr>
-</tbody></table>
 </details></section><footer></footer></article>
 
 </div></body></html>

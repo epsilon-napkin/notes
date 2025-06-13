@@ -40,6 +40,15 @@
   blockquote p {
     margin: 0;
   }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
@@ -91,17 +100,19 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/course-notes/operating-system/lesson-12.html'" title="操作系统 Lesson 12">« 操作系统 Lesson 12</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-固定分区分配"><header><h1><span class="taxon"></span>固定分区分配 <a class="slug" href="/408/operating-system/固定分区分配.html">[固定分区分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/固定分区分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><strong>分配思想</strong>:</p>
-<ul>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/连续分配存储管理.html'" title="连续分配存储管理⽅式">« 连续分配存储管理⽅式</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-固定分区分配"><header><h1><span class="taxon"></span>固定分区分配 <a class="slug" href="/408/operating-system/固定分区分配.html">[固定分区分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/固定分区分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>分配思想:<ul>
 <li>预先将主存空间分成若干个区域.</li>
 <li>每个区域被称为一个分区.</li>
 <li>分区大小可以相等, 也可以不相等.</li>
 <li>每个分区只能装一个作业.</li>
 </ul>
-<p><strong>数据结构</strong>: 分区分配表. 记录分区分配情况. <br />
-<strong>分配和回收</strong>: 如果有空闲区, 就分配给作业. 按分区回收, 将分区分配表中对应条目的状态置为未分配. <br />
-<strong>优点</strong>: 适合多道程序环境. 实现简单. <br />
-<strong>缺点</strong>: 有内零头, 主存利用率不高. 程序是否运行受到分区大小的限制.</p>
+</li>
+<li>数据结构: 分区分配表. 记录分区分配情况.</li>
+<li>分配和回收: 如果有空闲区, 就分配给作业. 按分区回收, 将分区分配表中对应条目的状态置为未分配.</li>
+<li>优点: 适合多道程序环境. 实现简单.</li>
+<li>缺点: 有内零头, 主存利用率不高. 程序是否运行受到分区大小的限制.</li>
+</ul>
 <p>$\textbf{Remark.}$ 内零头和外零头都是指分区内未被利用的空间. 但是外零头可以分配空间.</p>
 </details></section><footer></footer></article>
 

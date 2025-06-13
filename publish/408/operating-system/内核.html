@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>内核</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/进程.html'" title="进程">« 进程</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-内核"><header><h1><span class="taxon"></span>内核 <a class="slug" href="/408/operating-system/内核.html">[内核]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/内核.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>内核是计算机操作系统的核心程序, 始终对系统中的所有内容拥有完全控制权.</li>
+<li>内核还负责防止和缓解不同进程之间的冲突. 它是始终驻留在内存中的操作系统代码部分, 并促进硬件和软件组件之间的交互.</li>
+<li>完整的内核通过设备驱动程序控制所有硬件资源 (例如 I/O、内存、加密), 仲裁涉及此类资源的进程冲突, 并优化常用资源的利用率. <hint>例如 CPU 和缓存使用、文件系统和网络套接字. 在大多数系统中, 内核是启动时首先加载的程序之一 (在引导加载程序之后). 它处理启动的其余部分, 以及来自软件的内存、外围设备和输入 / 输出 (I/O) 请求, 将它们转换为中央处理单元的数据处理指令. </hint></li>
+</ul>
+<h3>内核的支撑功能</h3>
+<h4>内中断的三种情况</h4>
+<ol>
+<li>陷阱 / 陷入 (Trap): 由应用程序主动引发</li>
+<li>故障 (fault): 由错误条件引发</li>
+<li>终止 (abort): 由致命错误引发</li>
+</ol>
+<p>$\textbf{Remark.}$ 内中断也叫异常 / 陷入 / 例外.</p>
+<h3>内核的支撑功能</h3>
+<ol>
+<li>时钟管理</li>
+<li>中断机制</li>
+<li><span class="link local"><a href="/408/operating-system/原语.html" title="原语 [408/operating-system/原语]">原语</a></span><ul>
+<li>由若干条指令组成</li>
+<li>用来完成某个特定功能</li>
+<li>执行过程不会被中断</li>
+</ul>
+</li>
+</ol>
+<p>$\textbf{Remark.}$ 进程控制的目的是实现进程的状态转换.</p>
+</details></section><footer></footer></article>
+
+</div></body></html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>七态模型及调度</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/进程.html'" title="进程">« 进程</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-七态模型及调度"><header><h1><span class="taxon"></span>七态模型及调度 <a class="slug" href="/408/operating-system/七态模型及调度.html">[七态模型及调度]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/七态模型及调度.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p style="text-align: center;"><img class="theme" src="../../assets/full-seven-state-dispatch.svg" style="border-radius: 0.2em; width: 800px;"></p>
+<p>由于多个进程在并发执⾏时共享系统资源, 致使它们在运⾏过程中呈现间断性的运⾏规律, 所以进程在其⽣命周期内可能具有多种状态.⼀般⽽⾔, 每⼀个进程⾄少应处于以下三种基本状态之⼀:</p>
+<ul>
+<li><p>就绪 [Ready] 状态. 这是指进程已处于准备好运⾏的状态, 即进程已分配到除 CPU以外的所有必要资源后, 只要再获得 CPU, 便可⽴即执⾏. 如果系统中有许多处于就绪状态的进程, 通常将它们按⼀定的策略 (如优先级策略) 排成⼀个队列, 称该队列为就绪队列.</p>
+</li>
+<li><p>执⾏ [Running] 状态. 这是指进程已获得 CPU, 其程序正在执⾏的状态. 对任何⼀个时刻⽽⾔, 在单处理机系统中, 只有⼀个进程处于执⾏状态,⽽在多处理机系统中, 则有多个进程处于执⾏状态.</p>
+</li>
+<li><p>阻塞 [Block] 状态. 这是指正在执⾏的进程由于发⽣某事件 (如 <code>I/O</code> 请求、 申请缓冲区失败等) 暂时⽆法继续执⾏时的状态, 亦即进程的执⾏受到阻塞. 此时引起进程调度, OS 把处理机分配给另⼀个就绪进程,⽽让受阻进程处于暂停状态,⼀般将这种暂停状态称为阻塞状态, 有时也称为等待状态或封锁状态. 通常系统将处于阻塞状态的进程也排成⼀队列, 称该队列为阻塞队列. 实际上, 在较⼤的系统中, 为了减少队列操作的开销, 提⾼系统效率, 根据阻塞原因的不同, 会设置多个阻塞队列.</p>
+</li>
+</ul>
+<h4>挂起原因</h4>
+<ol>
+<li>终端用户的需要. 自己程序运行期间发现可疑问题.</li>
+<li>父进程请求. 父进程希望挂起自己子进程.</li>
+<li>负荷调节的需要. 实时系统工作负荷较重, 影响对实时任务的控制.</li>
+<li>操作系统的需要. 检查运行中的资源使用情况或进行记账</li>
+</ol>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-进程的结构"><header><h1><span class="taxon"></span>进程的结构 <a class="slug" href="/408/operating-system/进程的结构.html">[进程的结构]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/进程的结构.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><div style="display: flex; column-gap: 0.5em;">
+<div>
+<ul>
+<li><span class="link local"><a href="/408/operating-system/进程控制块.html" title="进程控制块 PCB [408/operating-system/进程控制块]">进程控制块</a></span></li>
+<li>数据段</li>
+<li>程序段</li>
+</ul>
+</div>
+<p style="text-align: center;"><img src="../../assets/process.svg" style="border-radius: 0.2em; width: 300px;"><br>进程的结构</p>
+</div>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-中断和异常"><header><h1><span class="taxon"></span>中断和异常 <a class="slug" href="/408/operating-system/中断和异常.html">[中断和异常]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/中断和异常.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><h4>中断的作用</h4>
+<ol>
+<li>中断会使 CPU 由用户态变为内核态, OS 重新夺回对 CPU 的控制权. (硬件实现)</li>
+<li>如果没有中断机制, 就无法进行并发.</li>
+<li>中断是操作系统内核夺回 CPU 使用权的唯一途径 (用户态 $\to$ 内核态)</li>
+</ol>
+<h4>中断的类型</h4>
+<ol>
+<li><p>内中断 (异常、例外、陷入)</p>
+<ol>
+<li>与当前执行的指令有关, <em>中断信号来源于 CPU 内部</em>, 由某个指令引发的中断.</li>
+<li>陷阱、陷入 [trap]: 由陷入指令引发的, 应用程序故意引发, 如: 系统调用.(陷入指令并非特权指令, 且需要在用户态下执行, 系统调用通过陷入指令完成)</li>
+<li>故障 [fault]: 由错误条件引起, 可能被内核程序修复, CPU 使用权交还给应用程序. 如: 缺页故障.</li>
+<li>终止 [abort]: 由致命错误引起, 内核程序无法修复该错误, 并且不会交还 CPU 使用权, 而是直接终止应用程序. 如: 除法指令除数为 0 (有争议)、非法使用特权指令.</li>
+</ol>
+</li>
+<li><p>外中断 (也称中断)</p>
+<ol>
+<li>与当前执行的指令无关, <em>中断信号来源于 CPU 外部</em>.</li>
+<li>时钟中断: 由时钟部件发来的中断信号, 时钟部件每隔一个时间片, 归给CPU 发送一个时钟中断信号.</li>
+<li>I/O 中断: 由输入输出设备发来的中断信号.</li>
+</ol>
+</li>
+</ol>
+<p><em>异常会引起中断, 中断未必是异常引起的.</em></p>
+</details></section></p>
+</details></section><footer></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/进程的结构.html" title="进程的结构 [408/operating-system/进程的结构]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-进程的结构'"><span class="taxon"></span>进程的结构</span></li><li class=""><a class="bullet" href="/408/operating-system/中断和异常.html" title="中断和异常 [408/operating-system/中断和异常]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-中断和异常'"><span class="taxon"></span>中断和异常</span></li></ul></div></nav></div></body></html>

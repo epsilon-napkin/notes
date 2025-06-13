@@ -40,6 +40,15 @@
   blockquote p {
     margin: 0;
   }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
@@ -91,6 +100,209 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/index.html'" title="计算机操作系统">« 计算机操作系统</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-存储器管理"><header><h1><span class="taxon"></span>存储器管理 <a class="slug" href="/408/operating-system/存储器管理.html">[存储器管理]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/存储器管理.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary></details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>常规存储器管理⽅式的特征 <a class="slug" href="/408/operating-system/常规存储器管理⽅式的特征.html">[常规存储器管理⽅式的特征]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/常规存储器管理⽅式的特征.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>虚拟存储器 <a class="slug" href="/408/operating-system/虚拟存储器.html">[虚拟存储器]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/虚拟存储器.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/index.html'" title="计算机操作系统">« 计算机操作系统</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-存储器管理"><header><h1><span class="taxon"></span>存储器管理 <a class="slug" href="/408/operating-system/存储器管理.html">[存储器管理]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/存储器管理.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-存储器的层次结构"><header><h1><span class="taxon"></span>存储器的层次结构 <a class="slug" href="/408/operating-system/存储器的层次结构.html">[存储器的层次结构]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/存储器的层次结构.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><table><thead><tr><th>多级存储器结构</th><th></th></tr></thead><tbody>
+<tr><td>CPU 寄存器</td><td>寄存器</td></tr>
+<tr><td>主存</td><td>高速缓存, 主存, 磁盘缓存 [<code>buffer</code>]</td></tr>
+<tr><td>辅存</td><td>磁盘, 可移动存储介质</td></tr>
+</tbody></table>
+<br>
+<table><thead><tr><th>缓存</th><th>速度匹配</th><th>物理</th></tr></thead><tbody>
+<tr><td>高速缓存</td><td>CPU $\lrarr$ 主存</td><td>是</td></tr>
+<tr><td>磁盘缓存</td><td>主存 $\lrarr$ 磁盘</td><td>否, 是主存的一部分区域</td></tr>
+</tbody></table>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-装入和链接"><header><h1><span class="taxon"></span>程序的装入和链接 <a class="slug" href="/408/operating-system/装入和链接.html">[装入和链接]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/装入和链接.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>物理地址: 内存由若干存储单元构成, 每个存储单元有个编号, 也称绝对地址.</li>
+<li>物理空间: 物理地址的集合, 也称绝对地址空间或存储空间.</li>
+<li>逻辑地址: 每个目标程序一般从 <code>0</code> 开始编址, 也称相对地址.</li>
+<li>逻辑空间: 逻辑地址的集合, 也称相对地址空间或地址空间.</li>
+</ul>
+<table><thead><tr><th>装入方式</th><th>装入时机</th><th>地址变化</th><th>优点</th><th>缺点</th><th>环境</th></tr></thead><tbody>
+<tr><td>绝对装入⽅式</td><td>编程时</td><td>编译期</td><td>装入简单</td><td>依赖硬件结构</td><td>单道程序环境</td></tr>
+<tr><td>可重定位装入⽅式</td><td>运行前</td><td>装入前静态重定位</td><td>不依赖硬件</td><td>必须有连续空间</td><td>多道程序环境</td></tr>
+<tr><td>动态运⾏时的装入⽅式</td><td>运行中</td><td>运行时完成</td><td>不需要连续空间</td><td>OS 开销大</td><td>多道程序环境</td></tr>
+</tbody></table>
+<br>
+<table><thead><tr><th>链接方式</th><th>链接时机</th><th>优点</th></tr></thead><tbody>
+<tr><td>静态链接</td><td>事先进⾏链接, 不再拆开</td><td>稳定</td></tr>
+<tr><td>装入时动态链接</td><td>装入内存时, 边装入边链接</td><td>便于修改和更新, 便于实现对⽬标模块的共享</td></tr>
+<tr><td>运⾏时动态链接</td><td>对某些模块的链接推迟到程序执⾏时才进⾏</td><td>加快程序的装入过程, 节省⼤量的内存空间</td></tr>
+</tbody></table>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-连续分配存储管理"><header><h1><span class="taxon"></span>连续分配存储管理⽅式 <a class="slug" href="/408/operating-system/连续分配存储管理.html">[连续分配存储管理]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/连续分配存储管理.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>连续分配⽅式是最早出现的⼀种存储器分配⽅式, 曾被⼴泛应⽤于上世纪 60~80 年代的 OS 中, 该分配⽅式为⼀个⽤户程序分配⼀个连续的内存空间, 即程序中代码或数据的逻辑地址相邻, 体现在内存空间分配时物理地址的相邻. 连续分配⽅式可分为四类: 单⼀连续分配、 固定分区分配、 动态分区分配以及动态可重定位分区分配算法四种⽅式.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-单⼀连续分配"><header><h1><span class="taxon"></span>单⼀连续分配 <a class="slug" href="/408/operating-system/单⼀连续分配.html">[单⼀连续分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/单⼀连续分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>分配思想: 内存分为 OS 区和用户区. 用户区仅允许分配一个作业.</li>
+<li>数据结构: 起始地址, 大小.</li>
+<li>分配和回收: 用户区空闲则分配. 作业运行完回收.</li>
+<li>优点: 简单.</li>
+<li>缺点: 单作业. 主存利用率不高. 程序是否运行受到主存大小的限制.</li>
+</ul>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-固定分区分配"><header><h1><span class="taxon"></span>固定分区分配 <a class="slug" href="/408/operating-system/固定分区分配.html">[固定分区分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/固定分区分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>分配思想:<ul>
+<li>预先将主存空间分成若干个区域.</li>
+<li>每个区域被称为一个分区.</li>
+<li>分区大小可以相等, 也可以不相等.</li>
+<li>每个分区只能装一个作业.</li>
+</ul>
+</li>
+<li>数据结构: 分区分配表. 记录分区分配情况.</li>
+<li>分配和回收: 如果有空闲区, 就分配给作业. 按分区回收, 将分区分配表中对应条目的状态置为未分配.</li>
+<li>优点: 适合多道程序环境. 实现简单.</li>
+<li>缺点: 有内零头, 主存利用率不高. 程序是否运行受到分区大小的限制.</li>
+</ul>
+<p>$\textbf{Remark.}$ 内零头和外零头都是指分区内未被利用的空间. 但是外零头可以分配空间.</p>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-动态分区"><header><h1><span class="taxon"></span>动态分区 <a class="slug" href="/408/operating-system/动态分区.html">[动态分区]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/动态分区.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>分配思想: 内存不预先划分好. 根据作业的大小分配内存. 如果有空闲区满足作业大小的需求就分配. \</li>
+<li>数据结构: 利用空闲分区表记录空闲区情况. 利用已分配分区表记录内存分配情况. \</li>
+<li>分配和回收:<ol>
+<li>修改 $F_1$ 的长度. $F_1$ 长度 + 回收区长度.</li>
+<li>修改 $F_2$ 的始地址和长度. 回收区长度 + $F_2$ 长度.</li>
+<li>修改 $F_1$ 的长度, 删除 $F_2$. $F_1$ + 回收区 + $F_2$ 长度.</li>
+<li>新增一条记录, 分别是回收区的始地址和长度.</li>
+</ol>
+</li>
+</ul>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-动态可重定位分区"><header><h1><span class="taxon"></span>动态可重定位分区分配 <a class="slug" href="/408/operating-system/动态可重定位分区.html">[动态可重定位分区]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/动态可重定位分区.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>可以理解成 <span class="link local"><a href="/408/operating-system/动态分区.html" title="动态分区 [408/operating-system/动态分区]">动态分区分配</a></span> 的紧凑化版本.</p>
+</details></section>
+<section class="block hide-metadata" data-taxon="Example"><details open><summary id="408-operating-system-连续分配存储管理⽅式-例"><header><h1><span class="taxon">Example. </span>连续分配存储管理 <a class="slug" href="/408/operating-system/连续分配存储管理⽅式-例.html">[连续分配存储管理⽅式-例]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/连续分配存储管理⽅式-例.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>用可变分区方式管理内存时, 假定内存中按地址顺序依次有 5 个空闲区, 大小为 32、 10、 5、 228、 100, 单位为 KB, 现有 5 个作业, 各需内存 11、 10、 108、 28、 115, 若采用首次适用分配算法能全部装入吗? 怎样才能装入?</p>
+<table><thead><tr><th>请求队列</th><th>⾸次适应算法</th></tr></thead><tbody>
+<tr><td>初始</td><td>32 10 5 228 100</td></tr>
+<tr><td>11</td><td><em>21</em> 10 5 228 100</td></tr>
+<tr><td>10</td><td><em>11</em> 10 5 228 100</td></tr>
+<tr><td>108</td><td>11 10 5 <em>120</em> 100</td></tr>
+<tr><td>28</td><td>11 10 5 <em>92</em> 100</td></tr>
+<tr><td>115</td><td>失败</td></tr>
+</tbody></table>
+<p>因为失败的原因是缺乏大分区, 所以我们考虑最佳适应算法. 如下所示.</p>
+<table><thead><tr><th>请求队列</th><th>最佳适应算法</th></tr></thead><tbody>
+<tr><td>初始</td><td>32 10 5 228 100</td></tr>
+<tr><td>11</td><td><em>21</em> 10 5 228 100</td></tr>
+<tr><td>10</td><td>21 <em>0</em> 5 228 100</td></tr>
+<tr><td>108</td><td>21 0 5 <em>120</em> 100</td></tr>
+<tr><td>28</td><td>21 0 5 120 <em>72</em></td></tr>
+<tr><td>115</td><td>21 0 5 <em>5</em> 72</td></tr>
+</tbody></table>
+</details></section></p>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-离散分配"><header><h1><span class="taxon"></span>离散分配 <a class="slug" href="/408/operating-system/离散分配.html">[离散分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/离散分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-分页存储管理⽅式"><header><h1><span class="taxon"></span>分页存储管理⽅式 <a class="slug" href="/408/operating-system/分页存储管理⽅式.html">[分页存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/分页存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
+<p>在该⽅式中, 将 <em>⽤户程序的地址空间</em> 分为若⼲个固定⼤⼩的区域, 称 “页” [page] 或 “页⾯”. 典型的页⾯⼤⼩为 1KB. 相应地, 也 <em>将内存空间</em> 分为若⼲个物理块 [block] 或页框 [frame], 页和块的⼤⼩相同. 这样可将⽤户程序的任⼀页放⼊任⼀物理块中, 实现了离散分配.</p>
+<p>$$
+\hint{页号} ~ P = \bigg\lfloor \frac{\hint{逻辑地址} ~ A}{\hint{页⾯⼤⼩} ~ L} \bigg\rfloor, \quad
+\hint{页内地址} ~ d = \hint{逻辑地址} ~ A \mod \hint{页⾯⼤⼩} ~ L
+$$</p>
+<p>$\textbf{Example.}$ 逻辑地址为 2500, 每页大小为 1KB, 页表如下. 求物理地址.</p>
+<div style="display: flex; width: 100%;">
+  <div style="flex: 1; padding: 0 10px;">
+<table><thead><tr><th>页号</th><th>块号</th></tr></thead><tbody>
+<tr><td>0</td><td>2</td></tr>
+<tr><td>1</td><td>3</td></tr>
+<tr><td>2</td><td>8</td></tr>
+</tbody></table>
+  </div>
+  <div style="flex: 2.5; padding: 0 10px;">
+<p>$P = \lfloor \frac{2500}{1 ~\text{K}} \rfloor = 2, d = 2500 \mod 1 ~\text{KB} = 452$</p>
+<p>$ \str{物理地址} = \hint{块号} ~ 8 \times \hint{页表长度} ~ 1 ~\text{K} + 452 = 8644$</p>
+  </div>
+</div>
+<div style="text-align: center; ">
+<p><img src="/assets/分页系统的地址变换机构.png" title="" alt=""></p>
+</div>
+<p>$\textbf{Remark.}$ 为了提⾼地址变换速度, 可在地址变换机构中增设⼀个具有并⾏查寻能⼒的特⾼速缓冲寄存器, 又称为 “联想寄存器” [Associative Memory], 或称为 <em>“快表”</em>.</p>
+<div style="text-align: center; ">
+<p><img src="/assets/具有快表的地址变换机构.png" title="" alt=""></p>
+</div>
+<h4>基本分页存储管理的缺点: 将用户作业物理划分页</h4>
+<ul>
+<li>不方便共享</li>
+<li>不方便信息保护</li>
+<li>不方便动态增长</li>
+<li>不方便动态链接</li>
+</ul>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-分段存储管理⽅式"><header><h1><span class="taxon"></span>分段存储管理⽅式 <a class="slug" href="/408/operating-system/分段存储管理⽅式.html">[分段存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/分段存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+img {
+  border-radius: 0.2em; 
+  width: 400px;
+}
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
+<p>这是为了满⾜⽤户要求⽽形成的⼀种存储管理⽅式. 它把⽤户程序的地址空间分为若⼲个⼤⼩不同的段, 每段可定义⼀组相对完整的信息. 在存储器分配时, 以段为单位, 这些段在内存中可以不相邻接, 所以也同样实现了离散分配.</p>
+<p>作业的逻辑地址按照 <em>逻辑意义</em> 划分成段</p>
+<ul>
+<li>每一段从 0 开始编址，所有段从 0 开始编号</li>
+<li>段长由逻辑信息的长度决定</li>
+<li>每一段在内存中连续存储</li>
+</ul>
+<p>段的长度由相应的逻辑信息组的长度决定, 因此各段的长度并不相等. 整个作业的地址空间由于被分成多个段, 所以呈现出⼆维特性, 亦即, 每个段既包含了⼀部分地址空间, 又标识了逻辑关系. 其逻辑地址由段号 (段名) 和段内地址所组成.</p>
+<div style="text-align: center; ">
+<p><img src="/assets/分段系统的地址变换过程.png" title="" alt=""></p>
+</div>
+<div style="display: flex; width: 100%;">
+  <div style="flex: 1; padding: 0 10px;">
+<table><thead><tr><th>段号</th><th>基址</th><th>段长</th></tr></thead><tbody>
+<tr><td>$n$</td><td>$b$</td><td>$\ell$</td></tr>
+</tbody></table>
+  </div>
+  <div style="flex: 3; padding: 0 10px;">
+<p>逻辑地址 $[\hint{段号} ~ a, \hint{段内地址} ~ f]$ 的物理地址是 $\hint{段号对应的基址} ~ b + \hint{段内地址} ~ f$. 若 $ \hint{段内地址} ~ f &gt; \hint{段长} ~ \ell$, 则段长越界, 非法.</p>
+</div>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-段页式存储管理⽅式"><header><h1><span class="taxon"></span>段页式存储管理⽅式 <a class="slug" href="/408/operating-system/段页式存储管理⽅式.html">[段页式存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/段页式存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<p>这是分页和分段两种存储管理⽅式相结合的产物. 它同时具有两者的优点, 是⽬前应⽤较⼴泛的⼀种存储管理⽅式.</p>
+<p>分页系统以页⾯作为内存分配的基本单位, 能有效地提⾼内存利⽤率,⽽分段系统以段作为内存分配的基本单位, 它能够更好地满⾜⽤户多⽅⾯的需要. 如果能对两种存储管理⽅式 “各取所长”, 则可形成⼀种新的存储器管理⽅式—段页式存储管理⽅式. 这种新的系统既具有分段系统的便于实现、 分段可共享、 易于保护、 可动态链接等⼀系列优点,又能像分页系统那样, 很好地解决内存的外部碎⽚问题.</p>
+<p>段页式系统的基本原理是分段和分页原理的结合, 即 <em>先将⽤户程序分成若⼲个段, 再把每个段分成若⼲个页, 并为每⼀个段赋予⼀个段名.</em></p>
+<p style="text-align: center;"><img src="../../assets/段表和页表的地址映射.png" style="border-radius: 0.2em; width: 400px;"></p>
+<p><em>在段页式系统中, 为了实现从逻辑地址到物理地址的变换, 系统中需要同时配置段表和页表.</em> 段表的内容与分段系统略有不同, 它不再是内存始址和段长, 而是页表始址和页表长度. 上图示出了利用段表和页表进行从用户地址空间到物理 (内存) 空间的映射.</p>
+<p style="text-align: center;"><img src="../../assets/段页式系统中的地址变换机构.png" style="border-radius: 0.2em; width: 400px;"></p>
+</details></section></p>
+<p>分页和分段的相同点:</p>
+<ul>
+<li>都是为了提高内存利用率, 产生较少的内存碎片.</li>
+<li>页和段都是离散存储的, 都是离散分配内存的方式.</li>
+<li>每个页和段中的内存是连续的.</li>
+</ul>
+<p>分页和分段的不同点:</p>
+<ul>
+<li>页是信息的物理单位, 段则是信息的逻辑单位.</li>
+<li>页的大小固定且由系统决定, 段的长度不固定.</li>
+<li>分页的作业地址空间是一维的、分段是二维的.</li>
+<li>页为了系统管理需要, 段为了用户的需要.</li>
+<li>一般段比页长, 段表比页表短, 方便查找.</li>
+</ul>
+</details></section></p>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>常规存储器管理⽅式的特征 <a class="slug" href="/408/operating-system/常规存储器管理⽅式的特征.html">[常规存储器管理⽅式的特征]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/常规存储器管理⽅式的特征.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>虚拟存储器 <a class="slug" href="/408/operating-system/虚拟存储器.html">[虚拟存储器]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/虚拟存储器.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
 
-</div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/存储器的层次结构.html" title="存储器的层次结构 [408/operating-system/存储器的层次结构]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-存储器的层次结构'"><span class="taxon"></span>存储器的层次结构</span></li><li class=""><a class="bullet" href="/408/operating-system/装入和链接.html" title="程序的装入和链接 [408/operating-system/装入和链接]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-装入和链接'"><span class="taxon"></span>程序的装入和链接</span></li><li class=""><a class="bullet" href="/408/operating-system/连续分配存储管理.html" title="连续分配存储管理⽅式 [408/operating-system/连续分配存储管理]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-连续分配存储管理'"><span class="taxon"></span>连续分配存储管理⽅式</span><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/单⼀连续分配.html" title="单⼀连续分配 [408/operating-system/单⼀连续分配]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-单⼀连续分配'"><span class="taxon"></span>单⼀连续分配</span></li><li class=""><a class="bullet" href="/408/operating-system/固定分区分配.html" title="固定分区分配 [408/operating-system/固定分区分配]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-固定分区分配'"><span class="taxon"></span>固定分区分配</span></li><li class=""><a class="bullet" href="/408/operating-system/动态分区.html" title="动态分区 [408/operating-system/动态分区]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-动态分区'"><span class="taxon"></span>动态分区</span></li><li class=""><a class="bullet" href="/408/operating-system/动态可重定位分区.html" title="动态可重定位分区分配 [408/operating-system/动态可重定位分区]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-动态可重定位分区'"><span class="taxon"></span>动态可重定位分区分配</span></li><li class=""><a class="bullet" href="/408/operating-system/连续分配存储管理⽅式-例.html" title="连续分配存储管理 [408/operating-system/连续分配存储管理⽅式-例]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-连续分配存储管理⽅式-例'"><span class="taxon">Example. </span>连续分配存储管理</span></li></ul></li><li class=""><a class="bullet" href="/408/operating-system/离散分配.html" title="离散分配 [408/operating-system/离散分配]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-离散分配'"><span class="taxon"></span>离散分配</span><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/分页存储管理⽅式.html" title="分页存储管理⽅式 [408/operating-system/分页存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分页存储管理⽅式'"><span class="taxon"></span>分页存储管理⽅式</span></li><li class=""><a class="bullet" href="/408/operating-system/分段存储管理⽅式.html" title="分段存储管理⽅式 [408/operating-system/分段存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分段存储管理⽅式'"><span class="taxon"></span>分段存储管理⽅式</span></li><li class=""><a class="bullet" href="/408/operating-system/段页式存储管理⽅式.html" title="段页式存储管理⽅式 [408/operating-system/段页式存储管理⽅式]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-段页式存储管理⽅式'"><span class="taxon"></span>段页式存储管理⽅式</span></li></ul></li></ul></div></nav></div></body></html>

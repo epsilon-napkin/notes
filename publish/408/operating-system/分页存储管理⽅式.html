@@ -40,6 +40,15 @@
   blockquote p {
     margin: 0;
   }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
@@ -91,7 +100,7 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/course-notes/operating-system/lesson-13.html'" title="操作系统 Lesson 13 - 离散分配">« 操作系统 Lesson 13 - 离散分配</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-分页存储管理⽅式"><header><h1><span class="taxon"></span>分页存储管理⽅式 <a class="slug" href="/408/operating-system/分页存储管理⽅式.html">[分页存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/分页存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/离散分配.html'" title="离散分配">« 离散分配</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-分页存储管理⽅式"><header><h1><span class="taxon"></span>分页存储管理⽅式 <a class="slug" href="/408/operating-system/分页存储管理⽅式.html">[分页存储管理⽅式]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/分页存储管理⽅式.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
 img {
   border-radius: 0.2em; 
   width: 400px;
@@ -111,8 +120,6 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 \hint{页号} ~ P = \bigg\lfloor \frac{\hint{逻辑地址} ~ A}{\hint{页⾯⼤⼩} ~ L} \bigg\rfloor, \quad
 \hint{页内地址} ~ d = \hint{逻辑地址} ~ A \mod \hint{页⾯⼤⼩} ~ L
 $$</p>
-<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-分页系统地址变换"><header><h1><span class="taxon"></span>分页系统地址变换 <a class="slug" href="/408/operating-system/分页系统地址变换.html">[分页系统地址变换]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/分页系统地址变换.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
-$\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 <p>$\textbf{Example.}$ 逻辑地址为 2500, 每页大小为 1KB, 页表如下. 求物理地址.</p>
 <div style="display: flex; width: 100%;">
   <div style="flex: 1; padding: 0 10px;">
@@ -130,7 +137,6 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 <div style="text-align: center; ">
 <p><img src="/assets/分页系统的地址变换机构.png" title="" alt=""></p>
 </div>
-</details></section></p>
 <p>$\textbf{Remark.}$ 为了提⾼地址变换速度, 可在地址变换机构中增设⼀个具有并⾏查寻能⼒的特⾼速缓冲寄存器, 又称为 “联想寄存器” [Associative Memory], 或称为 <em>“快表”</em>.</p>
 <div style="text-align: center; ">
 <p><img src="/assets/具有快表的地址变换机构.png" title="" alt=""></p>
@@ -144,4 +150,4 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 </ul>
 </details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>虚拟存储器 <a class="slug" href="/408/operating-system/虚拟存储器.html">[虚拟存储器]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/虚拟存储器.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/分页系统地址变换.html" title="分页系统地址变换 [408/operating-system/分页系统地址变换]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-分页系统地址变换'"><span class="taxon"></span>分页系统地址变换</span></li></ul></div></nav></div></body></html>
+</div></body></html>

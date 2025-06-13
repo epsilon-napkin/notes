@@ -40,6 +40,15 @@
   blockquote p {
     margin: 0;
   }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
@@ -91,15 +100,17 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/course-notes/operating-system/lesson-12.html'" title="操作系统 Lesson 12">« 操作系统 Lesson 12</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-动态分区"><header><h1><span class="taxon"></span>动态分区 <a class="slug" href="/408/operating-system/动态分区.html">[动态分区]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/动态分区.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><strong>分配思想</strong>: 内存不预先划分好. 根据作业的大小分配内存. 如果有空闲区满足作业大小的需求就分配. <br />
-<strong>数据结构</strong>: 利用空闲分区表记录空闲区情况. 利用已分配分区表记录内存分配情况. <br />
-<strong>分配和回收</strong>:</p>
-<ol>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/连续分配存储管理.html'" title="连续分配存储管理⽅式">« 连续分配存储管理⽅式</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-动态分区"><header><h1><span class="taxon"></span>动态分区 <a class="slug" href="/408/operating-system/动态分区.html">[动态分区]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/动态分区.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>分配思想: 内存不预先划分好. 根据作业的大小分配内存. 如果有空闲区满足作业大小的需求就分配. \</li>
+<li>数据结构: 利用空闲分区表记录空闲区情况. 利用已分配分区表记录内存分配情况. \</li>
+<li>分配和回收:<ol>
 <li>修改 $F_1$ 的长度. $F_1$ 长度 + 回收区长度.</li>
 <li>修改 $F_2$ 的始地址和长度. 回收区长度 + $F_2$ 长度.</li>
 <li>修改 $F_1$ 的长度, 删除 $F_2$. $F_1$ + 回收区 + $F_2$ 长度.</li>
 <li>新增一条记录, 分别是回收区的始地址和长度.</li>
 </ol>
-</details></section><footer></footer></article>
+</li>
+</ul>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>动态可重定位分区分配 <a class="slug" href="/408/operating-system/动态可重定位分区.html">[动态可重定位分区]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/动态可重定位分区.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
 
 </div></body></html>

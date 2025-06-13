@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>调度算法</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/调度算法.html'" title="调度算法">« 调度算法</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon="Example"><details open><summary id="408-operating-system-调度算法-例"><header><h1><span class="taxon">Example. </span>调度算法 <a class="slug" href="/408/operating-system/调度算法-例.html">[调度算法-例]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/调度算法-例.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\textbf{Example.}$ 有 5 个批处理作业 (A、B、C、D、E) 几乎同时到达, 估计的运行时间分别为 2、4、6、8、10, 它们的优先级分别为 1、2、3、4、5 (1 为最低优先级). 对下面的每种调度算法, 分别计算作业的平均周转时间和平均带权周转时间.</p>
+<ol>
+<li>先来先服务 FCFS (作业到达顺序为 CDBEA).</li>
+<li>短作业优先 SJF.</li>
+<li>优先级调度算法 PSA.</li>
+<li>时间片轮转 RR (时间片为 2 分钟).</li>
+</ol>
+<p>$\textbf{Solution.}$</p>
+<ol>
+<li>FCFS</li>
+</ol>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$28$</td><td style="text-align: center">$30$</td><td style="text-align: center">$30$</td><td style="text-align: center">$15$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$14$</td><td style="text-align: center">$18$</td><td style="text-align: center">$18$</td><td style="text-align: center">$9/2$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$6$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$0$</td><td style="text-align: center">$8$</td><td style="text-align: center">$6$</td><td style="text-align: center">$14$</td><td style="text-align: center">$14$</td><td style="text-align: center">$7/4$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$18$</td><td style="text-align: center">$28$</td><td style="text-align: center">$28$</td><td style="text-align: center">$14/5$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$19.2$</td><td style="text-align: center">$5.01$</td></tr>
+</tbody></table>
+<ol start="2">
+<li>SJF</li>
+</ol>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$2$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$2$</td><td style="text-align: center">$6$</td><td style="text-align: center">$6$</td><td style="text-align: center">$3/2$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$6$</td><td style="text-align: center">$12$</td><td style="text-align: center">$12$</td><td style="text-align: center">$2$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$0$</td><td style="text-align: center">$8$</td><td style="text-align: center">$18$</td><td style="text-align: center">$20$</td><td style="text-align: center">$20$</td><td style="text-align: center">$5/2$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$20$</td><td style="text-align: center">$30$</td><td style="text-align: center">$30$</td><td style="text-align: center">$3$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$14$</td><td style="text-align: center">$2$</td></tr>
+</tbody></table>
+<ol start="3">
+<li>PSA</li>
+</ol>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$28$</td><td style="text-align: center">$30$</td><td style="text-align: center">$30$</td><td style="text-align: center">$15$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$24$</td><td style="text-align: center">$28$</td><td style="text-align: center">$28$</td><td style="text-align: center">$7$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$18$</td><td style="text-align: center">$24$</td><td style="text-align: center">$24$</td><td style="text-align: center">$4$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$0$</td><td style="text-align: center">$8$</td><td style="text-align: center">$10$</td><td style="text-align: center">$18$</td><td style="text-align: center">$18$</td><td style="text-align: center">$9/4$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$10$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$22$</td><td style="text-align: center">$5.85$</td></tr>
+</tbody></table>
+<ol start="4">
+<li>RR</li>
+</ol>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$2$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$2$</td><td style="text-align: center">$12$</td><td style="text-align: center">$12$</td><td style="text-align: center">$3$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$4$</td><td style="text-align: center">$20$</td><td style="text-align: center">$20$</td><td style="text-align: center">$3.3$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$0$</td><td style="text-align: center">$8$</td><td style="text-align: center">$6$</td><td style="text-align: center">$26$</td><td style="text-align: center">$26$</td><td style="text-align: center">$3.25$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$8$</td><td style="text-align: center">$30$</td><td style="text-align: center">$30$</td><td style="text-align: center">$3$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$18$</td><td style="text-align: center">$2.72$</td></tr>
+</tbody></table>
+<p>ABCDE BCDE CDE DE E</p>
+</details></section><footer></footer></article>
+
+</div></body></html>

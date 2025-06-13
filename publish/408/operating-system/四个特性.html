@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>操作系统的四个特性</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-四个特性"><header><h1><span class="taxon"></span>操作系统的四个特性 <a class="slug" href="/408/operating-system/四个特性.html">[四个特性]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/四个特性.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+img {
+  border-radius: 0.2em; 
+  width: 500px;
+}
+</style>
+<h4>操作系统的四个特征: 并发 共享 虚拟 异步</h4>
+<h3>OS的并发性 [Concurrence]</h3>
+<p>同一 <em>时间间隔</em> 内执行和调度 <em>多个程序</em> 的能力</p>
+<ul>
+<li>宏观上, 处理机同时执行多道程序</li>
+<li>微观上, 处理机在多道程序间高速切换 (分时交替执行)</li>
+<li>关注单个处理机同一时间段内处理任务数量的能力</li>
+</ul>
+<h4>单核与多核</h4>
+<ul>
+<li>单核 CPU 同一时刻只能运行一个程序, 并发执行程序.</li>
+<li>多核 CPU 同一时刻可以执行多个程序, 并行执行程序.</li>
+</ul>
+<h3>OS 的共享性 [Sharing]</h3>
+<p>即资源共享, 系统中的资源供多个 <em>并发执行</em> 的应用程序共同使用</p>
+<ul>
+<li>同时访问方式: 同一时段允许多个程序同时访问共享资源</li>
+<li>互斥共享方式: 也叫独占式, 允许多个程序在同一个共享资源上独立而互不干扰的工作</li>
+</ul>
+<h4>并发和共享互为存在条件</h4>
+<ul>
+<li>共享性要求 OS 中同时运行着多道程序. 若只有单道程序正在运行, 则不存在共享的可能</li>
+<li>并发性难以避免的导致多道程序同时访问同一个资源. 若多道程序无法共享部分资源 (比如磁盘), 则无法并发</li>
+</ul>
+<h3>OS 的虚拟技术 [Virtual]</h3>
+<ul>
+<li>时分复用技术 [TDM, Time Division Multiplexing] e.g. 单核多线程</li>
+<li>空分复用技术 [SDM, Space Division Multiplexing] e.g. 磁盘分卷</li>
+</ul>
+<h3>OS的异步性 [Asynchronism]</h3>
+<p>多道程序环境下, 允许多个程序并发执行;
+单处理机环境下, 多个程序分时交替执行;</p>
+<ul>
+<li>程序执行的不可预知性<ul>
+<li>获得运行的时机</li>
+<li>因何暂停</li>
+<li>每道程序需要多少时间</li>
+<li>不同程序的性能, 比如计算 / IO</li>
+</ul>
+</li>
+<li>宏观上 “一气呵成”, 微观上 “走走停停”</li>
+</ul>
+<h3>多道程序的两种执行方式</h3>
+<ul>
+<li>顺序执行: 顺序性, 封闭性, 确定性, 可再现性</li>
+<li>并发执行: 间断性, 资源共享性 (失去封闭性, 相互制约), <em>不可再现</em></li>
+</ul>
+<p>这些问题引出了进程的概念.</p>
+<ul>
+<li>进程是程序的 <em>一次执行</em></li>
+<li>进程是一个程序及其数据在处理机上顺序执行时所发生的</li>
+<li>进程是程序在一个 <em>数据集合</em> 上运行的过程</li>
+<li>进程是系统进行 <em>资源分配和调度</em> 的一个 <em>独立</em> 单位 (或者说基本单位).</li>
+</ul>
+<p>进程与程序的区别</p>
+<ul>
+<li>进程是动态的, 程序是静态的 (动态性)</li>
+<li>进程有并发的特征, 程序没有 (并发性)</li>
+<li>进程有生命周期, 程序是长久的 (独立性, 异步性)</li>
+<li>进程可创建其他进程, 程序不能 (结构性, 配备进程控制块 PCB)</li>
+</ul>
+<h3>进程的基本状态</h3>
+<p>由于多个进程在并发执行时共享系统资源, 致使它们在运行过程中呈现间断性的运行规律, 所以进程在其生命周期内可能具有多种状态. 一般而言, 每一个进程 <em>至少</em> 应处于以下三种基本状态之一:</p>
+<p style="text-align: center;"><img src="../../assets/three-state.svg" style="border-radius: 0.2em; width: 500px;"><br>三态模型</p>
+<ol>
+<li><p>就绪 [Ready] 状态. 进程已处于准备好运行的状态, 即进程已分配到除 CPU 以外的所有必要资源后, 只要再获得 CPU, 便可立即执行. <hint>如果系统中有许多处于就绪状态的进程, 通常将它们按一定的策略 (如优先级策略) 排成一个队列, 称该队列为就绪队列.</hint></p>
+</li>
+<li><p>执行 [Running] 状态. 进程已获得 CPU, 其程序正在执行的状态. 对任何一个时刻而言, 在单处理机系统中, 只有一个进程处于执行状态, 而在多处理机系统中, 则有多个进程处于执行状态.</p>
+</li>
+<li><p>阻塞 [Blocked] 状态. 这是指正在执行的进程由于发生某事件 (如 IO 请求、申请缓冲区失败等) 和暂时无法继续执行时的状态, 亦即进程的执行受到阻塞. 此时引起进程调度, OS把处理机分配给另一个就绪进程, 而让受阻进程处于暂停状态, 一般将这种暂停状态称为阻塞状态, 有时也称为等待状态或封锁状态. <hint>通常系统将处于阻塞状态的进程也排成一个队列, 称该队列为阻塞队列. 实际上, 在较大的系统中, 为了减少队列操作的开销, 提高系统效率, 根据阻塞原因的不同, 会设置多个阻塞队列.
+</hint></p>
+</li>
+<li><p>创建状态 [New], 又称新建态. 进程正在被创建, 操作系统为进程分配资源、初始化 PCB.</p>
+</li>
+<li><p>终止状态 [Terminated], 又称结束态. 通过执行 <code>exit</code> 系统调用, 请求操作系统终止该进程. 进程正在从系统中撤销, 操作系统会回收进程拥有的资源、撤销 PCB.</p>
+</li>
+</ol>
+<p style="text-align: center;"><img src="../../assets/five-state.svg" style="border-radius: 0.2em; width: 500px;"><br>五态模型</p>
+</details></section><footer></footer></article>
+
+</div></body></html>

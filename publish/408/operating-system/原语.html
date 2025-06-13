@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>原语</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-原语"><header><h1><span class="taxon"></span>原语 <a class="slug" href="/408/operating-system/原语.html">[原语]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/原语.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>原语用于实现 <em>进程控制</em>. 原语即 <em>不可被中断的原子操作</em>.</p>
+<h4>原语的特点</h4>
+<ul>
+<li>原子操作, 要么全做, 要么全不做, 执行过程不会被中断.</li>
+<li>在管态 / 系统态 / 内核态下执行, 常驻内存.</li>
+<li>是内核三大支撑功能 (中断处理 / 时钟管理 / 原语操作) 之一.</li>
+</ul>
+<span>
+<h4>1. 创建原语   创建 $\to$ 就绪.</h4>
+<ul>
+<li>申请空白 PCB、为新进程分配所需要资源、初始化 PCB、将 PCB 插入就绪队列.</li>
+<li>引起进程创建的事件:<ul>
+<li>用户登陆: 分时系统, 用户登陆成功, 系统会建立为其建立一个新的进程.</li>
+<li>作品调度: 多道批处理系统中, 有新的作业放入内存时, 会为其建立新的进程.</li>
+<li>提供服务: 用户向操作系统提出其某些请求时, 会新建一个进程处理该请求.</li>
+<li>应用请求: 由用户进程主动请求创建一个子进程.</li>
+</ul>
+</li>
+</ul>
+<h4>2. 撤销原语   就绪 / 阻塞 / 运行 $\to$ 终止</h4>
+<ul>
+<li>从 PCB 集合中找到终止的 PCB; 若进程正在运行, 立即剥夺 CPU, 将 CPU 分配给其他进程; 终止其所有子进程; 将该进程拥有的所有资源归还给父进程或操作系统; 删除 PCB.</li>
+<li>引起进程终止的事件: 正常结束、异常结束、外界干预.</li>
+</ul>
+<h4>3. 阻塞原语   运行 $\to$ 阻塞</h4>
+<ul>
+<li>找到要阻塞的进程对应的 PCB; 保护进程运行现场,将 PCB 状态信息设置为 “阻塞态”, 暂停停止进程运行; 将 PCB 插入相应事件的等待队列.</li>
+<li>引起进程阻塞的事件:<ul>
+<li>需要等待系统分配某种资源.</li>
+<li>需要等待相互合作的其他进程完成工作.</li>
+</ul>
+</li>
+</ul>
+<h4>4. 唤醒原语   阻塞 $\to$ 就绪</h4>
+<ul>
+<li>在事件等待队列中找到 PCB; 将 PCB 从等待队列移除, 设置进程为就绪态; 将 PCB 插入就绪队列, 等待被调度.</li>
+<li>引起进程唤醒的事件: 等待的事件发生.</li>
+</ul>
+<h4>5. 挂起原语   活动 $\to$ 静止</h4>
+<ul>
+<li>找到需要挂起的进程的 PCB, 检查 PCB 状态并在操作系统内部更新进程状态为挂起 (运行态、活动就绪态 $\to$ 静止就绪态, 活动阻塞态 $\to$ 静止阻塞态), 之后将该 PCB 复制到指定的内存区域.</li>
+<li>引起进程挂起的事件:<ul>
+<li>资源限制: 如内存不足时，操作系统可能会挂起一些进程.</li>
+<li>父进程 / 用户请求: 父进程 / 用户可以直接请求挂起某个进程.</li>
+<li>系统维护: 系统更新或硬件维护时可能会挂起进程.</li>
+</ul>
+</li>
+</ul>
+<h4>6. 激活原语   静止 $\to$ 活动</h4>
+<ul>
+<li>将进程从外存对换回内存, 检查该进程的现行状态并将进程状态从挂起更改为运行或就绪.</li>
+<li>引起进程激活的事件:<ul>
+<li>父进程 / 用户请求: 父进程 / 用户进程请求激活指定进程.</li>
+<li>资源可用: 如 <code>I/O</code> 设备变得可用; 某个进程驻留在外存而内存中已有足够的空间.</li>
+</ul>
+</li>
+</ul>
+</span>
+<h4>7. 切换原语   运行 $\to$ 阻塞 / 就绪; 就绪 $\to$ 运行</h4>
+<ul>
+<li>将运行环境信息存入 PCB; 将 PCB 移入相应队列; 选择另一个进程执行, 并更新其 PCB; 将 PCB 恢复新进程所需的运行环境.</li>
+<li>引起进程切换的事件:<ul>
+<li>当前进程时间片用完.</li>
+<li>有更高优先级的进程到达.</li>
+<li>当前进程阻塞.</li>
+<li>当前进程终止.</li>
+</ul>
+</li>
+</ul>
+<p style="text-align: center;"><img src="../../assets/full-seven-state.svg" style="border-radius: 0.2em; width: 800px;"><br>七态模型及原语</p>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>内核 <a class="slug" href="/408/operating-system/内核.html">[内核]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/内核.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
+
+</div></body></html>

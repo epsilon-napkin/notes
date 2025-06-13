@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>处理死锁的⽅法</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/死锁.html'" title="死锁 [Deadlock]">« 死锁 [Deadlock]</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-处理死锁的⽅法"><header><h1><span class="taxon"></span>处理死锁的⽅法 <a class="slug" href="/408/operating-system/处理死锁的⽅法.html">[处理死锁的⽅法]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/处理死锁的⽅法.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+<li><p>预防死锁. 这是一种较简单和直观的事先预防方法. 该方法是通过设置某些限制条件, 去破坏产生死锁四个必要条件中的一个或几个来预防产生死锁. 预防死锁是一种较易实现的方法, 已被广泛使用.</p>
+</li>
+<li><p>避免死锁. 同样是属于事先预防策略, 但它并不是事先采取各种限制措施, 去破坏产生死锁的四个必要条件, 而是在资源的动态分配过程中, 用 <span class="link local"><a href="/408/operating-system/银行家算法.html" title="银行家算法 [408/operating-system/银行家算法]">某种方法</a></span> 防止系统进入不安全状态, 从而可以避免发生死锁.</p>
+</li>
+<li><p>检测死锁. 这种方法无须事先采取任何限制性措施, 允许进程在运行过程中发生死锁. 但可通过检测机构及时地检测出死锁的发生, 然后采取适当的措施, 把进程从死锁中解脱出来.</p>
+</li>
+<li><p>解除死锁. 当检测到系统中已发生死锁时, 就采取相应措施, 将进程从死锁状态中解脱出来. 常用的方法是撤消一些进程, 回收它们的资源, 将它们分配给已处于阻塞状态的进程, 使其能继续运行.</p>
+</li>
+</ol>
+</details></section><footer></footer></article>
+
+</div></body></html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>进程同步机制</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/进程.html'" title="进程">« 进程</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-进程同步机制"><header><h1><span class="taxon"></span>进程同步机制 <a class="slug" href="/408/operating-system/进程同步机制.html">[进程同步机制]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/进程同步机制.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><h3>进程间的相互关系</h3>
+<h4>竞争关系 [Competition]</h4>
+<ul>
+<li>间接制约关系</li>
+<li>解决方法 — 进程的 <em>互斥</em> [Mutual Exclusion, Mutex], 多个进程互斥地使用系统中共享的独占资源.</li>
+</ul>
+<h4>协作关系 [Collaboration]</h4>
+<ul>
+<li>直接制约关系</li>
+<li>进程协作 — 某些进程为完成同一任务需要分工协作, 由于合作的每一个进程都是独立地以不可预知的速度推进, 这就需要相互协作的进程在某些协调点上协调各自的工作.</li>
+<li>进程的 <em>同步</em> [Synchronization] 是解决进程间协作关系的手段.</li>
+</ul>
+<h3>进程同步机制</h3>
+<p>在执行次序上进行协调 <hint>[同步]</hint>, 使并发执行的诸进程之间能按照一定的规则或时序共享系统资源 <hint>[互斥]</hint>, 并能很好地相互合作.</p>
+<p>$\textbf{Remark.}$ 临界资源 [Critical Resource] 指任一个时间只允许一个进程使用的资源.</p>
+<p>$\textbf{Remark.}$ 临界区 [Critical Section] 指每个进程中访问临界资源的那段代码.</p>
+<h3>互斥的访问临界资源</h3>
+<h4>访问过程</h4>
+<ul>
+<li>进入区: 尝试进入临界区, 成功则加锁 [lock].</li>
+<li>临界区: 访问共享资源.</li>
+<li>退出区: 解锁 [unlock] 唤醒其它阻塞进程.</li>
+<li>剩余区: 其它代码.</li>
+</ul>
+<h4>访问临界资源的循环进程</h4>
+<ul>
+<li>进⼊区</li>
+<li>临界区</li>
+<li>退出区</li>
+<li>剩余区</li>
+</ul>
+<h4>临界区准则</h4>
+<ol>
+<li><p>空闲让进. 当无进程处于临界区时, 表明临界资源处于空闲状态, 应允许一个请求进入临界区的进程立即进入自己的临界区, 以有效地利用临界资源.</p>
+</li>
+<li><p>忙则等待. 当已有进程进入临界区时, 表明临界资源正在被访问, 因而其它试图进入临界区的进程必须等待, 以保证对临界资源的互斥访问.</p>
+</li>
+<li><p>有限等待. 对要求访问临界资源的进程, 应保证在有限时间内能进入自己的临界区, 以免陷入“死等”状态.</p>
+</li>
+<li><p>让权等待. 当进程不能进入自己的临界区时, 应立即释放处理机, 以免进程陷入“忙等”状态.</p>
+</li>
+</ol>
+<!--
+### 用户级线程
+
+#### 概念
+
+1. 在用户空间实现, 用户级线程是与内核无关. 线程任务控制块设置在用户空间, 操作无须内核帮助.
+1. 程序员自己写一个程序库实现逻辑上的线程, 操作系统的视角只看得到进程 (操作系统意识不到用户级线程的存在). 
+1. 线程的管理工作由应用程序完成 (通过线程库). 
+
+#### 优点
+
+1. 线程切换不需要操作系统参与, 不需要转换到内核空间, 节省了模式切换开销.
+1. 不同进程可以选择不同的调度算法.
+1. 用户级线程实现与操作系统平台无关 
+-->
+</details></section><footer></footer></article>
+
+</div></body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>调度算法</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/处理机调度与死锁.html'" title="处理机调度与死锁">« 处理机调度与死锁</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-调度算法"><header><h1><span class="taxon"></span>调度算法 <a class="slug" href="/408/operating-system/调度算法.html">[调度算法]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/调度算法.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$
+$\gdef\str#1{\footnotesize{#1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$
+$\gdef\type#1{~:~\texttt{#1}}$</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-先来先服务"><header><h1><span class="taxon"></span>先来先服务 <a class="slug" href="/408/operating-system/先来先服务.html">[先来先服务]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/先来先服务.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span class="link local"><a href="/408/operating-system/先来先服务.html" title="先来先服务 [408/operating-system/先来先服务]">FCFS</a></span> 是最简单的调度算法, 该算法既可⽤于作业调度, 也可⽤于进程调度. 当在作业调度中采⽤该算法时, 系统将按照作业到达的先后次序来进⾏调度, 或者说它是优先考虑在系统中等待时间最长的作业,⽽不管该作业所需执⾏时间的长短, 从后备作业队列中选择⼏个最先进⼊该队列的作业, 将它们调⼊内存, 为它们分配资源和创建进程. 然后把它放⼊就绪队列.</p>
+<p>当在进程调度中采⽤ <span class="link local"><a href="/408/operating-system/先来先服务.html" title="先来先服务 [408/operating-system/先来先服务]">FCFS</a></span> 算法时, 每次调度是从就绪的进程队列中选择⼀个最先进⼊该队列的进程, 为之分配处理机, 使之投⼊运⾏. 该进程⼀直运⾏到完成或发⽣某事件⽽阻塞后, 进程调度程序才将处理机分配给其它进程.</p>
+<p>顺便说明, <span class="link local"><a href="/408/operating-system/先来先服务.html" title="先来先服务 [408/operating-system/先来先服务]">FCFS</a></span> 算法在单处理机系统中已很少作为主调度算法, 但经常把它与其它调度算法相结合使⽤, 形成⼀种更为有效的调度算法. 例如, 可以在系统中按进程的优先级设置多个队列, 每个优先级⼀个队列, 其中每⼀个队列的调度都基于 <span class="link local"><a href="/408/operating-system/先来先服务.html" title="先来先服务 [408/operating-system/先来先服务]">FCFS</a></span> 算法.</p>
+<h4>先来先服务 [FCFS, First Come First Served]</h4>
+<ul>
+<li>用于作业调度和进程调度.</li>
+<li>选择一个或多个最先进入队列的作业 (进程).</li>
+</ul>
+<h4>优缺点:</h4>
+<ul>
+<li>利于长作业，不利于短作业.</li>
+<li>利 CPU 繁忙型作业 (进程), 不利于 <code>I/O</code> 繁忙型作业 (进程).</li>
+<li>适于批处理系统, 不适于分时系统.</li>
+</ul>
+<p>$\textbf{Example.}$ 先来先服务</p>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$1$</td><td style="text-align: center">$3$</td><td style="text-align: center">$4$</td><td style="text-align: center">$7$</td><td style="text-align: center">$6$</td><td style="text-align: center">$2$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$2$</td><td style="text-align: center">$5$</td><td style="text-align: center">$7$</td><td style="text-align: center">$12$</td><td style="text-align: center">$10$</td><td style="text-align: center">$2$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$3$</td><td style="text-align: center">$2$</td><td style="text-align: center">$12$</td><td style="text-align: center">$14$</td><td style="text-align: center">$11$</td><td style="text-align: center">$\frac{11}2$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$14$</td><td style="text-align: center">$18$</td><td style="text-align: center">$14$</td><td style="text-align: center">$\frac{14}4$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$9$</td><td style="text-align: center">$2.8$</td></tr>
+</tbody></table>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-短作业优先"><header><h1><span class="taxon"></span>短作业优先 <a class="slug" href="/408/operating-system/短作业优先.html">[短作业优先]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/短作业优先.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>短作业优先算法 SJF 是以作业的长短来计算优先级, 作业越短, 其优先级越⾼. 作业的长短是以作业所要求的运⾏时间来衡量的. SJF 算法可以分别⽤于作业调度和进程调度. 在把短作业优先调度算法⽤于作业调度时, 它将从外存的作业后备队列中选择若⼲个估计运⾏时间最短的作业, 优先将它们调⼊内存运⾏.</p>
+<h4>短作业优先 [SJF, Shortest Job First]</h4>
+<ul>
+<li>用于作业调度和进程调度</li>
+<li>选择估计运行时间最短的作业 (进程)</li>
+</ul>
+<h4>优缺点:</h4>
+<ul>
+<li>利于短作业 (进程)，不利于长作业 (进程)</li>
+<li>没有考虑作业 (进程) 的紧迫程度</li>
+<li>估计时间，没有真正的短作业 (进程) 优先</li>
+</ul>
+<p>$\textbf{Example.}$ 短作业优先</p>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$1$</td><td style="text-align: center">$3$</td><td style="text-align: center">$6$</td><td style="text-align: center">$9$</td><td style="text-align: center">$8$</td><td style="text-align: center">$8/3$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$2$</td><td style="text-align: center">$5$</td><td style="text-align: center">$13$</td><td style="text-align: center">$18$</td><td style="text-align: center">$16$</td><td style="text-align: center">$16/5$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$3$</td><td style="text-align: center">$2$</td><td style="text-align: center">$4$</td><td style="text-align: center">$6$</td><td style="text-align: center">$3$</td><td style="text-align: center">$3/2$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$9$</td><td style="text-align: center">$13$</td><td style="text-align: center">$9$</td><td style="text-align: center">$9/4$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$8$</td><td style="text-align: center">$2.1$</td></tr>
+</tbody></table>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-优先级调度算法"><header><h1><span class="taxon"></span>优先级调度算法 <a class="slug" href="/408/operating-system/优先级调度算法.html">[优先级调度算法]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/优先级调度算法.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>在优先级调度算法中, 基于作业的紧迫程度, 由外部赋予作业相应的优先级, 调度算法是根据该优先级进⾏调度的. 这样就可以保证紧迫性作业优先运⾏.优先级调度算法可作为作业调度算法, 也可作为进程调度算法. 当把该算法⽤于作业调度时, 系统是从后备队列中选择若⼲个优先级最⾼的作业装⼊内存.</p>
+<h4>优先级调度 [PSA, Priority-Scheduling Algorithm]</h4>
+<ul>
+<li>用于作业调度和进程调度</li>
+<li>选择优先权最高的作业 (进程)</li>
+</ul>
+<h4>两种类型</h4>
+<ul>
+<li>非抢占式优先权: 批处理系统、要求不严的实时系统.</li>
+<li>抢占式优先权: 严格的实时系统、性能高的批处理、分时系统.</li>
+</ul>
+<p>$\textbf{Example.}$ 优先级调度</p>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">静态优先权</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$1$</td><td style="text-align: center">$3$</td><td style="text-align: center">$2$</td><td style="text-align: center">$8$</td><td style="text-align: center">$11$</td><td style="text-align: center">$10$</td><td style="text-align: center">$10/3$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$2$</td><td style="text-align: center">$5$</td><td style="text-align: center">$3$</td><td style="text-align: center">$11$</td><td style="text-align: center">$16$</td><td style="text-align: center">$14$</td><td style="text-align: center">$14/5$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$3$</td><td style="text-align: center">$2$</td><td style="text-align: center">$5$</td><td style="text-align: center">$16$</td><td style="text-align: center">$18$</td><td style="text-align: center">$15$</td><td style="text-align: center">$15/2$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$1$</td><td style="text-align: center">$4$</td><td style="text-align: center">$8$</td><td style="text-align: center">$4$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$9.4$</td><td style="text-align: center">$2.93$</td></tr>
+</tbody></table>
+<p>根据优先级是否可以动态改变，可将优先级分为静态优先级和动态优先级两种.</p>
+<ul>
+<li>静态优先级: 创建进程时确定, 之后一直不变.</li>
+<li>动态优先级: 创建进程时有一个初始值, 之后会根据情况动态地调整优先级.</li>
+</ul>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-高响应比优先"><header><h1><span class="taxon"></span>高响应比优先 <a class="slug" href="/408/operating-system/高响应比优先.html">[高响应比优先]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/高响应比优先.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$
+$\gdef\str#1{\footnotesize{#1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$
+$\gdef\type#1{~:~\texttt{#1}}$</p>
+<p>在批处理系统中, <span class="link local"><a href="/408/operating-system/先来先服务.html" title="先来先服务 [408/operating-system/先来先服务]">FCFS</a></span> 算法所考虑的只是作业的等待时间,⽽忽视了作业的运⾏时间.⽽ <span class="link local"><a href="/408/operating-system/短作业优先.html" title="短作业优先 [408/operating-system/短作业优先]">SJF</a></span> 算法正好与之相反, 只考虑作业的运⾏时间,⽽忽视了作业的等待时间.⾼响应⽐优先调度算法则是既考虑了作业的等待时间, 又考虑作业运⾏时间的调度算法, 因此既照顾了短作业, 又不致使长作业的等待时间过长, 从⽽改善了处理机调度的性能.</p>
+<h4>高响应比优先 [HRRN, Highest Response Ratio Next]</h4>
+<p>$$
+\str{响应比} \spaces= \frac{\str{等待时间} + \str{要求服务时间} \hint{~~ = 响应时间}}{\str{要求服务时间}}
+$$</p>
+<ul>
+<li>要综合考虑作业 / 进程的等待时间和要求服务的时间.</li>
+<li>是否可抢占: 非抢占式的算法. 因此只有当前运行的作业 / 进程主动放弃处理机时, 才需要调度, 才需要计算响应比.</li>
+<li>优缺点:<ul>
+<li>综合考虑了等待时间和运行时间 (要求服务时间)</li>
+<li>等待时间相同时, 要求服务时间短的优先 (SJF 的优点)</li>
+<li>要求服务时间相同时, 等待时间长的优先 (FCFS 的优点)</li>
+<li>对于长作业来说, 随着等待时间越来越久, 其响应比也会越来越大, 从而避免了长作业饥饿的问题.</li>
+</ul>
+</li>
+<li>是否会导致饥饿: 不会.</li>
+</ul>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-时间片轮转"><header><h1><span class="taxon"></span>时间片轮转 <a class="slug" href="/408/operating-system/时间片轮转.html">[时间片轮转]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/时间片轮转.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><h4>时间片轮转 [RR, Round-Robin]</h4>
+<ul>
+<li>算法规则: 按照各进程到达就绪队列的顺序, 轮流让各个进程执行一个时间片 (如 <code>100ms</code>). 若进程末在一个时间片内执行完, 则剥夺处理机, 将进程重新放到就绪队列队尾重新排队.</li>
+<li>优点: 公平; 响应快, 适用于分时操作系统;</li>
+<li>缺点: 由于高频率的进程切换, 因此有一定开销; 不区分任务的紧急程度.</li>
+</ul>
+<p>$\textbf{Example.}$</p>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$0$</td><td style="text-align: center">$15$</td><td style="text-align: center">$15$</td><td style="text-align: center">$15/4$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$1$</td><td style="text-align: center">$3$</td><td style="text-align: center">$1$</td><td style="text-align: center">$12$</td><td style="text-align: center">$11$</td><td style="text-align: center">$11/3$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$2$</td><td style="text-align: center">$5$</td><td style="text-align: center">$2$</td><td style="text-align: center">$18$</td><td style="text-align: center">$16$</td><td style="text-align: center">$16/5$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$3$</td><td style="text-align: center">$2$</td><td style="text-align: center">$3$</td><td style="text-align: center">$9$</td><td style="text-align: center">$6$</td><td style="text-align: center">$3$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$4$</td><td style="text-align: center">$17$</td><td style="text-align: center">$13$</td><td style="text-align: center">$13/4$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$12.2$</td><td style="text-align: center">$3.373..$</td></tr>
+</tbody></table>
+</details></section>
+<section class="block hide-metadata" data-taxon="Example"><details open><summary id="408-operating-system-调度算法-例"><header><h1><span class="taxon">Example. </span>调度算法 <a class="slug" href="/408/operating-system/调度算法-例.html">[调度算法-例]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/调度算法-例.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\textbf{Example.}$ 有 5 个批处理作业 (A、B、C、D、E) 几乎同时到达, 估计的运行时间分别为 2、4、6、8、10, 它们的优先级分别为 1、2、3、4、5 (1 为最低优先级). 对下面的每种调度算法, 分别计算作业的平均周转时间和平均带权周转时间.</p>
+<ol>
+<li>先来先服务 FCFS (作业到达顺序为 CDBEA).</li>
+<li>短作业优先 SJF.</li>
+<li>优先级调度算法 PSA.</li>
+<li>时间片轮转 RR (时间片为 2 分钟).</li>
+</ol>
+<p>$\textbf{Solution.}$</p>
+<ol>
+<li>FCFS</li>
+</ol>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$28$</td><td style="text-align: center">$30$</td><td style="text-align: center">$30$</td><td style="text-align: center">$15$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$14$</td><td style="text-align: center">$18$</td><td style="text-align: center">$18$</td><td style="text-align: center">$9/2$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$6$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$0$</td><td style="text-align: center">$8$</td><td style="text-align: center">$6$</td><td style="text-align: center">$14$</td><td style="text-align: center">$14$</td><td style="text-align: center">$7/4$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$18$</td><td style="text-align: center">$28$</td><td style="text-align: center">$28$</td><td style="text-align: center">$14/5$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$19.2$</td><td style="text-align: center">$5.01$</td></tr>
+</tbody></table>
+<ol start="2">
+<li>SJF</li>
+</ol>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$2$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$2$</td><td style="text-align: center">$6$</td><td style="text-align: center">$6$</td><td style="text-align: center">$3/2$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$6$</td><td style="text-align: center">$12$</td><td style="text-align: center">$12$</td><td style="text-align: center">$2$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$0$</td><td style="text-align: center">$8$</td><td style="text-align: center">$18$</td><td style="text-align: center">$20$</td><td style="text-align: center">$20$</td><td style="text-align: center">$5/2$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$20$</td><td style="text-align: center">$30$</td><td style="text-align: center">$30$</td><td style="text-align: center">$3$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$14$</td><td style="text-align: center">$2$</td></tr>
+</tbody></table>
+<ol start="3">
+<li>PSA</li>
+</ol>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$28$</td><td style="text-align: center">$30$</td><td style="text-align: center">$30$</td><td style="text-align: center">$15$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$24$</td><td style="text-align: center">$28$</td><td style="text-align: center">$28$</td><td style="text-align: center">$7$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$18$</td><td style="text-align: center">$24$</td><td style="text-align: center">$24$</td><td style="text-align: center">$4$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$0$</td><td style="text-align: center">$8$</td><td style="text-align: center">$10$</td><td style="text-align: center">$18$</td><td style="text-align: center">$18$</td><td style="text-align: center">$9/4$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$10$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$22$</td><td style="text-align: center">$5.85$</td></tr>
+</tbody></table>
+<ol start="4">
+<li>RR</li>
+</ol>
+<table><thead><tr><th style="text-align: center">进程名</th><th style="text-align: center">到达</th><th style="text-align: center">服务</th><th style="text-align: center">开始</th><th style="text-align: center">完成</th><th style="text-align: center">周转</th><th style="text-align: center">带权周转</th></tr></thead><tbody>
+<tr><td style="text-align: center">A</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$0$</td><td style="text-align: center">$2$</td><td style="text-align: center">$2$</td><td style="text-align: center">$1$</td></tr>
+<tr><td style="text-align: center">B</td><td style="text-align: center">$0$</td><td style="text-align: center">$4$</td><td style="text-align: center">$2$</td><td style="text-align: center">$12$</td><td style="text-align: center">$12$</td><td style="text-align: center">$3$</td></tr>
+<tr><td style="text-align: center">C</td><td style="text-align: center">$0$</td><td style="text-align: center">$6$</td><td style="text-align: center">$4$</td><td style="text-align: center">$20$</td><td style="text-align: center">$20$</td><td style="text-align: center">$3.3$</td></tr>
+<tr><td style="text-align: center">D</td><td style="text-align: center">$0$</td><td style="text-align: center">$8$</td><td style="text-align: center">$6$</td><td style="text-align: center">$26$</td><td style="text-align: center">$26$</td><td style="text-align: center">$3.25$</td></tr>
+<tr><td style="text-align: center">E</td><td style="text-align: center">$0$</td><td style="text-align: center">$10$</td><td style="text-align: center">$8$</td><td style="text-align: center">$30$</td><td style="text-align: center">$30$</td><td style="text-align: center">$3$</td></tr>
+<tr><td style="text-align: center">平均</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">$18$</td><td style="text-align: center">$2.72$</td></tr>
+</tbody></table>
+<p>ABCDE BCDE CDE DE E</p>
+</details></section></p>
+</details></section><footer></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/先来先服务.html" title="先来先服务 [408/operating-system/先来先服务]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-先来先服务'"><span class="taxon"></span>先来先服务</span></li><li class=""><a class="bullet" href="/408/operating-system/短作业优先.html" title="短作业优先 [408/operating-system/短作业优先]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-短作业优先'"><span class="taxon"></span>短作业优先</span></li><li class=""><a class="bullet" href="/408/operating-system/优先级调度算法.html" title="优先级调度算法 [408/operating-system/优先级调度算法]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-优先级调度算法'"><span class="taxon"></span>优先级调度算法</span></li><li class=""><a class="bullet" href="/408/operating-system/高响应比优先.html" title="高响应比优先 [408/operating-system/高响应比优先]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-高响应比优先'"><span class="taxon"></span>高响应比优先</span></li><li class=""><a class="bullet" href="/408/operating-system/时间片轮转.html" title="时间片轮转 [408/operating-system/时间片轮转]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-时间片轮转'"><span class="taxon"></span>时间片轮转</span></li><li class=""><a class="bullet" href="/408/operating-system/调度算法-例.html" title="调度算法 [408/operating-system/调度算法-例]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-调度算法-例'"><span class="taxon">Example. </span>调度算法</span></li></ul></div></nav></div></body></html>

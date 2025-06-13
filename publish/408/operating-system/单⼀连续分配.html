@@ -40,6 +40,15 @@
   blockquote p {
     margin: 0;
   }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
@@ -91,11 +100,13 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/course-notes/operating-system/lesson-12.html'" title="操作系统 Lesson 12">« 操作系统 Lesson 12</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-单⼀连续分配"><header><h1><span class="taxon"></span>单⼀连续分配 <a class="slug" href="/408/operating-system/单⼀连续分配.html">[单⼀连续分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/单⼀连续分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><strong>分配思想</strong>: 内存分为 OS 区和用户区. 用户区仅允许分配一个作业. <br />
-<strong>数据结构</strong>: 起始地址, 大小. <br />
-<strong>分配和回收</strong>: 用户区空闲则分配. 作业运行完回收. <br />
-<strong>优点</strong>: 简单. <br />
-<strong>缺点</strong>: 单作业. 主存利用率不高. 程序是否运行受到主存大小的限制.</p>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/连续分配存储管理.html'" title="连续分配存储管理⽅式">« 连续分配存储管理⽅式</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-单⼀连续分配"><header><h1><span class="taxon"></span>单⼀连续分配 <a class="slug" href="/408/operating-system/单⼀连续分配.html">[单⼀连续分配]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/单⼀连续分配.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li>分配思想: 内存分为 OS 区和用户区. 用户区仅允许分配一个作业.</li>
+<li>数据结构: 起始地址, 大小.</li>
+<li>分配和回收: 用户区空闲则分配. 作业运行完回收.</li>
+<li>优点: 简单.</li>
+<li>缺点: 单作业. 主存利用率不高. 程序是否运行受到主存大小的限制.</li>
+</ul>
 </details></section><footer></footer></article>
 
 </div></body></html>
