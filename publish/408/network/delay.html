@@ -7,6 +7,10 @@
     font-size: 1.25em;
   }
 
+  li p {
+    margin: 0;
+  }
+
   a.link.local,
   .link.local a {
     box-shadow: none;
@@ -100,7 +104,7 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/course-notes/network/lesson-2.html'" title="计算机网络 Lesson 2">« 计算机网络 Lesson 2</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-delay"><header><h1><span class="taxon"></span>时延 <a class="slug" href="/408/network/delay.html">[delay]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/delay.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/performance.html'" title="计算机网络的性能">« 计算机网络的性能</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-delay"><header><h1><span class="taxon"></span>时延 <a class="slug" href="/408/network/delay.html">[delay]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/delay.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
 $\gdef\type#1{~:~\texttt{#1}}$</p>
 <p>时延 [delay / latency] 是指数据 (一个报文或分组, 甚至比特) 从网络或链路的一端传送到另一端所需的时间. 有时也称为延迟或迟延. 网络中的时延由以下几个不同的部分组成:</p>
 <ol>
@@ -108,11 +112,11 @@ $\gdef\type#1{~:~\texttt{#1}}$</p>
 </li>
 <li><p>传播时延 $~ = ~ \dfrac{\str{信道长度} ~ l \type{m}}{\str{信号在信道上的传播速率} ~ v \type{m/s}}$</p>
 </li>
-<li><p>处理时延</p>
+<li><p>处理时延   主机或路由器在收到分组时要花费⼀定的时间进⾏处理, 例如分析分组的⾸部、 从分组中提取数据部分、 进⾏差错检验或查找转发表等, 这就产⽣了处理时延.</p>
 </li>
-<li><p>排队时延</p>
+<li><p>排队时延   分组在经过⽹络传输时, 要经过许多路由器. 但分组在进⼊路由器后要先在输⼊队列中排队等待处理. 在路由器确定了转发接⼜后, 还要在输出队列中排队等待转发. 这就产⽣了排队时延. 排队时延的长短往往取决于⽹络当时的通信量. 当⽹络的通信量很⼤时会发⽣队列溢出, 使分组丢失, 这相当于排队时延为⽆穷⼤.</p>
 </li>
 </ol>
-</details></section><footer></footer></article>
+</details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>利用率 <a class="slug" href="/408/network/utilization-rate.html">[utilization-rate]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/utilization-rate.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
 
 </div></body></html>

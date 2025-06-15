@@ -7,6 +7,10 @@
     font-size: 1.25em;
   }
 
+  li p {
+    margin: 0;
+  }
+
   a.link.local,
   .link.local a {
     box-shadow: none;
@@ -125,6 +129,12 @@ nav {
 </ul>
 </li>
 </ul>
+<h3>基本的带通调制方法</h3>
+<ul>
+<li>调幅 (AM): 载波的振幅随基带数字信号而变化.</li>
+<li>调频 (FM): 载波的频率随基带数字信号而变化.</li>
+<li>调相 (PM): 载波的初始相位随基带数字信号而变化.</li>
+</ul>
 </details></section>
 <section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-encoding-method"><header><h1><span class="taxon"></span>数字信号编码方法 <a class="slug" href="/408/network/encoding-method.html">[encoding-method]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/encoding-method.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
 img {
@@ -149,7 +159,94 @@ em {
 <li>差分曼彻斯特编码: 在每一位的中心处始终都有跳变, 位开始边界有跳变代表 0, 而位开始边界没有跳变代表 1.</li>
 </ul>
 <p>从信号波形中可以看出, 曼彻斯特 [Manchester] 编码产生的信号频率比不归零制高. 从自同步能力来看, 不归零制不能从信号波形本身中提取信号时钟频率, 这叫作没有自同步能力, 而曼彻斯特编码具有自同步能力.</p>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-maximum-capacity"><header><h1><span class="taxon"></span>信道的极限容量 <a class="slug" href="/408/network/maximum-capacity.html">[maximum-capacity]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/maximum-capacity.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>从概念上讲, 限制码元在信道上的传输速率的因素有以下两个:</p>
+<ul>
+<li>信道能够通过的频率范围</li>
+<li>信噪比</li>
+</ul>
+<h4>奈氏准则</h4>
+<blockquote>
+<p>理想信道, 极限码元传输率 $2W$ 波特, 低信道下的极限数据传输率 <code>(b/s)</code> $=2W \log_2 V$.
+$W$ 是理想低通道的带宽, 单位为 <code>Hz</code>. $V$ 表示每个码元离散电平的数目.</p>
+</blockquote>
+<ol>
+<li>码元传输的速率是有上限的, 超过次上限, 就会出现码间串扰问题, 使接收端不能完全正确识别码元.</li>
+<li>信道的频带越宽, 可更高的速率进行码元的有效传输.</li>
+<li>码元传输速率受奈氏准则制约, 要提高数据传输速率, 需要使每个码元携带更多比特的信息量, 需要采用多元制.</li>
+</ol>
+<h4>香农定理</h4>
+<blockquote>
+<p>带宽受限且高斯白噪声干扰的信道的极限数据传输速率 $C = W \log_2(1+S/N)$.
+$S/N$ 为信噪比, 即信号平均功率与噪声平均功率之比, 位为分贝 <code>(dB)</code>. 信噪比 <code>(dB)</code> $= 10 \log_{10}(S/N)$.</p>
+</blockquote>
+<ol>
+<li>信道的带宽或信道的信噪比越大, 信息的极限传输速率就越高.</li>
+<li>只要信息传输速率低于信道的极限信息传输速率, 就一定存在某种方法来实现无差别的传输.</li>
+<li>对一定的传输带宽和信噪比, 信息传输速率上限是一定的; 若信道带宽 $W$ 或信噪比 $S/N$ 没有上限, 则信道的极限信息传输速率 $C$ 也没有上限.</li>
+<li>码元传输的速率越高, 或信号传输的距离越远, 或噪声干扰越大, 或传输媒体质量越差, 在接收端的波形的失真就越严重.</li>
+</ol>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-transmission"><header><h1><span class="taxon"></span>信号传输方式 <a class="slug" href="/408/network/transmission.html">[transmission]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/transmission.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+<li><p>基带传输: 计算机内部或在相邻设备之间近距离传输, 可以不经过调制就在信道上直接进行的传输方式.</p>
+<ul>
+<li>数字基带传输就是在信道中直接传输数字信号, 传输媒体的整个带宽都被基带信号占用, 双向的传输信息.</li>
+</ul>
+</li>
+<li><p>频带传输: 对数字信号特定的频率的载波进行调制, 将其变成适合于传送的信号后再进行传输.</p>
+<ul>
+<li>远距离传输或无线传输时, 数字信号必须用频带传输技术进行传输, 解决了电话系统传输数字信号的问题, 实现多路复用, 提高传输信道的利用率.</li>
+</ul>
+</li>
+<li><p>宽带传输: 借助频带传输, 可将链路容量分解成两个或多个信道, 每个信道可以携带不同的信号.</p>
+<ul>
+<li>宽带传输的所有信道能同时互不干扰地发送信号, 链路容量大大增加.</li>
+</ul>
+</li>
+</ol>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-multiplexing"><header><h1><span class="taxon"></span>信道复用技术 <a class="slug" href="/408/network/multiplexing.html">[multiplexing]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/multiplexing.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$</p>
+<p>信道复用技术可分为:</p>
+<ul>
+<li>频分复用、时分复用和统计时分复用</li>
+<li>波分复用</li>
+<li>码分复用</li>
+</ul>
+<h4>频分复用</h4>
+<ul>
+<li>将整个带宽分为多份, 用户在分配到一定的频带后, 在通信过程中自始至终都占用这个频带.</li>
+<li>频分复用的所有用户在同样的时间占用不同的带宽资源 (注意这里的 “带宽” 是频率带宽而不是数据的发送速率).</li>
+</ul>
+<h4>时分复用</h4>
+<ul>
+<li>时分复用则是将时间划分为一段段等长的时分复用帧 (TDM 帧).</li>
+<li>每一个时分复用的用户在每一个 TDM 帧中占用固定序号的时隙.每一个用户所占用的时隙是周期性地出现 (其周期就是 TDM 帧的长度).</li>
+<li>TDM 信号也称为等时 (isochronous) 信号.</li>
+<li>时分复用的所有用户是在不同的时间占用同样的频带宽度.</li>
+<li>时分复用可能会造成线路资源的浪费.</li>
+</ul>
+<h4>统计时分复用</h4>
+<ul>
+<li>STDM 帧不是固定分配时隙, 而是按需动态地分配时隙. 因此统计时分复用可以提高线路的利用率.</li>
+</ul>
+<h4>波分复用</h4>
+<h4>码分复用</h4>
+<ul>
+<li>常用的名词是码分多址 CDMA (Code Division Multiple Access).</li>
+<li>各用户使用经过特挑选的不同码型, 因此彼此不会造成干扰.</li>
+<li>这种系统发送的信号有很强的抗干扰能力, 其频谱类似于白噪声, 不易被敌人发现.</li>
+</ul>
+<p>$$
+\begin{gathered}
+S \cdot T = 0, \quad S \cdot S = 1, \quad S \cdot \bar{S} = -1 \\
+\Darr \\
+S \cdot (S+T) = 1, \quad S \cdot (\bar{S}+T) = -1 \\
+\Darr \quad\quad \qquad \quad\quad \Darr \\
+S=1 \quad \qquad \quad S=0
+\end{gathered}
+$$</p>
+<p>$\therefore$ 码片 $\cdot$ 收到的信号 $=\begin{cases} ~~~0 \spaces\Rarr \text{none} \\ ~~~1 \spaces\Rarr 1 \\ -1 \spaces\Rarr 0 \end{cases}$</p>
 </details></section></p>
 </details></section><footer></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/physical-layer-0001.html" title="常用术语 [408/network/physical-layer-0001]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0001'"><span class="taxon"></span>常用术语</span></li><li class=""><a class="bullet" href="/408/network/physical-layer-0002.html" title="有关信道的几个基本概念 [408/network/physical-layer-0002]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0002'"><span class="taxon"></span>有关信道的几个基本概念</span></li><li class=""><a class="bullet" href="/408/network/modulation.html" title="调制 [408/network/modulation]">■</a><span class="link local" onclick="window.location.href='#408-network-modulation'"><span class="taxon"></span>调制</span></li><li class=""><a class="bullet" href="/408/network/encoding-method.html" title="数字信号编码方法 [408/network/encoding-method]">■</a><span class="link local" onclick="window.location.href='#408-network-encoding-method'"><span class="taxon"></span>数字信号编码方法</span></li></ul></div></nav></div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/physical-layer-0001.html" title="常用术语 [408/network/physical-layer-0001]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0001'"><span class="taxon"></span>常用术语</span></li><li class=""><a class="bullet" href="/408/network/physical-layer-0002.html" title="有关信道的几个基本概念 [408/network/physical-layer-0002]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0002'"><span class="taxon"></span>有关信道的几个基本概念</span></li><li class=""><a class="bullet" href="/408/network/modulation.html" title="调制 [408/network/modulation]">■</a><span class="link local" onclick="window.location.href='#408-network-modulation'"><span class="taxon"></span>调制</span></li><li class=""><a class="bullet" href="/408/network/encoding-method.html" title="数字信号编码方法 [408/network/encoding-method]">■</a><span class="link local" onclick="window.location.href='#408-network-encoding-method'"><span class="taxon"></span>数字信号编码方法</span></li><li class=""><a class="bullet" href="/408/network/maximum-capacity.html" title="信道的极限容量 [408/network/maximum-capacity]">■</a><span class="link local" onclick="window.location.href='#408-network-maximum-capacity'"><span class="taxon"></span>信道的极限容量</span></li><li class=""><a class="bullet" href="/408/network/transmission.html" title="信号传输方式 [408/network/transmission]">■</a><span class="link local" onclick="window.location.href='#408-network-transmission'"><span class="taxon"></span>信号传输方式</span></li><li class=""><a class="bullet" href="/408/network/multiplexing.html" title="信道复用技术 [408/network/multiplexing]">■</a><span class="link local" onclick="window.location.href='#408-network-multiplexing'"><span class="taxon"></span>信道复用技术</span></li></ul></div></nav></div></body></html>

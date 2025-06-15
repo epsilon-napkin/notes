@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>信道的极限容量</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  li p {
+    margin: 0;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/physical-layer.html'" title="物理层">« 物理层</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-maximum-capacity"><header><h1><span class="taxon"></span>信道的极限容量 <a class="slug" href="/408/network/maximum-capacity.html">[maximum-capacity]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/maximum-capacity.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>从概念上讲, 限制码元在信道上的传输速率的因素有以下两个:</p>
+<ul>
+<li>信道能够通过的频率范围</li>
+<li>信噪比</li>
+</ul>
+<h4>奈氏准则</h4>
+<blockquote>
+<p>理想信道, 极限码元传输率 $2W$ 波特, 低信道下的极限数据传输率 <code>(b/s)</code> $=2W \log_2 V$.
+$W$ 是理想低通道的带宽, 单位为 <code>Hz</code>. $V$ 表示每个码元离散电平的数目.</p>
+</blockquote>
+<ol>
+<li>码元传输的速率是有上限的, 超过次上限, 就会出现码间串扰问题, 使接收端不能完全正确识别码元.</li>
+<li>信道的频带越宽, 可更高的速率进行码元的有效传输.</li>
+<li>码元传输速率受奈氏准则制约, 要提高数据传输速率, 需要使每个码元携带更多比特的信息量, 需要采用多元制.</li>
+</ol>
+<h4>香农定理</h4>
+<blockquote>
+<p>带宽受限且高斯白噪声干扰的信道的极限数据传输速率 $C = W \log_2(1+S/N)$.
+$S/N$ 为信噪比, 即信号平均功率与噪声平均功率之比, 位为分贝 <code>(dB)</code>. 信噪比 <code>(dB)</code> $= 10 \log_{10}(S/N)$.</p>
+</blockquote>
+<ol>
+<li>信道的带宽或信道的信噪比越大, 信息的极限传输速率就越高.</li>
+<li>只要信息传输速率低于信道的极限信息传输速率, 就一定存在某种方法来实现无差别的传输.</li>
+<li>对一定的传输带宽和信噪比, 信息传输速率上限是一定的; 若信道带宽 $W$ 或信噪比 $S/N$ 没有上限, 则信道的极限信息传输速率 $C$ 也没有上限.</li>
+<li>码元传输的速率越高, 或信号传输的距离越远, 或噪声干扰越大, 或传输媒体质量越差, 在接收端的波形的失真就越严重.</li>
+</ol>
+</details></section><footer></footer></article>
+
+</div></body></html>

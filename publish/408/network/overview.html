@@ -7,6 +7,10 @@
     font-size: 1.25em;
   }
 
+  li p {
+    margin: 0;
+  }
+
   a.link.local,
   .link.local a {
     box-shadow: none;
@@ -100,7 +104,52 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/index.html'" title="计算机网络">« 计算机网络</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-overview"><header><h1><span class="taxon"></span>概述 <a class="slug" href="/408/network/overview.html">[overview]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/overview.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-protocol"><header><h1><span class="taxon"></span>协议与划分层次 <a class="slug" href="/408/network/protocol.html">[protocol]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/protocol.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>计算机网络中的数据交换必须遵守事先约定好的规则.
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/network/index.html'" title="计算机网络">« 计算机网络</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-overview"><header><h1><span class="taxon"></span>概述 <a class="slug" href="/408/network/overview.html">[overview]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/overview.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li><p>网络把许多计算机连接在一起, 而互连网则把许多网络通过一些路由器连接在一起. 与网络相连的计算机常称为主机.</p>
+</li>
+<li><p>互联网的拓扑结构虽然非常复杂, 并且在地理上覆盖了全球, 但从其工作方式上看可以划分为:</p>
+<ul>
+<li>边缘部分: 由所有连接在互联网上的主机组成, 用户直接使用.</li>
+<li>核心部分: 由大量网络和连接这些网络的路由器组成, 为边缘部分提供服务.</li>
+</ul>
+</li>
+<li><p>在⽹络边缘的端系统之间的通信⽅式通常可划分为两⼤类: 客户-服务器⽅式 (C/S⽅式) 和对等⽅式 (P2P ⽅式).</p>
+</li>
+<li><p>电路交换的三个阶段: 建立连接, 通话, 释放连接.</p>
+</li>
+</ul>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-performance"><header><h1><span class="taxon"></span>计算机网络的性能 <a class="slug" href="/408/network/performance.html">[performance]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/performance.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$
+$\gdef\str#1{\footnotesize{#1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$
+$\gdef\type#1{~:~\texttt{#1}}$</p>
+<p>计算机网络的性能指标主要包括:</p>
+<ul>
+<li>速率</li>
+<li>带宽</li>
+<li>吞吐率</li>
+<li>时延</li>
+<li>时延带宽积</li>
+<li>往返时间 RTT</li>
+<li>利用率</li>
+</ul>
+<p>吞吐量 [throughput] 表示在单位时间内通过某个网络 (或信道、接口) 的数据量. 吞吐量更经常地用于对现实世界中的网络的一种测量, 以便知道实际上到底有多少数据量能够通过网络. 吞吐量受网络的带宽或网络的额定速率的限制.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-delay"><header><h1><span class="taxon"></span>时延 <a class="slug" href="/408/network/delay.html">[delay]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/delay.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\type#1{~:~\texttt{#1}}$</p>
+<p>时延 [delay / latency] 是指数据 (一个报文或分组, 甚至比特) 从网络或链路的一端传送到另一端所需的时间. 有时也称为延迟或迟延. 网络中的时延由以下几个不同的部分组成:</p>
+<ol>
+<li><p>发送时延 $~ = ~ \dfrac{\str{数据帧长度; 数据块长度} ~ l \type{bit}}{\str{发送速率; 信道带宽} ~ v \type{bit/s}}$</p>
+</li>
+<li><p>传播时延 $~ = ~ \dfrac{\str{信道长度} ~ l \type{m}}{\str{信号在信道上的传播速率} ~ v \type{m/s}}$</p>
+</li>
+<li><p>处理时延   主机或路由器在收到分组时要花费⼀定的时间进⾏处理, 例如分析分组的⾸部、 从分组中提取数据部分、 进⾏差错检验或查找转发表等, 这就产⽣了处理时延.</p>
+</li>
+<li><p>排队时延   分组在经过⽹络传输时, 要经过许多路由器. 但分组在进⼊路由器后要先在输⼊队列中排队等待处理. 在路由器确定了转发接⼜后, 还要在输出队列中排队等待转发. 这就产⽣了排队时延. 排队时延的长短往往取决于⽹络当时的通信量. 当⽹络的通信量很⼤时会发⽣队列溢出, 使分组丢失, 这相当于排队时延为⽆穷⼤.</p>
+</li>
+</ol>
+</details></section>
+<span class="link local"><a href="/408/network/utilization-rate.html" title="利用率 [408/network/utilization-rate]">利用率</a></span></p>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-protocol"><header><h1><span class="taxon"></span>协议与划分层次 <a class="slug" href="/408/network/protocol.html">[protocol]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/protocol.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>计算机网络中的数据交换必须遵守事先约定好的规则.
 这些规则明确规定了所交换的数据的格式以及有关的同步问题 (同步含有时序的意思). 网络协议 (Network Protocol), 简称为协议, 是为进行网络中的数据交换而建立的规则、标准或约定.</p>
 <blockquote>
 <p>协议是水平的, 服务是垂直的.</p>
@@ -120,4 +169,4 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 </details></section></p>
 </details></section><footer></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/protocol.html" title="协议与划分层次 [408/network/protocol]">■</a><span class="link local" onclick="window.location.href='#408-network-protocol'"><span class="taxon"></span>协议与划分层次</span><ul class="block"><li class=""><a class="bullet" href="/408/network/layered-network-model.html" title="三种体系结构 [408/network/layered-network-model]">■</a><span class="link local" onclick="window.location.href='#408-network-layered-network-model'"><span class="taxon"></span>三种体系结构</span></li></ul></li></ul></div></nav></div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/performance.html" title="计算机网络的性能 [408/network/performance]">■</a><span class="link local" onclick="window.location.href='#408-network-performance'"><span class="taxon"></span>计算机网络的性能</span><ul class="block"><li class=""><a class="bullet" href="/408/network/delay.html" title="时延 [408/network/delay]">■</a><span class="link local" onclick="window.location.href='#408-network-delay'"><span class="taxon"></span>时延</span></li></ul></li><li class=""><a class="bullet" href="/408/network/protocol.html" title="协议与划分层次 [408/network/protocol]">■</a><span class="link local" onclick="window.location.href='#408-network-protocol'"><span class="taxon"></span>协议与划分层次</span><ul class="block"><li class=""><a class="bullet" href="/408/network/layered-network-model.html" title="三种体系结构 [408/network/layered-network-model]">■</a><span class="link local" onclick="window.location.href='#408-network-layered-network-model'"><span class="taxon"></span>三种体系结构</span></li></ul></li></ul></div></nav></div></body></html>

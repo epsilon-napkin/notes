@@ -7,6 +7,10 @@
     font-size: 1.25em;
   }
 
+  li p {
+    margin: 0;
+  }
+
   a.link.local,
   .link.local a {
     box-shadow: none;
@@ -100,7 +104,52 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-index"><header><h1><span class="taxon"></span>计算机网络 <a class="slug" href="/408/network/index.html">[network]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/index.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-overview"><header><h1><span class="taxon"></span>概述 <a class="slug" href="/408/network/overview.html">[overview]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/overview.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-protocol"><header><h1><span class="taxon"></span>协议与划分层次 <a class="slug" href="/408/network/protocol.html">[protocol]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/protocol.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>计算机网络中的数据交换必须遵守事先约定好的规则.
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-network-index"><header><h1><span class="taxon"></span>计算机网络 <a class="slug" href="/408/network/index.html">[network]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/index.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-overview"><header><h1><span class="taxon"></span>概述 <a class="slug" href="/408/network/overview.html">[overview]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/overview.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
+<li><p>网络把许多计算机连接在一起, 而互连网则把许多网络通过一些路由器连接在一起. 与网络相连的计算机常称为主机.</p>
+</li>
+<li><p>互联网的拓扑结构虽然非常复杂, 并且在地理上覆盖了全球, 但从其工作方式上看可以划分为:</p>
+<ul>
+<li>边缘部分: 由所有连接在互联网上的主机组成, 用户直接使用.</li>
+<li>核心部分: 由大量网络和连接这些网络的路由器组成, 为边缘部分提供服务.</li>
+</ul>
+</li>
+<li><p>在⽹络边缘的端系统之间的通信⽅式通常可划分为两⼤类: 客户-服务器⽅式 (C/S⽅式) 和对等⽅式 (P2P ⽅式).</p>
+</li>
+<li><p>电路交换的三个阶段: 建立连接, 通话, 释放连接.</p>
+</li>
+</ul>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-performance"><header><h1><span class="taxon"></span>计算机网络的性能 <a class="slug" href="/408/network/performance.html">[performance]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/performance.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$
+$\gdef\str#1{\footnotesize{#1}}$
+$\gdef\hint#1{{\color{gray}{\str{#1}}}}$
+$\gdef\type#1{~:~\texttt{#1}}$</p>
+<p>计算机网络的性能指标主要包括:</p>
+<ul>
+<li>速率</li>
+<li>带宽</li>
+<li>吞吐率</li>
+<li>时延</li>
+<li>时延带宽积</li>
+<li>往返时间 RTT</li>
+<li>利用率</li>
+</ul>
+<p>吞吐量 [throughput] 表示在单位时间内通过某个网络 (或信道、接口) 的数据量. 吞吐量更经常地用于对现实世界中的网络的一种测量, 以便知道实际上到底有多少数据量能够通过网络. 吞吐量受网络的带宽或网络的额定速率的限制.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-delay"><header><h1><span class="taxon"></span>时延 <a class="slug" href="/408/network/delay.html">[delay]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/delay.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{{\footnotesize #1}}$
+$\gdef\type#1{~:~\texttt{#1}}$</p>
+<p>时延 [delay / latency] 是指数据 (一个报文或分组, 甚至比特) 从网络或链路的一端传送到另一端所需的时间. 有时也称为延迟或迟延. 网络中的时延由以下几个不同的部分组成:</p>
+<ol>
+<li><p>发送时延 $~ = ~ \dfrac{\str{数据帧长度; 数据块长度} ~ l \type{bit}}{\str{发送速率; 信道带宽} ~ v \type{bit/s}}$</p>
+</li>
+<li><p>传播时延 $~ = ~ \dfrac{\str{信道长度} ~ l \type{m}}{\str{信号在信道上的传播速率} ~ v \type{m/s}}$</p>
+</li>
+<li><p>处理时延   主机或路由器在收到分组时要花费⼀定的时间进⾏处理, 例如分析分组的⾸部、 从分组中提取数据部分、 进⾏差错检验或查找转发表等, 这就产⽣了处理时延.</p>
+</li>
+<li><p>排队时延   分组在经过⽹络传输时, 要经过许多路由器. 但分组在进⼊路由器后要先在输⼊队列中排队等待处理. 在路由器确定了转发接⼜后, 还要在输出队列中排队等待转发. 这就产⽣了排队时延. 排队时延的长短往往取决于⽹络当时的通信量. 当⽹络的通信量很⼤时会发⽣队列溢出, 使分组丢失, 这相当于排队时延为⽆穷⼤.</p>
+</li>
+</ol>
+</details></section>
+<span class="link local"><a href="/408/network/utilization-rate.html" title="利用率 [408/network/utilization-rate]">利用率</a></span></p>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-protocol"><header><h1><span class="taxon"></span>协议与划分层次 <a class="slug" href="/408/network/protocol.html">[protocol]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/protocol.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>计算机网络中的数据交换必须遵守事先约定好的规则.
 这些规则明确规定了所交换的数据的格式以及有关的同步问题 (同步含有时序的意思). 网络协议 (Network Protocol), 简称为协议, 是为进行网络中的数据交换而建立的规则、标准或约定.</p>
 <blockquote>
 <p>协议是水平的, 服务是垂直的.</p>
@@ -144,6 +193,12 @@ $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
 </ul>
 </li>
 </ul>
+<h3>基本的带通调制方法</h3>
+<ul>
+<li>调幅 (AM): 载波的振幅随基带数字信号而变化.</li>
+<li>调频 (FM): 载波的频率随基带数字信号而变化.</li>
+<li>调相 (PM): 载波的初始相位随基带数字信号而变化.</li>
+</ul>
 </details></section>
 <section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-encoding-method"><header><h1><span class="taxon"></span>数字信号编码方法 <a class="slug" href="/408/network/encoding-method.html">[encoding-method]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/encoding-method.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
 img {
@@ -168,6 +223,93 @@ em {
 <li>差分曼彻斯特编码: 在每一位的中心处始终都有跳变, 位开始边界有跳变代表 0, 而位开始边界没有跳变代表 1.</li>
 </ul>
 <p>从信号波形中可以看出, 曼彻斯特 [Manchester] 编码产生的信号频率比不归零制高. 从自同步能力来看, 不归零制不能从信号波形本身中提取信号时钟频率, 这叫作没有自同步能力, 而曼彻斯特编码具有自同步能力.</p>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-maximum-capacity"><header><h1><span class="taxon"></span>信道的极限容量 <a class="slug" href="/408/network/maximum-capacity.html">[maximum-capacity]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/maximum-capacity.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>从概念上讲, 限制码元在信道上的传输速率的因素有以下两个:</p>
+<ul>
+<li>信道能够通过的频率范围</li>
+<li>信噪比</li>
+</ul>
+<h4>奈氏准则</h4>
+<blockquote>
+<p>理想信道, 极限码元传输率 $2W$ 波特, 低信道下的极限数据传输率 <code>(b/s)</code> $=2W \log_2 V$.
+$W$ 是理想低通道的带宽, 单位为 <code>Hz</code>. $V$ 表示每个码元离散电平的数目.</p>
+</blockquote>
+<ol>
+<li>码元传输的速率是有上限的, 超过次上限, 就会出现码间串扰问题, 使接收端不能完全正确识别码元.</li>
+<li>信道的频带越宽, 可更高的速率进行码元的有效传输.</li>
+<li>码元传输速率受奈氏准则制约, 要提高数据传输速率, 需要使每个码元携带更多比特的信息量, 需要采用多元制.</li>
+</ol>
+<h4>香农定理</h4>
+<blockquote>
+<p>带宽受限且高斯白噪声干扰的信道的极限数据传输速率 $C = W \log_2(1+S/N)$.
+$S/N$ 为信噪比, 即信号平均功率与噪声平均功率之比, 位为分贝 <code>(dB)</code>. 信噪比 <code>(dB)</code> $= 10 \log_{10}(S/N)$.</p>
+</blockquote>
+<ol>
+<li>信道的带宽或信道的信噪比越大, 信息的极限传输速率就越高.</li>
+<li>只要信息传输速率低于信道的极限信息传输速率, 就一定存在某种方法来实现无差别的传输.</li>
+<li>对一定的传输带宽和信噪比, 信息传输速率上限是一定的; 若信道带宽 $W$ 或信噪比 $S/N$ 没有上限, 则信道的极限信息传输速率 $C$ 也没有上限.</li>
+<li>码元传输的速率越高, 或信号传输的距离越远, 或噪声干扰越大, 或传输媒体质量越差, 在接收端的波形的失真就越严重.</li>
+</ol>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-transmission"><header><h1><span class="taxon"></span>信号传输方式 <a class="slug" href="/408/network/transmission.html">[transmission]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/transmission.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
+<li><p>基带传输: 计算机内部或在相邻设备之间近距离传输, 可以不经过调制就在信道上直接进行的传输方式.</p>
+<ul>
+<li>数字基带传输就是在信道中直接传输数字信号, 传输媒体的整个带宽都被基带信号占用, 双向的传输信息.</li>
+</ul>
+</li>
+<li><p>频带传输: 对数字信号特定的频率的载波进行调制, 将其变成适合于传送的信号后再进行传输.</p>
+<ul>
+<li>远距离传输或无线传输时, 数字信号必须用频带传输技术进行传输, 解决了电话系统传输数字信号的问题, 实现多路复用, 提高传输信道的利用率.</li>
+</ul>
+</li>
+<li><p>宽带传输: 借助频带传输, 可将链路容量分解成两个或多个信道, 每个信道可以携带不同的信号.</p>
+<ul>
+<li>宽带传输的所有信道能同时互不干扰地发送信号, 链路容量大大增加.</li>
+</ul>
+</li>
+</ol>
+</details></section>
+<section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-multiplexing"><header><h1><span class="taxon"></span>信道复用技术 <a class="slug" href="/408/network/multiplexing.html">[multiplexing]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/multiplexing.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$</p>
+<p>信道复用技术可分为:</p>
+<ul>
+<li>频分复用、时分复用和统计时分复用</li>
+<li>波分复用</li>
+<li>码分复用</li>
+</ul>
+<h4>频分复用</h4>
+<ul>
+<li>将整个带宽分为多份, 用户在分配到一定的频带后, 在通信过程中自始至终都占用这个频带.</li>
+<li>频分复用的所有用户在同样的时间占用不同的带宽资源 (注意这里的 “带宽” 是频率带宽而不是数据的发送速率).</li>
+</ul>
+<h4>时分复用</h4>
+<ul>
+<li>时分复用则是将时间划分为一段段等长的时分复用帧 (TDM 帧).</li>
+<li>每一个时分复用的用户在每一个 TDM 帧中占用固定序号的时隙.每一个用户所占用的时隙是周期性地出现 (其周期就是 TDM 帧的长度).</li>
+<li>TDM 信号也称为等时 (isochronous) 信号.</li>
+<li>时分复用的所有用户是在不同的时间占用同样的频带宽度.</li>
+<li>时分复用可能会造成线路资源的浪费.</li>
+</ul>
+<h4>统计时分复用</h4>
+<ul>
+<li>STDM 帧不是固定分配时隙, 而是按需动态地分配时隙. 因此统计时分复用可以提高线路的利用率.</li>
+</ul>
+<h4>波分复用</h4>
+<h4>码分复用</h4>
+<ul>
+<li>常用的名词是码分多址 CDMA (Code Division Multiple Access).</li>
+<li>各用户使用经过特挑选的不同码型, 因此彼此不会造成干扰.</li>
+<li>这种系统发送的信号有很强的抗干扰能力, 其频谱类似于白噪声, 不易被敌人发现.</li>
+</ul>
+<p>$$
+\begin{gathered}
+S \cdot T = 0, \quad S \cdot S = 1, \quad S \cdot \bar{S} = -1 \\
+\Darr \\
+S \cdot (S+T) = 1, \quad S \cdot (\bar{S}+T) = -1 \\
+\Darr \quad\quad \qquad \quad\quad \Darr \\
+S=1 \quad \qquad \quad S=0
+\end{gathered}
+$$</p>
+<p>$\therefore$ 码片 $\cdot$ 收到的信号 $=\begin{cases} ~~~0 \spaces\Rarr \text{none} \\ ~~~1 \spaces\Rarr 1 \\ -1 \spaces\Rarr 0 \end{cases}$</p>
 </details></section></p>
 </details></section>
 <section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-data-link-layer"><header><h1><span class="taxon"></span>数据链路层 <a class="slug" href="/408/network/data-link-layer.html">[data-link-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/data-link-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
@@ -573,4 +715,4 @@ $$
 <section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-application-layer"><header><h1><span class="taxon"></span>应用层 <a class="slug" href="/408/network/application-layer.html">[application-layer]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/application-layer.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary></details></section></p>
 </details></section><footer><section class="block"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon="" style="margin-bottom: 0.4em;"><header><h1><span class="taxon"></span>索引 <a class="slug" href="/index.html">[index]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/index.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></section></details></section></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/overview.html" title="概述 [408/network/overview]">■</a><span class="link local" onclick="window.location.href='#408-network-overview'"><span class="taxon"></span>概述</span><ul class="block"><li class=""><a class="bullet" href="/408/network/protocol.html" title="协议与划分层次 [408/network/protocol]">■</a><span class="link local" onclick="window.location.href='#408-network-protocol'"><span class="taxon"></span>协议与划分层次</span><ul class="block"><li class=""><a class="bullet" href="/408/network/layered-network-model.html" title="三种体系结构 [408/network/layered-network-model]">■</a><span class="link local" onclick="window.location.href='#408-network-layered-network-model'"><span class="taxon"></span>三种体系结构</span></li></ul></li></ul></li><li class=""><a class="bullet" href="/408/network/physical-layer.html" title="物理层 [408/network/physical-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer'"><span class="taxon"></span>物理层</span><ul class="block"><li class=""><a class="bullet" href="/408/network/physical-layer-0001.html" title="常用术语 [408/network/physical-layer-0001]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0001'"><span class="taxon"></span>常用术语</span></li><li class=""><a class="bullet" href="/408/network/physical-layer-0002.html" title="有关信道的几个基本概念 [408/network/physical-layer-0002]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0002'"><span class="taxon"></span>有关信道的几个基本概念</span></li><li class=""><a class="bullet" href="/408/network/modulation.html" title="调制 [408/network/modulation]">■</a><span class="link local" onclick="window.location.href='#408-network-modulation'"><span class="taxon"></span>调制</span></li><li class=""><a class="bullet" href="/408/network/encoding-method.html" title="数字信号编码方法 [408/network/encoding-method]">■</a><span class="link local" onclick="window.location.href='#408-network-encoding-method'"><span class="taxon"></span>数字信号编码方法</span></li></ul></li><li class=""><a class="bullet" href="/408/network/data-link-layer.html" title="数据链路层 [408/network/data-link-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-data-link-layer'"><span class="taxon"></span>数据链路层</span><ul class="block"><li class=""><a class="bullet" href="/408/network/point-to-point.html" title="点对点 [408/network/point-to-point]">■</a><span class="link local" onclick="window.location.href='#408-network-point-to-point'"><span class="taxon"> 1. </span>点对点</span><ul class="block"><li class=""><a class="bullet" href="/408/network/point-to-point-1.html" title="PPP 协议的组成 [408/network/point-to-point-1]">■</a><span class="link local" onclick="window.location.href='#408-network-point-to-point-1'"><span class="taxon"></span>PPP 协议的组成</span></li></ul></li><li class=""><a class="bullet" href="/408/network/broadcast.html" title="广播 [408/network/broadcast]">■</a><span class="link local" onclick="window.location.href='#408-network-broadcast'"><span class="taxon"> 2. </span>广播</span><ul class="block"><li class=""><a class="bullet" href="/408/network/csma-cd.html" title="CSMA / CD [408/network/csma-cd]">■</a><span class="link local" onclick="window.location.href='#408-network-csma-cd'"><span class="taxon"></span>载波监听多点接⼊ / 碰撞检测</span></li></ul></li><li class=""><a class="bullet" href="/408/network/cyclic-redundancy-check.html" title="循环冗余检验 [408/network/cyclic-redundancy-check]">■</a><span class="link local" onclick="window.location.href='#408-network-cyclic-redundancy-check'"><span class="taxon"></span>循环冗余检验</span></li></ul></li><li class=""><a class="bullet" href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-network-layer'"><span class="taxon"></span>网络层</span><ul class="block"><li class="item-summary"><a class="bullet" href="/408/network/virtual-circuit.html" title="虚电路 [408/network/virtual-circuit]">■</a><span class="link local" onclick="window.location.href='#408-network-virtual-circuit'"><span class="taxon"></span>虚电路</span></li><li class="item-summary"><a class="bullet" href="/408/network/datagram.html" title="数据报 [408/network/datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-datagram'"><span class="taxon"></span>数据报</span></li><li class=""><a class="bullet" href="/408/network/virtual-circuit-vs-datagram.html" title="虚电路和数据报服务的对比 [408/network/virtual-circuit-vs-datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-virtual-circuit-vs-datagram'"><span class="taxon"></span>虚电路和数据报服务的对比</span></li><li class=""><a class="bullet" href="/408/network/ip.html" title="网际协议 IP [408/network/ip]">■</a><span class="link local" onclick="window.location.href='#408-network-ip'"><span class="taxon"></span>网际协议 IP</span><ul class="block"><li class=""><a class="bullet" href="/408/network/dotted-decimal-notation.html" title="点分⼗进制记法 [408/network/dotted-decimal-notation]">■</a><span class="link local" onclick="window.location.href='#408-network-dotted-decimal-notation'"><span class="taxon"></span>IP 地址的表示</span></li><li class=""><a class="bullet" href="/408/network/ip-category.html" title="分类 IP 地址 [408/network/ip-category]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-category'"><span class="taxon"></span>分类 IP 地址</span></li><li class=""><a class="bullet" href="/408/network/cidr.html" title="⽆分类域间路由选择 CIDR [408/network/cidr]">■</a><span class="link local" onclick="window.location.href='#408-network-cidr'"><span class="taxon"></span>⽆分类编址⽅法 CIDR</span><ul class="block"><li class=""><a class="bullet" href="/408/network/subnet-mask.html" title="子网掩码 [408/network/subnet-mask]">■</a><span class="link local" onclick="window.location.href='#408-network-subnet-mask'"><span class="taxon"></span>子网掩码</span></li><li class=""><a class="bullet" href="/408/network/address-count.html" title="可用地址总数 [408/network/address-count]">■</a><span class="link local" onclick="window.location.href='#408-network-address-count'"><span class="taxon"></span>可用地址总数</span></li></ul></li><li class=""><a class="bullet" href="/408/network/ip-datagram.html" title="IP 数据报的格式 [408/network/ip-datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-datagram'"><span class="taxon"></span>IP 数据报的格式</span><ul class="block"><li class=""><a class="bullet" href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">■</a><span class="link local" onclick="window.location.href='#408-network-sharding-offset'"><span class="taxon"></span>分片与片偏移大小的计算</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-forward-group.html" title="IP 转发分组流程 [408/network/ip-forward-group]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-forward-group'"><span class="taxon"></span>IP 转发分组流程</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-convert-mac'"><span class="taxon"></span>IP 转换 MAC</span></li></ul></li></ul></li></ul></li><li class=""><a class="bullet" href="/408/network/transport-layer.html" title="运输层 [408/network/transport-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-transport-layer'"><span class="taxon"></span>运输层</span><ul class="block"><li class=""><a class="bullet" href="/408/network/udp.html" title="⽤户数据报协议 UDP [408/network/udp]">■</a><span class="link local" onclick="window.location.href='#408-network-udp'"><span class="taxon"></span>⽤户数据报协议 UDP</span></li><li class=""><a class="bullet" href="/408/network/tcp.html" title="传输控制协议 TCP [408/network/tcp]">■</a><span class="link local" onclick="window.location.href='#408-network-tcp'"><span class="taxon"></span>传输控制协议 TCP</span></li></ul></li><li class=""><a class="bullet" href="/408/network/application-layer.html" title="应用层 [408/network/application-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-application-layer'"><span class="taxon"></span>应用层</span></li></ul></div></nav></div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/network/overview.html" title="概述 [408/network/overview]">■</a><span class="link local" onclick="window.location.href='#408-network-overview'"><span class="taxon"></span>概述</span><ul class="block"><li class=""><a class="bullet" href="/408/network/performance.html" title="计算机网络的性能 [408/network/performance]">■</a><span class="link local" onclick="window.location.href='#408-network-performance'"><span class="taxon"></span>计算机网络的性能</span><ul class="block"><li class=""><a class="bullet" href="/408/network/delay.html" title="时延 [408/network/delay]">■</a><span class="link local" onclick="window.location.href='#408-network-delay'"><span class="taxon"></span>时延</span></li></ul></li><li class=""><a class="bullet" href="/408/network/protocol.html" title="协议与划分层次 [408/network/protocol]">■</a><span class="link local" onclick="window.location.href='#408-network-protocol'"><span class="taxon"></span>协议与划分层次</span><ul class="block"><li class=""><a class="bullet" href="/408/network/layered-network-model.html" title="三种体系结构 [408/network/layered-network-model]">■</a><span class="link local" onclick="window.location.href='#408-network-layered-network-model'"><span class="taxon"></span>三种体系结构</span></li></ul></li></ul></li><li class=""><a class="bullet" href="/408/network/physical-layer.html" title="物理层 [408/network/physical-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer'"><span class="taxon"></span>物理层</span><ul class="block"><li class=""><a class="bullet" href="/408/network/physical-layer-0001.html" title="常用术语 [408/network/physical-layer-0001]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0001'"><span class="taxon"></span>常用术语</span></li><li class=""><a class="bullet" href="/408/network/physical-layer-0002.html" title="有关信道的几个基本概念 [408/network/physical-layer-0002]">■</a><span class="link local" onclick="window.location.href='#408-network-physical-layer-0002'"><span class="taxon"></span>有关信道的几个基本概念</span></li><li class=""><a class="bullet" href="/408/network/modulation.html" title="调制 [408/network/modulation]">■</a><span class="link local" onclick="window.location.href='#408-network-modulation'"><span class="taxon"></span>调制</span></li><li class=""><a class="bullet" href="/408/network/encoding-method.html" title="数字信号编码方法 [408/network/encoding-method]">■</a><span class="link local" onclick="window.location.href='#408-network-encoding-method'"><span class="taxon"></span>数字信号编码方法</span></li><li class=""><a class="bullet" href="/408/network/maximum-capacity.html" title="信道的极限容量 [408/network/maximum-capacity]">■</a><span class="link local" onclick="window.location.href='#408-network-maximum-capacity'"><span class="taxon"></span>信道的极限容量</span></li><li class=""><a class="bullet" href="/408/network/transmission.html" title="信号传输方式 [408/network/transmission]">■</a><span class="link local" onclick="window.location.href='#408-network-transmission'"><span class="taxon"></span>信号传输方式</span></li><li class=""><a class="bullet" href="/408/network/multiplexing.html" title="信道复用技术 [408/network/multiplexing]">■</a><span class="link local" onclick="window.location.href='#408-network-multiplexing'"><span class="taxon"></span>信道复用技术</span></li></ul></li><li class=""><a class="bullet" href="/408/network/data-link-layer.html" title="数据链路层 [408/network/data-link-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-data-link-layer'"><span class="taxon"></span>数据链路层</span><ul class="block"><li class=""><a class="bullet" href="/408/network/point-to-point.html" title="点对点 [408/network/point-to-point]">■</a><span class="link local" onclick="window.location.href='#408-network-point-to-point'"><span class="taxon"> 1. </span>点对点</span><ul class="block"><li class=""><a class="bullet" href="/408/network/point-to-point-1.html" title="PPP 协议的组成 [408/network/point-to-point-1]">■</a><span class="link local" onclick="window.location.href='#408-network-point-to-point-1'"><span class="taxon"></span>PPP 协议的组成</span></li></ul></li><li class=""><a class="bullet" href="/408/network/broadcast.html" title="广播 [408/network/broadcast]">■</a><span class="link local" onclick="window.location.href='#408-network-broadcast'"><span class="taxon"> 2. </span>广播</span><ul class="block"><li class=""><a class="bullet" href="/408/network/csma-cd.html" title="CSMA / CD [408/network/csma-cd]">■</a><span class="link local" onclick="window.location.href='#408-network-csma-cd'"><span class="taxon"></span>载波监听多点接⼊ / 碰撞检测</span></li></ul></li><li class=""><a class="bullet" href="/408/network/cyclic-redundancy-check.html" title="循环冗余检验 [408/network/cyclic-redundancy-check]">■</a><span class="link local" onclick="window.location.href='#408-network-cyclic-redundancy-check'"><span class="taxon"></span>循环冗余检验</span></li></ul></li><li class=""><a class="bullet" href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-network-layer'"><span class="taxon"></span>网络层</span><ul class="block"><li class="item-summary"><a class="bullet" href="/408/network/virtual-circuit.html" title="虚电路 [408/network/virtual-circuit]">■</a><span class="link local" onclick="window.location.href='#408-network-virtual-circuit'"><span class="taxon"></span>虚电路</span></li><li class="item-summary"><a class="bullet" href="/408/network/datagram.html" title="数据报 [408/network/datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-datagram'"><span class="taxon"></span>数据报</span></li><li class=""><a class="bullet" href="/408/network/virtual-circuit-vs-datagram.html" title="虚电路和数据报服务的对比 [408/network/virtual-circuit-vs-datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-virtual-circuit-vs-datagram'"><span class="taxon"></span>虚电路和数据报服务的对比</span></li><li class=""><a class="bullet" href="/408/network/ip.html" title="网际协议 IP [408/network/ip]">■</a><span class="link local" onclick="window.location.href='#408-network-ip'"><span class="taxon"></span>网际协议 IP</span><ul class="block"><li class=""><a class="bullet" href="/408/network/dotted-decimal-notation.html" title="点分⼗进制记法 [408/network/dotted-decimal-notation]">■</a><span class="link local" onclick="window.location.href='#408-network-dotted-decimal-notation'"><span class="taxon"></span>IP 地址的表示</span></li><li class=""><a class="bullet" href="/408/network/ip-category.html" title="分类 IP 地址 [408/network/ip-category]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-category'"><span class="taxon"></span>分类 IP 地址</span></li><li class=""><a class="bullet" href="/408/network/cidr.html" title="⽆分类域间路由选择 CIDR [408/network/cidr]">■</a><span class="link local" onclick="window.location.href='#408-network-cidr'"><span class="taxon"></span>⽆分类编址⽅法 CIDR</span><ul class="block"><li class=""><a class="bullet" href="/408/network/subnet-mask.html" title="子网掩码 [408/network/subnet-mask]">■</a><span class="link local" onclick="window.location.href='#408-network-subnet-mask'"><span class="taxon"></span>子网掩码</span></li><li class=""><a class="bullet" href="/408/network/address-count.html" title="可用地址总数 [408/network/address-count]">■</a><span class="link local" onclick="window.location.href='#408-network-address-count'"><span class="taxon"></span>可用地址总数</span></li></ul></li><li class=""><a class="bullet" href="/408/network/ip-datagram.html" title="IP 数据报的格式 [408/network/ip-datagram]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-datagram'"><span class="taxon"></span>IP 数据报的格式</span><ul class="block"><li class=""><a class="bullet" href="/408/network/sharding-offset.html" title="分片与片偏移大小的计算 [408/network/sharding-offset]">■</a><span class="link local" onclick="window.location.href='#408-network-sharding-offset'"><span class="taxon"></span>分片与片偏移大小的计算</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-forward-group.html" title="IP 转发分组流程 [408/network/ip-forward-group]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-forward-group'"><span class="taxon"></span>IP 转发分组流程</span></li><li class="item-summary"><a class="bullet" href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">■</a><span class="link local" onclick="window.location.href='#408-network-ip-convert-mac'"><span class="taxon"></span>IP 转换 MAC</span></li></ul></li></ul></li></ul></li><li class=""><a class="bullet" href="/408/network/transport-layer.html" title="运输层 [408/network/transport-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-transport-layer'"><span class="taxon"></span>运输层</span><ul class="block"><li class=""><a class="bullet" href="/408/network/udp.html" title="⽤户数据报协议 UDP [408/network/udp]">■</a><span class="link local" onclick="window.location.href='#408-network-udp'"><span class="taxon"></span>⽤户数据报协议 UDP</span></li><li class=""><a class="bullet" href="/408/network/tcp.html" title="传输控制协议 TCP [408/network/tcp]">■</a><span class="link local" onclick="window.location.href='#408-network-tcp'"><span class="taxon"></span>传输控制协议 TCP</span></li></ul></li><li class=""><a class="bullet" href="/408/network/application-layer.html" title="应用层 [408/network/application-layer]">■</a><span class="link local" onclick="window.location.href='#408-network-application-layer'"><span class="taxon"></span>应用层</span></li></ul></div></nav></div></body></html>
