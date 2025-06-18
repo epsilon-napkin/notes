@@ -156,6 +156,9 @@ $\gdef\type#1{~:~\texttt{#1}}$</p>
 </blockquote>
 <p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-layered-network-model"><header><h1><span class="taxon"></span>三种体系结构 <a class="slug" href="/408/network/layered-network-model.html">[layered-network-model]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/layered-network-model.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>$\gdef\str#1{\footnotesize{#1}}$
 $\gdef\hint#1{{\color{gray}{\str{#1}}}}$</p>
+<blockquote>
+<p><span class="link local"><a href="/408/network/application-layer.html" title="应用层 [408/network/application-layer]">应用层</a></span> $\to$ <span class="link local"><a href="/408/network/transport-layer.html" title="运输层 [408/network/transport-layer]">运输层</a></span> $\to$ <span class="link local"><a href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">网络层</a></span> $\to$ <span class="link local"><a href="/408/network/data-link-layer.html" title="数据链路层 [408/network/data-link-layer]">数据链路层</a></span> $\to$ <span class="link local"><a href="/408/network/physical-layer.html" title="物理层 [408/network/physical-layer]">物理层</a></span></p>
+</blockquote>
 <table><thead><tr><th>OSI 的体系结构</th><th>(四层) TCP/IP 的体系结构</th><th>五层协议的体系结构</th></tr></thead><tbody>
 <tr><td>7	应用层</td><td>应用层 (应用层协议如	DNS, HTTP, SMTP, RTP 等)</td><td>5 应用层</td></tr>
 <tr><td>6 表示层</td><td></td><td></td></tr>
@@ -250,6 +253,8 @@ $S/N$ 为信噪比, 即信号平均功率与噪声平均功率之比, 位为分�
 <li>对一定的传输带宽和信噪比, 信息传输速率上限是一定的; 若信道带宽 $W$ 或信噪比 $S/N$ 没有上限, 则信道的极限信息传输速率 $C$ 也没有上限.</li>
 <li>码元传输的速率越高, 或信号传输的距离越远, 或噪声干扰越大, 或传输媒体质量越差, 在接收端的波形的失真就越严重.</li>
 </ol>
+<h4>补充</h4>
+<p style="text-align: center;"><img src="../../assets/奈⽒准则和⾹农公式.jpg" style="border-radius: 0.2em; width: 500px;"></p>
 </details></section>
 <section class="block hide-metadata" data-taxon=""><details open><summary id="408-network-transmission"><header><h1><span class="taxon"></span>信号传输方式 <a class="slug" href="/408/network/transmission.html">[transmission]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/network/transmission.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ol>
 <li><p>基带传输: 计算机内部或在相邻设备之间近距离传输, 可以不经过调制就在信道上直接进行的传输方式.</p>
