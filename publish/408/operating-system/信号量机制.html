@@ -104,7 +104,7 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-信号量机制"><header><h1><span class="taxon"></span>信号量机制 <a class="slug" href="/408/operating-system/信号量机制.html">[信号量机制]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/信号量机制.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/进程.html'" title="进程">« 进程</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-信号量机制"><header><h1><span class="taxon"></span>信号量机制 <a class="slug" href="/408/operating-system/信号量机制.html">[信号量机制]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/信号量机制.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
 <script>hljs.highlightAll();</script>
@@ -117,7 +117,6 @@ em {
   font-style: normal;
 }
 </style>
-<!-- https://www.cnblogs.com/Ligo-Z/p/14139991.html -->
 <p>1965 年, 荷兰学者 Dijkstra 提出的信号量 [Semaphores] 机制是⼀种卓有成效的进程同步⼯具. 在长期且⼴泛的应⽤中, 信号量机制又得到了很⼤的发展, 它从整型信号量经记录型信号量, 进⽽发展 “信号量集” 机制. 现在, 信号量机制已被⼴泛地应⽤于单处理机和多处理机系统以及计算机⽹络中.</p>
 <p>信号量是一个特殊变量, 一般使用 $S$ 表示. 最初信号量 $S$ 是表示可用资源数目的整型变量. 除初始化外, 只能对 $S$ 做两个原子操作</p>
 <ul>
@@ -207,7 +206,7 @@ void main () {
 </ul>
 <h3>前驱关系</h3>
 <p>$\textbf{Example.}$</p>
-<p style="text-align: center;"><img src="../../assets/前驱.svg" style="border-radius: 0.2em; width: 300px;"></p>
+<p style="text-align: center;"><img class="theme" src="../../assets/前驱.svg" style="border-radius: 0.2em; width: 300px;"></p>
 <pre><code class="language-cpp">p1() { s1; V(a); V(b); }
 p2() { p(a); s2; V(c); V(d); }
 p3() { p(b); s3; V(e); }
@@ -298,6 +297,9 @@ mother() {
 1. 滥⽤关中断权⼒可能导致严重后果. 
 1. 关中断时间过长, 会影响系统效率, 限制了处理器交叉执⾏程序的能⼒. 
 1. 关中断⽅法也不适⽤于多 CPU 系统, 因为在⼀个处理器上关中断并不能防⽌进程在其它处理器上执⾏相同的临界段代码.  -->
+<blockquote>
+<p>Also see: <span class="link external"><a href="https://www.cnblogs.com/Ligo-Z/p/14139991.html" title="https://www.cnblogs.com/Ligo-Z/p/14139991.html">https://www.cnblogs.com/Ligo-Z/p/14139991.html</a></span></p>
+</blockquote>
 </details></section><footer></footer></article>
 
 </div></body></html>
