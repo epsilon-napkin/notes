@@ -154,15 +154,34 @@ nav {
 </ol>
 <h3>简述题 7, 28.</h3>
 <ol>
-<li>网络的理解.</li>
+<li>网络的理解:<ul>
+<li>网络有三个要素, 分别是 计算机, 结点 和 链路.</li>
+<li>网络的网络就是互联网, 相应的三个要素是 网络, 路由器 和 链路.</li>
+<li>网络将计算机连接在一起, 而互联网则把网络连接在一起.</li>
+</ul>
+</li>
 <li>交换机.</li>
 <li>路由器: 在⽹络核⼼部分起特殊作⽤的是路由器 [router], 它是⼀种专⽤计算机 (但不叫作主机). 路由器是实现分组交换 [packet switching] 的关键构件, 其任务是 <strong>转发收到的分组</strong>.</li>
 <li><span class="link local"><a href="/408/network/arp.html" title="地址解析协议 ARP [408/network/arp]">地址解析协议 ARP</a></span> 作用: $\text{IP} \to \text{Mac}$, 从 <span class="link local"><a href="/408/network/network-layer.html" title="网络层 [408/network/network-layer]">网络层</a></span> 使用的 <span class="link local"><a href="/408/network/ip.html" title="网际协议 IP [408/network/ip]">IP 地址</a></span> 解析出在 <span class="link local"><a href="/408/network/data-link-layer.html" title="数据链路层 [408/network/data-link-layer]">数据链路层</a></span> 使用的 <span class="link local"><a href="/408/network/ip-convert-mac.html" title="IP 转换 MAC [408/network/ip-convert-mac]">硬件地址</a></span>.</li>
 <li><span class="link local"><a href="/408/network/virtual-circuit-vs-datagram.html" title="虚电路和数据报服务的对比 [408/network/virtual-circuit-vs-datagram]">虚电路和数据报服务的关联</a></span>.</li>
 <li><span class="link local"><a href="/408/network/csma-cd.html" title="CSMA / CD [408/network/csma-cd]">CSMA / CD - 载波监听多点接⼊ / 碰撞检测</a></span></li>
-<li>TCP 拥塞控制.</li>
+<li>TCP 拥塞控制.<ul>
+<li>TCP 拥塞控制是 TCP 协议通过动态调整发送速率来避免网络过载的机制, 核心方法包括:<ul>
+<li>慢启动. 初始窗口从 <code>1MSS</code> 开始，每收到一个 <code>ACK</code> 窗口指数增长 (翻倍)，直到达到阈值或出现拥塞.</li>
+<li>拥塞避免. 超过阈值后, 窗口改为线性增长 (每RTT增加1MSS), 降低增速以试探网络容量上限.</li>
+<li>快速重传. 收到3个重复ACK时立即重传丢失报文, 无需等待超时.</li>
+<li>快速恢复. 重传后窗口减半并线性增长，避免回到慢启动，提升效率。</li>
+</ul>
+</li>
+<li>触发拥塞的响应:<ul>
+<li>超时. 阈值设为当前窗口一半, 窗口重置为1MSS, 重新慢启动.</li>
+<li>重复 ACK. 阈值和窗口减半, 进入快速恢复阶段.</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>VLAN.</li>
-<li>串行并行概念.</li>
+<li>串行并行概念. 串行: 数据按单比特顺序依次传输. 并行: 数据通过多比特同时传输.</li>
 </ol>
 <h3>计算 3, 15.</h3>
 <ol>

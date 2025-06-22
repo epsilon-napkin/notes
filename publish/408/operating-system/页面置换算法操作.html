@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width"><title>循环首次适应算法</title><link rel="stylesheet" href="/main.css">
+<meta name="viewport" content="width=device-width"><title>页⾯置换算法操作</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
   .katex .mfrac .frac-line {
     font-size: 1.25em;
@@ -104,14 +104,16 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/连续分配存储管理.html'" title="连续分配存储管理⽅式">« 连续分配存储管理⽅式</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-循环⾸次适应算法"><header><h1><span class="taxon"></span>循环首次适应算法 <a class="slug" href="/408/operating-system/循环⾸次适应算法.html">[循环⾸次适应算法]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/循环⾸次适应算法.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>为避免低址部分留下许多很⼩的空闲分区, 以及減少查找可⽤空闲分区的开销, 循环⾸次适应算法在为进程分配内存空间时, 不再是每次都从链⾸开始查找,⽽是从上次找到的空闲分区的下⼀个空闲分区开始查找, 直⾄找到⼀个能满⾜要求的空闲分区, 从中划出⼀块与请求⼤⼩相等的内存空间分配给作业. 为实现该算法, 应设置⼀起始查寻指针,⽤于指⽰下⼀次起始查寻的空闲分区, 并采⽤循环查找⽅式, 即如果最后⼀个 (链尾) 空闲分区的⼤⼩仍不能满⾜要求, 则应返回到第⼀个空闲分区, ⽐较其⼤⼩是否满⾜要求. 找到后, 应调整起始查寻指针. 该算法能使内存中的 <em>空闲分区分布得更均匀</em>, 从⽽ <em>减少了查找空闲分区时的开销</em>, 但这样会 <em>缺乏⼤的空闲分区</em>.</p>
-<p>$\textbf{Example.}$</p>
-<table><thead><tr><th>请求队列</th><th>循环首次适应算法</th></tr></thead><tbody>
-<tr><td>初始</td><td>10 4 20 18 7 9 12 15</td></tr>
-<tr><td>12KB</td><td>10 4 <em>8</em> $~$ 18 7 9 12 15</td></tr>
-<tr><td>10KB</td><td>10 4 8 $~$ <em>8</em> $~$ 7 9 12 15</td></tr>
-<tr><td>9KB</td><td>10 4 8 $~$ 8 $~$ 7 <em>0</em> 12 15</td></tr>
-</tbody></table>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/页面置换算法.html'" title="页面置换算法">« 页面置换算法</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-页面置换算法操作"><header><h1><span class="taxon"></span>页⾯置换算法操作 <a class="slug" href="/408/operating-system/页面置换算法操作.html">[页面置换算法操作]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/页面置换算法操作.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>针对应试, 我们总结 <span class="link local"><a href="/408/operating-system/最佳置换算法.html" title="最佳置换算法 OPT [408/operating-system/最佳置换算法]">最佳置换 OPT</a></span>, <span class="link local"><a href="/408/operating-system/先进先出置换算法.html" title="先进先出置换算法 FIFO [408/operating-system/先进先出置换算法]">先进先出置换 FIFO</a></span>, <span class="link local"><a href="/408/operating-system/最近最久未使用.html" title="最近最久未使用 LRU [408/operating-system/最近最久未使用]">最近最久未使用 LRU</a></span> 的操作流程.</p>
+<p>所有页⾯置换算法操作都是先把页面数 $n$ 填满, 此时必定发生 $n$ 次中断, 内存中的页面序列记为 $S$.</p>
+<ul>
+<li><p>最佳置换 OPT: 最佳假设了知道未来页面的访问情况, 即走向. 因此所要做的策略是, 如果所要访问的页⾯ $p$ 不在内存 $S$. 则将 $S$ 中的 $n$ 个页面按序与未来的页面序列 $T$ 比较, 选择第一次出现但是最远的 $q \in S, q \in T$, 替换 $q$ 为 $p$.</p>
+</li>
+<li><p>先进先出置换 FIFO: FIFO 与 OPT 完全相反, 其替换过去访问且在 $S$ 中的最远的 $q$ 为所要访问的页⾯ $p$.</p>
+</li>
+<li><p>最近最久未使用 LRU: 选择最近最久未使⽤的页⾯ $q$ 予以淘汰 $q \to p$, 即 $S$ 序列完整出现在过去访问的第一个页面 $q$.</p>
+</li>
+</ul>
 </details></section><footer></footer></article>
 
 </div></body></html>

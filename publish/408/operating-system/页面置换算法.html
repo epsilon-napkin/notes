@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>页面置换算法</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><style>
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  li p {
+    margin: 0;
+  }
+
+  a.link.local,
+  .link.local a {
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    color: rgb(16, 180, 158);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
+  }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Inria Sans", "Source Sans", sans-serif;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/408/operating-system/虚拟存储器.html'" title="虚拟存储器">« 虚拟存储器</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="408-operating-system-页面置换算法"><header><h1><span class="taxon"></span>页面置换算法 <a class="slug" href="/408/operating-system/页面置换算法.html">[页面置换算法]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/页面置换算法.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-抖动"><header><h1><span class="taxon"></span>抖动 <a class="slug" href="/408/operating-system/抖动.html">[抖动]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/抖动.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>不适当的算法可能会导致进程发⽣ “抖动” (Thrashing), 即刚被换出的页很快又要被访问, 需要将它重新调⼊, 此时又需要再选⼀页调出; ⽽此刚被调出的页很快又被访问, 又需将它调⼊, 如此频繁地更换页⾯, 以致⼀个进程在运⾏中把⼤部分时间都花费在页⾯置换⼯作上, 我们称该进程发⽣了 “抖动”.</p>
+</details></section></p>
+<p><span class="link local"><a href="/408/operating-system/最佳置换算法.html" title="最佳置换算法 OPT [408/operating-system/最佳置换算法]">最佳置换算法</a></span> 和 <span class="link local"><a href="/408/operating-system/先进先出置换算法.html" title="先进先出置换算法 FIFO [408/operating-system/先进先出置换算法]">先进先出置换算法</a></span> 是两种⽐较极端的算法. <span class="link local"><a href="/408/operating-system/最佳置换算法.html" title="最佳置换算法 OPT [408/operating-system/最佳置换算法]">最佳置换算法</a></span> 是⼀种理想化的算法, 它具有最好的性能, 但实际上是⽆法实现的. 通常使⽤ <span class="link local"><a href="/408/operating-system/最佳置换算法.html" title="最佳置换算法 OPT [408/operating-system/最佳置换算法]">最佳置换算法</a></span> 作为标准, 来评价其它算法的优劣. <span class="link local"><a href="/408/operating-system/先进先出置换算法.html" title="先进先出置换算法 FIFO [408/operating-system/先进先出置换算法]">先进先出置换算法</a></span> 是最直观的算法, 由于与通常页⾯的使⽤规律不符, 可能是性能最差的算法, 故实际应⽤极少.</p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-最佳置换算法"><header><h1><span class="taxon"></span>最佳置换算法 OPT <a class="slug" href="/408/operating-system/最佳置换算法.html">[最佳置换算法]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/最佳置换算法.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<p>最佳置换算法是由 Belady 于 1966 年提出的⼀种理论上的算法. 其所选择的被淘汰页⾯将是以后永不使⽤的, 或许是在最长 (未来) 时间内不再被访问的页⾯. 采⽤最佳置换算法通常可保证获得最低的缺页率. 但由于⼈们⽬前还⽆法预知,⼀个进程在内存的若⼲个页⾯中, 哪⼀个页⾯是未来最长时间内不再被访问的, 因⽽该算法是⽆法实现的, 但可以利⽤该算法去评价其它算法.</p>
+<p style="text-align: center;"><img src="../../assets/利⽤最佳页⾯置换算法时的置换图.png" style="border-radius: 0.2em; width: 500px;"></p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-先进先出置换算法"><header><h1><span class="taxon"></span>先进先出置换算法 FIFO <a class="slug" href="/408/operating-system/先进先出置换算法.html">[先进先出置换算法]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/先进先出置换算法.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>FIFO 算法是最早出现的置换算法. 该算法总是淘汰最先进⼊内存的页⾯, 即选择在内存中驻留时间最久的页⾯予以淘汰. 该算法实现简单, 只需把⼀个进程已调⼊内存的页⾯按先后次序链接成⼀个队列, 并设置⼀个指针, 称为替换指针, 使它总是指向最⽼的页⾯. 但该算法与进程实际运⾏的规律不相适应, 因为在进程中, 有些页⾯经常被访问, ⽐如, 含有全局变量、常⽤函数、例程等的页⾯, FIFO 算法并不能保证这些页⾯不被淘汰.</p>
+<p style="text-align: center;"><img src="../../assets/利⽤ FIFO 置换算法时的置换图.png" style="border-radius: 0.2em; width: 500px;"></p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-最近最久未使用"><header><h1><span class="taxon"></span>最近最久未使用算法 LRU <a class="slug" href="/408/operating-system/最近最久未使用.html">[最近最久未使用]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/最近最久未使用.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>最近最久未使⽤ LRU 的页⾯置换算法是根据页⾯谓⼊内存后的使⽤情况做出决策的. 由于⽆法预测各页⾯将来的使⽤情况, 只能利⽤“最近的过去” 作为 “最近的将来” 的近似, 因此, LRU 置换算法是选择最近最久未使⽤的页⾯予以淘汰. 该算法赋予每个页⾯⼀个访问字段,⽤来记录⼀个页⾯⾃上次被访问以来所经历的时间 $t$. 当需淘汰⼀个页⾯时, 选择现有页⾯中其 $t$ 值最⼤的, 即最近最久未使⽤的页⾯予以淘汰.</p>
+<p style="text-align: center;"><img src="../../assets/LRU 页⾯置换算法.png" style="border-radius: 0.2em; width: 500px;"></p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-最少使用置换算法"><header><h1><span class="taxon"></span>最少使用置换算法 LFU <a class="slug" href="/408/operating-system/最少使用置换算法.html">[最少使用置换算法]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/最少使用置换算法.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
+hint {
+  color: gray;  
+}
+em {
+  color: rgb(249, 117, 131);
+  font-style: normal;
+}
+</style>
+<p>在采⽤最少使⽤置换算法 LFU 算法时, 应为在内存中的每个页⾯设置⼀个移位寄存器, ⽤来记录该页⾯被访问的频率.</p>
+<p>该置换算法选择 <em>在最近时期使⽤最少的页⾯作为淘汰页</em>. 由于存储器具有较⾼的访向速度, 例如 100ns, 在 1ms 时间内可能对某页⾯连续访问成千上万次, 因此,直接利⽤计数器来记录某页被访问的次数是不现实的, 只能采⽤较⼤的时间间隔来记录对存储器某页的访问. 在最少使⽤置换算法中采⽤了移位寄存器⽅式. 每次访问某页时, 便将该移位寄存器的最⾼位置 1, 再每隔⼀定时间 (例如 100ms) 右移⼀次. 这样, 在最近⼀段时间使⽤最少的页⾯将是 $\sum_i R_i$ 最⼩的页.</p>
+</details></section></p>
+<p><section class="block hide-metadata" data-taxon=""><details open><summary id="408-operating-system-页面置换算法操作"><header><h1><span class="taxon"></span>页面置换算法操作 <a class="slug" href="/408/operating-system/页面置换算法操作.html">[页面置换算法操作]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/408/operating-system/页面置换算法操作.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p>针对应试, 我们总结 <span class="link local"><a href="/408/operating-system/最佳置换算法.html" title="最佳置换算法 OPT [408/operating-system/最佳置换算法]">最佳置换 OPT</a></span>, <span class="link local"><a href="/408/operating-system/先进先出置换算法.html" title="先进先出置换算法 FIFO [408/operating-system/先进先出置换算法]">先进先出置换 FIFO</a></span>, <span class="link local"><a href="/408/operating-system/最近最久未使用.html" title="最近最久未使用 LRU [408/operating-system/最近最久未使用]">最近最久未使用 LRU</a></span> 的操作流程.</p>
+<p>所有页⾯置换算法操作都是先把页面数 $n$ 填满, 此时必定发生 $n$ 次中断, 内存中的页面序列记为 $S$.</p>
+<ul>
+<li><p>最佳置换 OPT: 最佳假设了知道未来页面的访问情况, 即走向. 因此所要做的策略是, 如果所要访问的页⾯ $p$ 不在内存 $S$. 则将 $S$ 中的 $n$ 个页面按序与未来的页面序列 $T$ 比较, 选择第一次出现但是最远的 $q \in S, q \in T$, 替换 $q$ 为 $p$.</p>
+</li>
+<li><p>先进先出置换 FIFO: FIFO 与 OPT 完全相反, 其替换过去访问且在 $S$ 中的最远的 $q$ 为所要访问的页⾯ $p$.</p>
+</li>
+<li><p>最近最久未使用 LRU: 选择最近最久未使⽤的页⾯ $q$ 予以淘汰 $q \to p$, 即 $S$ 序列完整出现在过去访问的第一个页面 $q$.</p>
+</li>
+</ul>
+</details></section></p>
+</details></section><footer></footer></article>
+
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class=""><a class="bullet" href="/408/operating-system/抖动.html" title="抖动 [408/operating-system/抖动]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-抖动'"><span class="taxon"></span>抖动</span></li><li class=""><a class="bullet" href="/408/operating-system/最佳置换算法.html" title="最佳置换算法 OPT [408/operating-system/最佳置换算法]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-最佳置换算法'"><span class="taxon"></span>最佳置换算法 OPT</span></li><li class=""><a class="bullet" href="/408/operating-system/先进先出置换算法.html" title="先进先出置换算法 FIFO [408/operating-system/先进先出置换算法]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-先进先出置换算法'"><span class="taxon"></span>先进先出置换算法 FIFO</span></li><li class=""><a class="bullet" href="/408/operating-system/最近最久未使用.html" title="最近最久未使用 LRU [408/operating-system/最近最久未使用]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-最近最久未使用'"><span class="taxon"></span>最近最久未使用算法 LRU</span></li><li class=""><a class="bullet" href="/408/operating-system/最少使用置换算法.html" title="最少使用置换算法 LFU [408/operating-system/最少使用置换算法]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-最少使用置换算法'"><span class="taxon"></span>最少使用置换算法 LFU</span></li><li class=""><a class="bullet" href="/408/operating-system/页面置换算法操作.html" title="页⾯置换算法操作 [408/operating-system/页面置换算法操作]">■</a><span class="link local" onclick="window.location.href='#408-operating-system-页面置换算法操作'"><span class="taxon"></span>页面置换算法操作</span></li></ul></div></nav></div></body></html>
