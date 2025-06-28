@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width"><title>计算机网络 Lesson 10</title><link rel="stylesheet" href="/main.css">
+<meta name="viewport" content="width=device-width"><title>独立事件</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
-  section .block[data-taxon]>header>h1,
-  section .block[data-taxon] details>summary>header>h1 {
-    font-size: 13pt;
+  .katex .mfrac .frac-line {
+    font-size: 1.25em;
+  }
+
+  li p {
+    margin: 0;
   }
 
   a.link.local,
@@ -13,7 +16,7 @@
     box-shadow: none;
     text-decoration-line: underline;
     text-decoration-style: dotted;
-    color: rgb(18, 202, 178);
+    color: rgb(16, 180, 158);
   }
 
   table {
@@ -28,6 +31,27 @@
   table td {
     padding: 0.4em;
     border: 1px solid #ccc;
+  }
+
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid #ccc;
+    border-radius: 0.2em;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  hint {
+    color: gray;
+  }
+
+  em {
+    color: rgb(249, 117, 131);
+    font-style: normal;
   }
 </style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,13 +104,27 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-network-lesson-10"><header><h1><span class="taxon"></span>计算机网络 Lesson 10 <a class="slug" href="/course-notes/network/lesson-10.html">[lesson-10]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/network/lesson-10.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/index.html" title="索引 [index]">索引</a></span></li></ul></div></header></summary><h3>运输层协议</h3>
-<h4>UDP</h4>
-<h4>TCP</h4>
-<h3>信道利⽤率 $U$</h3>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-independent-event"><header><h1><span class="taxon"></span>独立事件 <a class="slug" href="/math/independent-event.html">[independent-event]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/independent-event.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary><p>$\gdef\spaces#1{~ #1 ~}$</p>
+<p>以下命题均为事件相互独立的充要条件</p>
+<ol>
+<li>$P(AB) = P(A)P(B)$</li>
+<li>$P(A|B) = P(A)$ <br />
+$\qquad \lrArr P(A|\overline B) = P(A)$ <br />
+$\qquad \lrArr P(A|B) = P(A|\overline B)$, $0  <  P(B)  <  1$</li>
+<li>$A$ 与 $\overline B$ 或 $B$ 与 $\overline A$ 或 $\overline A$ 或 $\overline B$ 相互独立</li>
+<li>$P(A|B) + P(\overline A | \overline B) = 1$, $0  <  P(B)  <  1$</li>
+</ol>
+<p>$\textbf{Remark.}$ 由于 $P(A|B)P(B) = P(AB) = P(B|A)P(A)$, 如果 $P(A|B) = P(A)$, 则立刻得到命题 $1$.</p>
+<p>$\textbf{Remark.}$ $P(A|\overline{B}) + P(\overline{A}|B) = 1$, 则 $A, B$ 相互独立. 因为</p>
 <p>$$
-U = \frac{T_D}{T_D + \text{RTT} + T_A}
+\begin{aligned}
+P(A|\overline{B}) + P(\overline{A}|B) 
+&= \frac{P(A\overline{B})}{P(\overline B)} +  \frac{P(\overline{A}B)}{P(B)} \\
+&= \frac{P(A) - P(AB)}{1-P(B)} + \frac{P(B) - P(AB)}{P(B)} \\
+&= 1
+\end{aligned}
 $$</p>
+<p>全展开得 $P(A)P(B) {\color{8a58ed} - P(AB)P(B) } + {\color{32a852} P(B) - P(B)^2} - P(AB) {\color{8a58ed} + P(AB)P(B)} = {\color{32a852} P(B) - P(B)^2}$. 即 $P(A)P(B) = P(AB)$.</p>
 </details></section><footer></footer></article>
 
 </div></body></html>

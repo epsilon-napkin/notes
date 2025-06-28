@@ -1,7 +1,6 @@
 
 ---
 title: 余弦积分估计
-author: [kokic](/kokic.md)
 tag: [](/math/index.md)
 ---
 

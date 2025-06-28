@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width"><title>操作系统 Lesson 1</title><link rel="stylesheet" href="/main.css">
+<meta name="viewport" content="width=device-width"><title>极限处理总结</title><link rel="stylesheet" href="/main.css">
 <link rel="stylesheet" href="/typst.css"><style>
   .katex .mfrac .frac-line {
     font-size: 1.25em;
+  }
+
+  li p {
+    margin: 0;
   }
 
   a.link.local,
@@ -100,15 +104,37 @@ nav {
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="course-notes-operating-system-lesson-1"><header><h1><span class="taxon"></span>操作系统 Lesson 1 <a class="slug" href="/course-notes/operating-system/lesson-1.html">[lesson-1]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/course-notes/operating-system/lesson-1.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><style>
-hint {
-  color: gray;  
-}
-em {
-  color: rgb(249, 117, 131);
-  font-style: normal;
-}
-</style>
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="索引">« 索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="math-极限处理总结"><header><h1><span class="taxon"></span>极限处理总结 <a class="slug" href="/math/极限处理总结.html">[极限处理总结]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/notes/math/极限处理总结.md">[edit]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/math/index.html" title="Indexes of math [math/index]">Indexes of math</a></span></li></ul></div></header></summary><p>$\gdef\hint#1{\color{gray}{#1}}$
+$\gdef\spaces#1{~ #1 ~}$</p>
+<h4>Bernoulli 不等式</h4>
+<p>$\lim\limits_{x \to 0} ~ (1+x)^n \sim 1+nx$, 这个代换极其常用且实用, 因为其允许将任意的指数处理为系数, 本质上这来自于其中隐藏的对数.</p>
+<ul>
+<li>$\cos x = (1-\sin^2x)^{\frac12} \sim 1-\frac12\sin^2x \sim 1-\frac{x^2}2$ 借此轻松得到 $\cos x$ 的二阶展开.</li>
+</ul>
+<h4>高阶三角函数</h4>
+<p>$\lim\limits_{x \to 0}\sin x \sim x+o(x^2)$, 如何不求导直接确定这里的系数? 注意 $e^{ix} = \cos x + i\sin x$, 我们知道左侧 $= 1 + ix + \frac{(ix)^2}{2!} + \frac{(ix)^3}{3!} + \cdots$, 且 $i^2=-1$. 所以 $\sin x = \Im e^{ix} = x - \frac{x^3}{6} + \cdots$. 类似的 $\cos x = \Re e^{ix} = 1 - \frac{x^2}2 + \cdots$. 再比如 $e^{ix} \ni \frac{(ix)^4}{4!}$, $i^4=1$, 立刻得到 $\frac{x^4}{24} \in \cos x$.</p>
+<h4>反函数</h4>
+<p>$\arcsin x = x + \frac{x^3}6 + \cdots$,
+$\arccos x = 1 + \frac{x^2}2 + \cdots$,</p>
+<h4>根式</h4>
+<p>假定 $a_i > 0$, 记 $a := \max_{1 \le i \le m}(a_i)$, 由于</p>
+<p>$$
+\begin{aligned}
+\sqrt[n]{a_1^n+a_2^n+\cdots+a_m^n}
+&\spaces=
+a \cdot \sqrt[n]{1+(\tfrac{a_1}a)^n+\cdots+(\tfrac{a_m}a)^n} \\
+&\spaces=
+a \cdot (1+\square)^{\frac1n} \\
+&\spaces\le
+a \cdot (1+\tfrac{\square}n) \qquad \hint{\square \le n} \\
+&\spaces= a \qquad \hint{n \to \infty}
+\end{aligned}
+$$</p>
+<p>另一方面, $\sqrt[n]{a_1^n+a_2^n+\cdots+a_m^n} \ge a$, 立得</p>
+<p>$$
+\lim\limits_{n \to \infty}\sqrt[n]{a_1^n+a_2^n+\cdots+a_m^n} 
+\spaces= \max_{1 \le i \le m}(a_i)
+$$</p>
 </details></section><footer></footer></article>
 
 </div></body></html>

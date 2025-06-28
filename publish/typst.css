@@ -1,3 +1,5 @@
+/* For embeded SVG source. */
+
 :root {
   --typst-text-color: black;
 }
@@ -8,17 +10,26 @@
   }
 }
 
-/* !forest .inline-typst */
+.typst-text use[fill="#000000"] {
+  fill: var(--typst-text-color);
+}
+
 .typst-group use[fill="#000000"] {
   fill: var(--typst-text-color);
 }
 
-/* !forest .inline-typst */
 .typst-group path[fill="#000000"] {
   fill: var(--typst-text-color);
 }
 
-/* !forest .inline-typst */
 .typst-group path[stroke="#000000"] {
   stroke: var(--typst-text-color);
+}
+
+/* For external SVG files. */
+
+@media (prefers-color-scheme: dark) {
+  figure>img {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }

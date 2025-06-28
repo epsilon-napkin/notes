@@ -297,11 +297,6 @@ section section[data-taxon="Person"]>details>summary>header>h1>.taxon {
   display: none;
 }
 
-section .block[data-taxon]>header>h1,
-section .block[data-taxon] details>summary>header>h1 {
-  font-size: 13pt;
-}
-
 footer>section {
   margin-bottom: 1em;
 }
